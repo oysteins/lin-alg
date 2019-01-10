@@ -1,0 +1,387 @@
+\input{kapittel}
+
+\kapittel{13}{Diagonalisering}
+\label{ch:diagonalisering}
+Dette kapitlet avslutter det skal lære om egenverdier og egenvektorer.
+
+
+\section*{Hvorfor heter det diagonalisering?}
+La $A$ være en  $n \times n$-matrise med $m$ lineært uavhengige egenvektorer
+$\V{v}_1$, $\V{v}_2\dots \V{v}_m$ 
+og tilhørende egenverdier $\lambda_1$, $\lambda_2$,$\cdots$, $\lambda_m$, . 
+For hver egenvektor gjelder
+\[
+A\V{v}_k=\lambda_k \V{v}_k.
+\]
+Disse $m$ ligningene kan like gjerne organiseres i en matriseligning
+\[
+AV=VD, 
+\]
+der 
+\[
+D=
+\begin{bmatrix}
+\lambda_1      & 0      & 0      & \cdots & 0 \\
+0      & \lambda_2      & 0      & \cdots & 0 \\
+0      & 0      & \lambda_3      & \cdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+0      & 0      & 0      & \cdots & \lambda_m
+\end{bmatrix}
+\]
+og 
+\[
+V=
+\begin{bmatrix}
+\V{v}_1 & \V{v}_2 & \cdots & \V{v}_m
+\end{bmatrix}.
+\]
+
+Siden $\V{v}_1$, $\V{v}_2\dots \V{v}_n$ er lineært uavhengige, er matrisen $V$  invertibel dersom $m=n$.
+Vi ganger med $V^{-1}$ fra høyre og får
+\[
+V^{-1}AV=D.
+\]
+Denne operasjonen kalles å \emph{diagonalisere} $A$, og dette er grunnen til at en $n\times n$-matrise med $n$ lineært uavhengige egenvektorer kalles diagonaliserbar. 
+Man kan også se det motsatt. Dersom 
+\[
+V^{-1}AV=D
+\]
+for en inverterbar $n \times n$-matrise $V$, kan vi gange fra venstre med $V$, og få
+\[
+AV=VD
+\]
+Vi ser av denne likningen at kolonnene til $V$ utgjør $n$ lineært uavhengige vektorer for $A$.
+
+\begin{thm}
+Vi kan skrive 
+\[
+V^{-1}AV=D
+\]
+hvis og bare hvis $A$ har $n$ lineært uavhengige egenvektorer.
+\end{thm}
+
+\begin{ex}	
+Vi diagonaliserer matrisen 
+\[
+A=
+\begin{bmatrix}
+2     & 1 \\
+1      & 2
+\end{bmatrix}.
+\]
+Egenvektorene er 
+\[
+\begin{bmatrix}
+1 \\ 1
+\end{bmatrix}
+\quad \text{og} \quad
+\begin{bmatrix}
+1 \\ -1
+\end{bmatrix},
+\]
+med respektive egenverdier 3 og 1. Vi definerer
+\[
+V=
+\begin{bmatrix}
+1 & 1 \\ 1 &-1
+\end{bmatrix},
+\]
+og beregner 
+\[
+V^{-1}=
+\frac{1}{2}
+\begin{bmatrix}
+1 & 1 \\ 1 &-1
+\end{bmatrix}.
+\]
+Vi dobbeltsjekker ved å beregne produktet
+\begin{align*}
+V^{-1}AV&=
+\frac{1}{2}
+\begin{bmatrix}
+1 & 1 \\ 1 &-1
+\end{bmatrix}
+\begin{bmatrix}
+2     & 1 \\
+1      & 2
+\end{bmatrix}
+\begin{bmatrix}
+1 & 1 \\ 1 &-1
+\end{bmatrix}
+\\& =
+\begin{bmatrix}
+3     & 0 \\
+0      & 1
+\end{bmatrix}
+=
+D \qedhere
+\end{align*}
+\end{ex}
+
+
+\begin{ex}
+Matrisen 
+\[
+\begin{bmatrix}
+1 & 1 & 0\\  0 &1 & 0 \\ 0 & 0 & 2
+\end{bmatrix}
+\]
+har bare to lineært uavhengige egenvektorer, og er følgelig ikke diagonaliserbar.
+\end{ex}
+
+Man kan også snu likningen
+\[
+D=V^{-1}AV
+\]
+om, og få
+\[
+A=VDV^{-1},
+\]
+og dermed tenke på diagonalisering som en faktorisering av $A$.
+
+\begin{ex}
+Vi kan faktorisere matrisen 
+\[
+\begin{bmatrix}
+2     & 1 \\
+1      & 2
+\end{bmatrix}
+\]
+som
+\[
+\begin{bmatrix}
+2     & 1 \\
+1      & 2
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 1 \\ 1 &-1
+\end{bmatrix}
+\begin{bmatrix}
+3     & 0 \\
+0      & 1
+\end{bmatrix}
+\frac{1}{2}
+\begin{bmatrix}
+1 & 1 \\ 1 &-1
+\end{bmatrix}.\qedhere
+\]
+\end{ex}
+\begin{merkx}
+I eksemplet over spiller ikke plasseringen av $V$ og $V^{-1}$ noen rolle. Mer om dette under.
+\end{merkx}
+
+\section*{Kvadratiske former}
+La $\V v$ være en kolonnevektor i $\C^n$ og $A$ en $n\times n$-matrise. En kvadratisk form er et uttrykk på formen 
+\[
+\V v^* A \V v
+\]
+Et slikt uttrykk er spesielt interessant dersom $\V v$ er en egenvektor med lengde 1 og egenverdi $\lambda$:
+\[
+\V v^* A \V v=\V v^* \lambda \V v=\lambda \V v^* \V v=\lambda.
+\]
+
+\begin{ex}
+Vi lar 
+\[
+A=
+\begin{bmatrix}
+2     & 1 \\
+1      & 2
+\end{bmatrix}
+\]
+og 
+\[
+\V v=
+\frac{1}{\sqrt{2}}
+\begin{bmatrix}
+1    \\
+1    
+\end{bmatrix}
+\]
+slik at 
+\[
+\V v^* A \V v=
+\begin{bmatrix}
+\frac{1}{\sqrt{2}}   & \frac{1}{\sqrt{2}}    
+\end{bmatrix}
+\begin{bmatrix}
+2     & 1 \\
+1      & 2
+\end{bmatrix}
+\begin{bmatrix}
+\frac{1}{\sqrt{2}}    \\
+\frac{1}{\sqrt{2}}    
+\end{bmatrix}
+=3. \qedhere
+\]
+\end{ex}
+
+\section*{Symmetriske matriser}
+\begin{defnx}
+En kompleks matrise sies å være 
+\defterm{symmetrisk} dersom $A=A^*$. 
+\end{defnx}
+
+\begin{merkx}
+Dersom $A$ er reell er $A^*=A^T$, slik at kravet for en symmetrisk matrise er at $A=A^T$. 
+I litteraturen er det vanlig å reservere begrepet \textit{symmetrisk} for reelle matriser der $A=A^T$, mens komplekse matriser kalles $\textit{hermittiske}$ hvis $A=A^*$. 
+Nå er det imidlertid ingen gode grunner til dette, for det er ingen som noen gang transponerer en kompleks matrise. 
+\end{merkx}
+
+\begin{ex}
+Matrisen
+\[
+\begin{bmatrix}
+1 & 1+i & -i\\  1-i &0 & 2-i \\ i & 2+i  & 2
+\end{bmatrix}
+\]
+er symmetrisk.
+\end{ex}
+
+\begin{merkx}
+En symmetrisk matrise må har reelle diagonalelementer, siden $z=\overline z$ for alle elementer der.
+\end{merkx}
+
+\begin{defnx}
+En $n \times n$-matrise er \defterm{ortogonalt diagonaliserbar} dersom den har $n$ ortogonale egenvektorer.
+\end{defnx}
+
+\begin{merkx}
+Denne definisjonen kommer kanskje som troll i eske. Men alt blir klart om litt.
+\end{merkx}
+
+Dersom vi lar $V$ være en $n \times n$-matrise bestånde av $A$ sine $n$ ortonormale egenvektorer, 
+ser vi at 
+\[
+V^* A V =V^* VD =D
+\]
+siden $V^* V=I$. Motsatt ser vi at dersom
+\[
+V^* A V =D,
+\]
+for en ortonormal matrise $V$, utgjør $V$ sine kolonner  $n$ ortonormale egenvektorer for $D$.
+
+\begin{thm}
+Vi kan skrive 
+\[
+V^*AV=D
+\]
+hvis og bare hvis $A$ har $n$ ortogonale egenvektorer. 
+\end{thm}
+
+
+\begin{thm}
+Dersom  $A=A^*$, er 
+$
+\V x^* A \V x
+$
+reell.
+\end{thm}
+\begin{proof}
+Vi tar beviset kun for $2 \times 2$-matriser. Selv Gilbert Strang gjør det for sine studenter, og han er professor på Harvard.
+En symmetrisk $2 \times 2$-matrise kan skrives
+\[
+A=\begin{bmatrix}
+r_1 & z\\
+\overline{z} & r_2
+\end{bmatrix}
+\]
+der $r_1$ og $r_2$ er relle tall. Vi beregner
+\[
+\V x^* A \V x=r_1x_1\overline{x_1}+z\overline{ x_1}x_2+\overline{z}x_1\overline{ x_2}+r_2x_2\overline{x_2}.
+\]
+Nå er $r_1x_1\overline{x_1}$ og $r_2x_2\overline{x_2}$ reelle tall, 
+mens $z \overline{x_1}x_2$ og 
+$\overline{z}x_1\overline{x_2}$ er hverandres komplekskonjugater, 
+og følgelig er 
+$z\overline{x_1}x_2+\overline{z}x_1\overline{x_2}$ også et reelt tall.
+\end{proof}
+
+
+\begin{thm}
+En  symmetrisk matrise har reelle egenverdier.
+\end{thm}
+\begin{proof}
+La $\V v$ være en normalisert egenvektor med egenverdi $\lambda$. Vi vet at 
+\[
+\V v^* A \V v=\lambda,
+\]
+og venstresiden er reell, så da må også $\lambda$ være det.
+\end{proof}
+
+
+
+\begin{thm}
+Egenvektorene til to distinkte egenverdier er ortogonale for symmetriske matriser.
+\end{thm}
+
+\begin{proof}
+La $\V v_1$ og $\V v_2$ være to egenvektorer med egenverdier $\lambda_1$ og $\lambda_2$. 
+Vi beregner (husk at $\lambda_1$ og $\lambda_2$ er reelle)
+\begin{align*}
+\lambda_1 \V v_1^*\V v_2&=(\lambda_1 \V v_1)^*\V v_2=(A \V v_1)^*\V v_2\\&= \V v_1^*A^*\V v_2=\V v_1^*(A\V v_2)=\V v_1^*(\lambda_2\V v_2)=\lambda_2 \V v_1^*\V v_2
+\end{align*}
+Vi vet altså at
+\[
+0= \lambda_1 \V v_1^*\V v_2-\lambda_2 \V v_1^*\V v_2=(\lambda_1-\lambda_2) \V v_1^*\V v_2,
+\]
+og hvis vi bruker at $\lambda_1$ og $\lambda_2$ er forskjellige, må vi ha $\V v_1^*\V v_2=0$.
+\end{proof}
+
+\noindent Det siste teoremet vi tar med, må vi dessverre la stå ubevist. Det er litt for hardt.
+\begin{thm}
+En  symmetrisk matrise er ortogonalt diagonaliserbar.
+\end{thm}
+
+\begin{ex}
+Matrisen 
+\[
+\begin{bmatrix}
+1 & 2 & 2\\  2 &6 & 2 \\ 2 & 2 & 6
+\end{bmatrix}
+\]
+har egenverdier 4, 9 og 0. Egenvektorerer er henholdsvis
+\[
+\begin{bmatrix}
+0 \\ -1 \\ 1
+\end{bmatrix},
+\;
+\begin{bmatrix}
+1 \\ 2 \\ 2
+\end{bmatrix}
+\quad \text{og} \quad
+\begin{bmatrix}
+-4 \\ 1 \\ 1
+\end{bmatrix}.
+\]
+Merk at alle vektorer er innbyrdes ortogonale, og matrisen er følgelig ortogonalt diagonaliserbar, med
+\[
+V=
+\begin{bmatrix}
+0 & \frac{1}{3} & -\frac{4}{3\sqrt{2}}\\  -\frac{1}{\sqrt{2}} &\frac{2}{3} &  \frac{1}{3\sqrt{2}} \\ \frac{1}{\sqrt{2}} & \frac{2}{3} &  \frac{1}{3\sqrt{2}}.
+\end{bmatrix}
+\]
+og 
+\[
+D=
+\begin{bmatrix}
+4 & 0 & 0\\  0 &9 & 0 \\ 0 & 0 & 0
+\end{bmatrix}. \qedhere
+\]
+\end{ex}
+
+\begin{merkx}
+Det forrige eksemplet viser at en matrise kan være diagonaliserbar uten å være inverterbar.
+\end{merkx}
+
+
+%\begin{proof}
+%Vi ser lett at en symmertrisk $n\times n$-matrise like mange ortogonale egenvektorer som distinkte egenverdier, og at vi kan finne en ortogonal basis for repeterte egenverdier.
+%\end{proof}
+
+
+
+
+
+\kapittelslutt

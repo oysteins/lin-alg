@@ -1,0 +1,73 @@
+\input{preamble}
+\newcommand{\kapittel}[2]{\chapter{#2}}
+\newcommand{\kapittelslutt}{}
+\renewcommand{\kapittelemnenavn}{}
+
+\begin{document}
+
+\def\inkludert{1}
+
+\input{tittelside}
+
+\frontmatter
+\tableofcontents*
+\input{00-introduksjon}
+
+\mainmatter
+\input{01-lineare-likningssystemer}
+%\input{oppgaver-kap-01}
+\input{02-gausseliminasjon}
+%\input{oppgaver-kap-02}
+\input{03-vektor-og-matriselikninger}
+%\input{oppgaver-kap-03}
+\input{04-matriser}
+%\input{oppgaver-kap-04}
+\input{05-linear-uavhengighet}
+%\input{oppgaver-kap-05}
+\input{06-determinanter}
+%\input{oppgaver-kap-06}
+\input{07-egenverdier-og-egenvektorer}
+%\input{oppgaver-kap-07}
+\input{08-vektorrom}
+%\input{oppgaver-kap-08}
+\input{09-lineartransformasjoner}
+%\input{oppgaver-kap-09}
+\input{10-komplekse-tall}
+%\input{oppgaver-kap-10}
+\input{11-kompleks-linear-algebra}
+%\input{oppgaver-kap-11}
+\input{12-projeksjon}
+%\input{oppgaver-kap-12}
+\input{13-diagonalisering}
+%\input{oppgaver-kap-13}
+\input{14-systemer-av-lineare-differensiallikninger}
+%\input{oppgaver-kap-14}
+\input{15-andre-ordens-lineare-differensiallikninger}
+%\input{oppgaver-kap-15}
+
+
+\addtocontents{toc}{\par\vspace{2em}}
+\backmatter
+
+\chapter{Løsninger på oppgaver}
+
+\setboolean{vis-oppgaver}{false}
+\setboolean{vis-losninger}{true}
+
+% \input{oppgaver-kap-01}
+% \input{oppgaver-kap-02}
+% \input{oppgaver-kap-03}
+% \input{oppgaver-kap-04}
+% \input{oppgaver-kap-05}
+% \input{oppgaver-kap-06}
+% \input{oppgaver-kap-07}
+% \input{oppgaver-kap-08}
+% \input{oppgaver-kap-09}
+% \input{oppgaver-kap-10}
+% \input{oppgaver-kap-11}
+% \input{oppgaver-kap-12}
+% \input{oppgaver-kap-13}
+% \input{oppgaver-kap-14}
+% \input{oppgaver-kap-15}
+
+\end{document}

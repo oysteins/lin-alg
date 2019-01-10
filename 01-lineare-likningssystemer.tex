@@ -1,0 +1,351 @@
+\input{kapittel}
+
+\kapittel{1}{Lineære likningssystemer}
+\label{ch:lineare-likningssystemer}
+
+Grunnlaget for lineær algebra er \emph{lineære liknings\-systemer}.
+Vi starter vår reise inn i den lineære algebraen ved å se på noen
+forskjellige måter å løse likningssystemer på.  Til slutt i dette
+kapitlet skal vi forsikre oss om at vi er helt enige om nøyaktig hva
+det vil si at et likningssystem er lineært, og innføre en praktisk
+måte å skrive lineære likningssystemer på.
+
+\section*{Forskjellige fremgangsmåter}
+
+Her er et eksempel på et lineært likningssystem:
+\[
+(\ast)
+\systeme{
+2x + 3y = 9,
+-x + 6y = 3
+}
+\]
+I dette systemet har vi to likninger og to ukjente.
+En løsning av systemet består av to tall som vi kan sette inn
+for $x$ og~$y$ slik at begge likningene er oppfylt samtidig.
+
+Vi kjenner fra før til flere måter å løse et slikt system på.  La oss
+løse systemet over med noen forskjellige metoder.
+
+\begin{ex}
+Den kanskje mest åpenbare metoden for å løse et likningssystem er å
+først løse én likning med hensyn på én av de ukjente, og så sette inn
+i den andre likningen (eller i \emph{de} andre likningene, hvis vi har
+et system med mer enn to likninger).
+
+For å løse systemet~$(\ast)$ med denne metoden kan vi først løse den
+andre likningen med hensyn på~$x$; da får vi:
+\[
+x = 6y - 3
+\]
+Så setter vi dette inn i den første likningen og forenkler:
+\begin{align*}
+2 \cdot (6y - 3) + 3y &= 9 \\
+12y - 6 + 3y &= 9 \\
+15y &= 15 \\
+y &= 1
+\end{align*}
+Til slutt setter vi denne $y$-verdien inn i uttrykket vi fant for~$x$,
+og får:
+\[
+x = 6y - 3 = 6 - 3 = 3
+\]
+
+Vi har altså funnet ut at for at begge likningene skal være oppfylt,
+må vi ha at $x = 3$ og $y = 1$.  Vi sjekker at dette virkelig er en
+løsning av~$(\ast)$ ved å sette inn disse verdiene i begge likningene
+i systemet:
+\begin{align*}
+2x + 3y &= 2 \cdot 3 + 3 \cdot 1 = 6 + 3 = 9 \\
+-x + 6y &= -3 + 6 \cdot 1 = 3
+\end{align*}
+Vi har nå funnet ut at systemet~$(\ast)$ har nøyaktig én løsning,
+nemlig $x = 3$ og $y = 1$.
+\end{ex}
+
+Metoden i eksempelet over er enkel og grei, men kan bli temmelig
+tungvint å bruke hvis vi har mer enn to ukjente.
+Vi ser på en annen løsningsmetode for det samme systemet.
+
+\begin{ex}
+Vi ganger opp den andre likningen med~$2$, og deretter legger vi
+sammen de to likningene:
+\begin{align*}
+2x + 3y &= 9   &&\text{(første likning)} \\
+-2x + 12y &= 6 &&\text{(andre likning ganget med~$2$)} \\[4pt] \hline
+\rule{0pt}{11pt}
+15y &= 15      &&\text{(sum av likningene over)}
+\end{align*}
+På denne måten får vi $x$ til å forsvinne, og vi står igjen med en
+likning med bare~$y$.
+
+Den nye likningen $15y = 15$ kan vi forenkle til $y=1$.  Nå kan vi
+gange opp denne med $-3$ og legge sammen med den første likningen fra
+systemet for å få en likning der $y$ forsvinner:
+\begin{align*}
+2x + 3y &= 9 &&\text{(første likning fra $(\ast)$)}\\
+-3y &= -3    &&\text{(ny likning ganget med $-3$)} \\[4pt] \hline
+\rule{0pt}{11pt}
+2x &= 6      &&\text{(sum av likningene over)}
+\end{align*}
+Nå har vi fått en likning med bare~$x$, og vi forenkler den til
+$x = 3$.
+Vi har dermed igjen funnet løsningen $x = 3$ og $y = 6$.
+\end{ex}
+
+Vi skal etter hvert komme frem til en generell fremgangsmåte for å
+løse lineære likningssystemer.  Den fremgangsmåten baserer seg på å
+legge sammen likninger slik som vi gjorde nå.
+
+Før vi går videre løser vi systemet vårt en tredje gang, på en helt
+annen måte:
+
+\begin{ex}
+Vi kan også løse systemet~$(\ast)$ grafisk.  Vi lager et
+koordinatsystem med en $x$-akse og en $y$-akse.  Hver av de to
+likningene $2x+3y=9$ og $-x+6y=3$ beskriver en rett linje:
+\begin{center}
+\begin{tikzpicture}[scale=.9]
+\draw[->] (-1.5,0) -- (6.5,0);
+\draw[->] (0,-1.5) -- (0,5.5);
+\foreach \x in {-1,1,2,3,4,5,6}
+\draw (\x cm,1pt) -- (\x cm,-1pt) node[anchor=north] {$\x$};
+\foreach \y in {-1,1,2,3,4,5}
+\draw (1pt,\y cm) -- (-1pt,\y cm) node[anchor=east] {$\y$};
+\draw (-1.5,4) -- (6,-1);
+\node[anchor=west] at (.4,3) {$2x + 3y = 9$};
+\draw (-1.5,0.25) -- (6,1.5);
+\node at (6,2) {$-x + 6y = 3$};
+\filldraw (3,1) circle [radius=2pt];
+\end{tikzpicture}
+\end{center}
+Løsningene av $2x + 3y = 9$ er  alle punkter som ligger på den
+ene linjen, mens løsningene av $-x + 6y = 3$ er alle punkter som
+ligger på den andre linjen.  Den felles løsningen av begge likningene
+er punktet der de to linjene møtes, nemlig $(3,1)$.  Løsningen er
+altså $x = 3$ og $y = 1$.
+
+Denne metoden er fin for å visualisere problemet og se løsningen på en
+intuitiv måte, men ikke nødvendigvis den beste for å finne svaret
+eksakt.  Dessuten blir det vanskelig å tegne hvis vi har mer enn to
+ukjente (men det kan likevel være nyttig å prøve å se for seg
+løsningene av for eksempel en likning med tre ukjente på en grafisk
+måte).
+\end{ex}
+
+
+\section*{Hva er et lineært likningssystem?}
+
+Et lineært likningssystem er et system av lineære likninger.  Men
+nøyaktig hva mener vi med at en likning er lineær?
+
+Ordet «lineær» kommer fra det latinske «linea», som betyr «linje».
+Hvis vi har en likning med to ukjente, så kan vi tegne grafen til
+denne likningen.  Vi sier at likningen er lineær hvis grafen dens er
+en rett linje.  I eksempelet over så vi at grafene til likningene
+$2x + 3y = 9$ og $-x + 6y = 3$ er rette linjer.  Men det er også lett
+å finne likninger som ikke har rettlinjede grafer, for eksempel
+$y = x^2$ eller $x^2 + y^2 = 4$.
+
+Generelt er det slik at grafen til en likning er en rett linje hvis og
+bare hvis likningen kan skrives på formen
+\[
+ax + by = c,
+\]
+der $a$, $b$ og~$c$ er konstanter.
+
+Når vi vil se på likninger med mer enn to ukjente, gir det ikke lenger
+mening å snakke om at grafen blir en rett linje.  Men det at likningen
+kan skrives på formen $ax + by = c$ kan vi lett utvide til å ta med
+flere ukjente, så det er dette vi bruker i den generelle definisjonen
+av lineære likninger.
+
+\begin{defn}
+En likning med $n$ ukjente $x_1$, $x_2$, \ldots, $x_n$ kalles
+\defterm{lineær} dersom den kan skrives på formen
+\[
+a_1 x_1 + a_2 x_2 + \cdots a_n x_n = b,
+\]
+der $a_1$, $a_2$, \ldots, $a_n$ og~$b$ er konstanter.  Et
+\defterm{lineært likningssystem} er en samling av én eller flere
+lineære likninger med de samme ukjente.
+\end{defn}
+
+% \begin{merk}
+% Hvis vi har bare to eller tre ukjente i likningene våre, kaller vi dem
+% gjerne $x$, $y$ og~$z$.  Hvis vi har mange ukjente, blir det tungvint
+% å skulle finne en ny bokstav for hver av dem, så da kan vi for
+% eksempel kalle dem $x_1$, $x_2$, $x_3$ og så videre, som i
+% definisjonen over.  Men det spiller egentlig ingen rolle hva de ukjente heter.
+% \end{merk}
+
+\begin{ex}
+Her er noen eksempler på lineære likninger:
+\begin{gather*}
+5 x_1 + x_2 - 7 x_3 + x_4 = 27 \\
+17 x - 5y = \pi
+\end{gather*}
+Og her er noen eksempler på likninger som ikke er lineære:
+\begin{gather*}
+2 x^2 + y = 3 \\
+x_1 + 2 x_1 x_2 + x_3 = 1
+\qedhere
+\end{gather*}
+\end{ex}
+
+
+\section*{Ekvivalente systemer}
+
+Vi sier at to likningssystemer er \defterm{ekvivalente} dersom de har
+samme løsninger.  Vi kan løse et likningssystem ved å erstatte det med
+stadig enklere ekvivalente systemer.  Vi tar et eksempel for å se
+hvordan dette kan gjøres.
+
+\begin{ex}
+\label{ex:gausseliminasjon}
+La oss løse det følgende lineære likningssystemet:
+\[
+\systeme{
+   x + 2y - 2z = -5,
+   x + 5y + 9z = 33,
+  2x + 5y -  z = 0
+}
+\]
+Vi vil begynne med å eliminere $x$-en fra de to siste likningene.
+Hvis vi trekker den første likningen fra den andre, får vi den nye
+likningen
+\[
+3y + 11z = 38.
+\]
+Vi bytter ut den andre likningen i systemet med denne nye likningen:
+\[
+\systeme{
+   x + 2y -  2z = -5,
+       3y + 11z = 38,
+  2x + 5y -   z = 0
+}
+\]
+Dette systemet er ekvivalent med det vi startet med.  Hvorfor er det
+det?  Den nye likningen følger fra to av likningene vi hadde fra før.
+Dermed må enhver løsning av det opprinnelige systemet også være en
+løsning av det nye systemet.
+
+Men omvendt er det også slik at den opprinnelige midterste likningen
+(som vi nå har tatt vekk) kan vi få ved å legge sammen de to første
+likningene i det nye systemet.  Dermed må enhver løsning av det nye
+systemet også være en løsning av det gamle.
+
+Til sammen betyr dette at de to systemene er ekvivalente.
+
+Vi fortsetter å forenkle systemet.  Vi eliminerer $x$ fra den siste
+likningen ved å trekke fra første likning ganget med~$2$:
+\[
+\systeme{
+   x + 2y -  2z = -5,
+       3y + 11z = 38,
+        y +  3z = 10
+}
+\]
+Igjen har vi et nytt system som er ekvivalent med det forrige.
+
+Nå vil vi eliminere $y$ fra den siste likningen.  Men det er lettere å
+eliminere $y$ fra den midterste likningen (ved å trekke fra $3$ ganger den
+siste).  Likningenes rekkefølge spiller imidlertid ingen rolle, så vi
+kan bytte om på de to nederste likningene først:
+\[
+\systeme{
+   x + 2y -  2z = -5,
+        y +  3z = 10,
+       3y + 11z = 38
+}
+\]
+Så eliminerer vi $y$ fra den siste likningen ved å trekke fra andre
+likning ganget med~$3$:
+\[
+\systeme{
+   x + 2y - 2z = -5,
+        y + 3z = 10,
+            2z =  8
+}
+\]
+Nå ser vi fra den siste likningen at vi må ha:
+\[
+z = 4
+\]
+Ved å sette inn det i den midterste likningen får vi:
+\[
+y = 10 - 3 \cdot 4 = -2
+\]
+Til slutt får vi, ved å sette inn $y$ og~$z$ i den øverste likningen:
+\[
+x = -5 - 2 \cdot (-2) + 2 \cdot 4 = 7
+\]
+Systemet har altså én løsning:
+\[
+x = 7 \qquad
+y = -2 \qquad
+z = 4
+\qedhere
+\]
+\end{ex}
+
+Alle likningssystemene vi skrev opp i dette eksempelet er ekvivalente
+med hverandre, men det siste er mye enklere å håndtere enn det vi
+startet med.  Prosessen vi utførte for å forenkle systemet kalles
+\emph{gauss\-eliminasjon}, og blir nærmere beskrevet i
+kapittel~\ref{ch:gausseliminasjon}.
+
+
+\section*{Totalmatrisen til et system}
+
+Generelt kan et lineært likningssystem (med $m$ likninger og $n$
+ukjente) se slik ut:
+\[
+\left\{
+\begin{aligned}
+  a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n &= b_1 \\
+  a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n &= b_2 \\
+                                                &\ \ \vdots \\
+  a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n &= b_m
+\end{aligned}
+\right.
+\]
+Når vi skal løse et slikt system, vil vi skrive opp en rekke nye
+systemer som er ekvivalent med dette, men som er stadig enklere.  Da
+er det unødvendig tungvint å skrive alle de ukjente og alle $+$-ene og
+$=$-tegnene hver eneste gang.  Den eneste informasjonen vi trenger å
+ha med oss gjennom utregningen er koeffisientene ($a$-ene) og tallene
+på høyresiden ($b$-ene).
+
+\defterm{Totalmatrisen} til et likningssystem er en tabell som
+inneholder akkurat disse tallene:
+\[
+\left[
+\begin{array}{cccc|c}
+  a_{11} & a_{12} & \cdots & a_{1n} & b_1 \\
+  a_{21} & a_{22} & \cdots & a_{2n} & b_2 \\
+  \vdots & \vdots & \ddots & \vdots & \vdots \\
+  a_{m1} & a_{m2} & \cdots & a_{mn} & b_m
+\end{array}
+\right]
+\]
+
+\begin{ex}
+Likningssystemet vi startet med i eksempel~\ref{ex:gausseliminasjon}
+har følgende totalmatrise:
+\[
+\raisebox{15pt}{$
+\begin{amatrix}{3}
+1 & 2 & -2 & -5 \\
+1 & 5 &  9 & 33 \\
+2 & 5 & -1 & 0
+\end{amatrix}
+$}\qedhere
+\]
+\end{ex}
+
+Den loddrette streken inni matrisen er egentlig ikke nødvendig å ha
+med, men den er praktisk for å hjelpe oss med å huske at det som står
+til høyre for streken hører til høyre side av likningene.
+
+\kapittelslutt

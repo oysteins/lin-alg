@@ -1,0 +1,1438 @@
+\input{kapittel}
+
+\kapittel{8}{Vektorrom}
+\label{ch:vektorrom}
+
+I de foregående kapitlene har vi tatt en lang vandring gjennom den
+lineære algebraens jungel.  Nå skal vi gå opp på en fjelltopp og skue
+ut over landskapet vi har vandret gjennom.
+
+Det sentrale temaet i dette kapitlet og det neste er å generalisere og
+abstrahere ideene vi har jobbet med til nå.  Vi skal definere begrepet
+\emph{vektorrom}, som egentlig bare betyr en mengde med vektorer slik
+som $\R^2$ eller~$\R^3$.  Men definisjonen vår av vektorrom kommer til
+å være så generell at vi også kan ha vektorrom som ser helt annerledes
+ut.  Dette betyr at vi skal bli vant til at vektorer kan være mye mer
+enn kolonnevektorene vi kjenner til -- for eksempel kan en funksjon
+eller en matrise også være en vektor.
+
+I neste kapittel skal vi innføre det andre sentrale konseptet vi
+trenger for å drive med lineær algebra på en generell måte, nemlig
+\emph{lineærtransformasjoner}.  En lineærtransformasjon er en funksjon
+fra et vektorrom til et annet.  Men den kan ikke være en hvilken som
+helst funksjon -- vi krever at den skal \emph{bevare
+  vektorromsstrukturen}.
+
+Den generelle formuleringen av lineær algebra ved hjelp av vektorrom
+og lineærtransformasjoner gir flere fordeler.  Den gir oss et språk og
+en del teknikker som (etter hvert som vi blir vant til dem) gjør mange
+problemer mye mer lettfattelige.  Og den gjør at vi kan anvende lineær
+algebra innen andre områder av matematikk, for eksempel til å løse
+differensiallikninger, som vi skal se på senere.
+
+% Annen tekst som kunne vært brukt i kapittelintroduksjon:
+% -------------
+% Nå har vi lært ganske mye lineær algebra.  Vi startet med lineære
+% likningssystemer, og så hvordan disse kan løses ved gausseliminasjon.
+% Derfra har vi gått en lang vei.  Ved å innføre vektorer og matriser
+% fikk vi fine måter å beskrive lineære likningssystemer på, noe som
+% både ga oss en bedre forståelse av slike systemer og åpnet for at vi
+% kunne se på andre relaterte problemer.
+
+\medskip
+Vi kan stille oss selv spørsmålet
+\begin{quote}
+\emph{Hva handler lineær algebra egentlig om?}
+\end{quote}
+Hva som er et naturlig svar på dette spørsmålet endrer seg etter
+hvert som vi lærer mer lineær algebra.  Helt i begynnelsen ville vi
+antagelig sagt at lineær algebra handler om å løse lineære
+likningssystemer.  Litt senere kunne vi si at lineær algebra handler
+om vektorer og matriser.  Etter at vi har kommet oss gjennom dette
+kapitlet og det neste, vil vi antagelig besvare spørsmålet med:
+\begin{quote}
+\emph{Lineær algebra handler om vektorrom og\\lineærtransformasjoner.}
+\end{quote}
+Og da har vi en ganske god forståelse av lineær algebra.
+
+
+\section*{Vektorer slik vi kjenner dem}
+
+Vi er vant til vektorer i $\R^2$ og i $\R^3$, og mer generelt
+i~$\R^n$.  Vi vet dessuten at hver av disse mengdene utgjør hver sin
+separate verden av vektorer.  For eksempel kan vi alltid legge sammen
+to vektorer som begge er i~$\R^2$, men det gir ikke mening å legge
+sammen en vektor i~$\R^2$ med en vektor i~$\R^3$:
+\[
+\vv{5}{2} + \vvv{3}{1}{4}
+\quad\text{er ikke definert.}
+\]
+Når vi legger sammen to vektorer i~$\R^2$, blir summen igjen en vektor
+i~$\R^2$, og når vi ganger en vektor i~$\R^2$ med en skalar, får vi
+også en vektor i~$\R^2$ som resultat.  Vi holder oss altså alltid
+innenfor den samme verdenen når vi tar lineærkombinasjoner av
+vektorer.  En slik verden av vektorer er det vi kaller et vektorrom.
+
+\smallskip
+For $\R^2$ og~$\R^3$ har vi en geometrisk tolkning av
+vektorer: Vi kan tenke på en vektor som et punkt i planet/rommet,
+eller som pilen som peker fra origo til dette punktet.  Men et punkt
+har også koordinater, og det er de vi vanligvis bruker når vi skal
+regne på vektorer.
+
+\begin{center}
+\begin{tikzpicture}[scale=.9]
+\draw[->] (-3.5,0) -- (3.5,0);
+\draw[->] (0,-1.2) -- (0,2.4);
+\foreach \x in {-3,-2,-1,1,2,3}
+\draw (\x cm,1pt) -- (\x cm,-1pt) node[anchor=north] {$\x$};
+\foreach \y in {-1,1,2}
+\draw (1pt,\y cm) -- (-1pt,\y cm) node[anchor=east] {$\y$};
+\draw[-{>[length=7,width=5]},line width=1pt] (0,0) -- (2,1);
+\filldraw (2,1) circle [radius=2pt];
+\node[anchor=west] at (2,1) {$(2,1) = \vv{2}{1}$};
+\end{tikzpicture}
+\\
+{\small \textit{Forskjellige aspekter av samme vektor:\\punkt -- pil -- koordinater}}
+\end{center}
+
+Antagelig er du innen nå blitt såpass komfortabel med dette litt
+fleksible vektorbegrepet at du uten problemer går frem og tilbake
+mellom å tenke på en vektor som en pil, et punkt, eller en
+kolonnevektor.
+
+Nå skal vi bli enda mer fleksible i vår forståelse av hva en vektor
+kan være.  Faktisk vil vi si at det er fullstendig likegyldig hva en
+vektor \emph{er}, det som betyr noe er hvordan den \emph{oppfører
+  seg}.
+
+% TODO: ta med dette?
+% -------
+% For $\R^n$ der $n > 3$ mangler vi den geometriske forståelsen, så her
+% må vi nøye oss med å se på vektorer som koordinater, skrevet enten som
+% en liste med tall eller en kolonnevektor:
+% \[
+% (v_1, v_2, \ldots, v_n) = \vn{v}{n}
+% \]
+
+
+% TODO om \R^n, bruk begrepet vektorrom om \R^n
+% tegninger \R^0, \R^1, \R^2, ...
+
+
+\section*{Hva kan vi gjøre med vektorer?}
+
+Vi har to operasjoner for vektorer.  Vi kan legge sammen vektorer, og
+vi kan gange en vektor med en skalar:
+\begin{align*}
+\text{addisjon av vektorer: }&\ \V{u} + \V{v} \\
+\text{skalarmultiplikasjon: }&\ c \cdot \V{u}
+\end{align*}
+Begge operasjonene gir ut nye vektorer som resultat.
+
+Når vi nå skal generalisere vektorbegrepet, vil vi si at alle slags
+ting kan være vektorer, så lenge de kan adderes og
+skalarmultipliseres, og oppfyller visse kriterier som gjør at vi kan
+regne med dem på samme måte som vi er vant til å regne med vektorer.
+Disse kriteriene kaller vi \emph{aksiomene} for et vektorrom.
+
+
+\section*{Aksiomer for vektorrom}
+
+\begin{figure*}[p]
+% TODO: litt tilfeldig hvor figuren havner, men ser greit ut akkurat nå
+\begin{center}
+\begin{minipage}{.9\textwidth}
+\begin{center}
+\pgfornament[width=1.5cm]{39}
+\hfill
+\pgfornament[width=1.5cm]{40}
+
+\vspace{10pt}
+
+{\HUGE \textit{Vektorromsaksiomene}}
+\large
+
+\vspace{25pt}
+
+\hbox{}\hspace{-20pt}
+\begin{tabular}{rll}
+\multirow{5}{*}{
+\begin{tabular}{c}
+aksiomer\\for\\addisjon
+\end{tabular}
+$\left\{\rule{0pt}{90pt}\right.$
+}
+\\[-4pt]
+& {\large {\LARGE(}V1{\LARGE)}} &
+$(\V{u} + \V{v}) + \V{w} = \V{u} + (\V{v} + \V{w})$
+for alle vektorer $\V{u}$, $\V{v}$ og~$\V{w}$.
+\\[4pt]
+&&{\small (Vektoraddisjon er en \emph{assosiativ} operasjon.)}
+\\[10pt]
+& {\large {\LARGE(}V2{\LARGE)}} &
+$\V{u} + \V{v} = \V{v} + \V{u}$
+for alle vektorer $\V{u}$ og~$\V{v}$.
+\\[4pt]
+&&{\small (Vektoraddisjon er en \emph{kommutativ} operasjon.)}
+\\[10pt]
+& {\large {\LARGE(}V3{\LARGE)}} &
+Det finnes en vektor $\V{0}$ slik at
+$\V{u} + \V{0} = \V{u}$
+for alle vektorer $\V{u}$.
+\\[4pt]
+&&{\small (Vektoraddisjon har et \emph{identitetselement}.)}
+\\[10pt]
+& {\large {\LARGE(}V4{\LARGE)}} &
+For hver vektor~$\V{u}$ finnes en vektor $-\V{u}$ slik at
+$\V{u} + (-\V{u}) = \V{0}$.
+\\[4pt]
+&&{\small (Vektoraddisjon har \emph{inverser} for alle elementer.)}
+\\[10pt]
+%%%%%%%%%%%%%%%%
+\multirow{5}{*}{
+\begin{tabular}{c}
+aksiomer\\for\\skalar-\\multi-\\plikasjon
+\end{tabular}
+$\left\{\rule{0pt}{90pt}\right.$
+}
+\\[-4pt]
+& {\large {\LARGE(}V5{\LARGE)}} &
+$(ab) \cdot \V{u} = a \cdot (b \cdot \V{u})$
+for alle vektorer $\V{u}$ og alle skalarer $a$ og~$b$.
+\\[4pt]
+&&{\small (Skalarmultiplikasjon er \emph{kompatibel} med multiplikasjon av skalarer.)}
+\\[10pt]
+& {\large {\LARGE(}V6{\LARGE)}} &
+$1 \cdot \V{u} = \V{u}$
+for alle vektorer $\V{u}$.
+\\[4pt]
+&&{\small (Tallet~$1$ er \emph{identitetselement} for skalarmultiplikasjon.)}
+\\[10pt]
+& {\large {\LARGE(}V7{\LARGE)}} &
+$a \cdot (\V{u} + \V{v}) = a \V{u} + a \V{v}$
+for alle vektorer $\V{u}$ og~$\V{v}$, og alle skalarer~$a$.
+\\[4pt]
+&&{\small (Skalarmultiplikasjon er \emph{distributiv} over addisjon av vektorer.)}
+\\[10pt]
+& {\large {\LARGE(}V8{\LARGE)}} &
+$(a + b) \cdot \V{u} = a \V{u} + b \V{u}$
+for alle vektorer $\V{u}$, og alle skalarer~$a$ og~$b$.
+\\[4pt]
+&&{\small (Skalarmultiplikasjon er \emph{distributiv} over addisjon av skalarer.)}
+\end{tabular}
+\hspace{10pt}\hbox{}
+
+\vspace{30pt}
+\pgfornament[width=1.5cm,symmetry=h]{39}
+\hfill
+\pgfornament[width=1.5cm,symmetry=h]{40}
+\end{center}
+\end{minipage}
+\end{center}
+\label{fig:aksiomene}
+\end{figure*}
+
+Aksiomene for vektorrom er åtte regneregler som holder for vektorene
+i~$\R^n$, og som er essensielle for at vektorer skal oppføre seg slik
+vi synes at vektorer skal oppføre seg.  Vi nummerer aksiomene (V1),
+(V2), \ldots, (V8).  Du finner alle sammen i en fin liste på
+side~\pageref{fig:aksiomene}.
+
+Det første aksiomet, (V1), sier at det ikke har noe å si hvor vi
+setter parentesene når vi legger sammen vektorer:
+\[
+(\V{u} + \V{v}) + \V{w} = \V{u} + (\V{v} + \V{w})
+\]
+Dette betyr at vi kan skrive en sum
+\[
+\V{u} + \V{v} + \V{w}
+\]
+uten parenteser, fordi vi får samme resultat om vi legger sammen
+$\V{u}$ og~$\V{v}$ først, eller legger sammen $\V{v}$ og~$\V{w}$
+først.  Mer generelt betyr det at vi kan skrive alle slags lengre
+summer
+\[
+\u_1 + \u_2 + \cdots \u_n
+\]
+uten parenteser.  På fint matematikkspråk kalles dette at addisjonen
+er en \emph{assosiativ} operasjon.
+
+Dette ser kanskje så åpenbart ut at det ikke skulle være nødvendig å
+gjøre noe stort nummer ut av det.  Men det er likevel nødvendig å ha
+det med som et krav, fordi vi i utgangspunktet sier at vi kan definere
+vektoraddisjonen til å gjøre akkurat hva vi vil, og det er fullt mulig
+å definere en operasjon som ikke er slik at parenteser kan flyttes
+fritt.
+
+For å gjøre det helt klart at assosiativitet ikke er noe vi kan ta for
+gitt, kan det være nyttig å tenke på at du kjenner godt til minst én
+operasjon som ikke er assosiativ, nemlig opphøyd-i-operasjonen.  Med
+den operasjonen har det en betydning hvor vi setter parentesene, for
+\[
+(a^b)^c
+\quad\text{og}\quad
+a^{(b^c)}
+\]
+er ikke det samme.
+
+Aksiom~(V2) sier at rekkefølgen ikke spiller noen rolle når vi adderer
+vektorer:
+\[
+\u + \v = \v + \u
+\]
+Det fine navnet på denne egenskapen er at addisjonen er
+\emph{kommutativ}.
+
+Aksiom~(V3) sier at det skal finnes en \emph{nullvektor}.  I~$\R^n$ er
+vi vant til å si at nullvektoren er vektoren som består av bare
+nuller.  Men nå vil vi definere nullvektoren ut fra hvordan den
+oppfører seg med hensyn på addisjonsoperasjonen.  Den definerende
+egenskapen for en nullvektor~$\0$ er at det å legge til nullvektoren
+ikke endrer noe, altså at
+\[
+\u + \0 = \u
+\]
+for alle vektorer~$\u$.
+
+Aksiom~(V4) sier at hver vektor har en \emph{additiv invers}.  Det
+betyr at for hver vektor~$\u$ skal det være mulig å finne en
+vektor~$\v$ slik at
+\[
+\u + \v = \0.
+\]
+Vektoren~$\v$ er da den additive inversen til~$\u$, og vi kaller den
+for~$-\u$.
+
+De fire første aksiomene handler bare om addisjonsoperasjonen.  De
+fire siste handler om skalarmultiplikasjon.
+
+Aksiom~(V5) sier at skalarmultiplikasjonen er \emph{kompatibel} med
+det å gange sammen tall, i den forstand at å gange en vektor med ett
+og ett tall er det samme som å gange sammen tallene først og så
+multiplisere med vektoren:
+\[
+(ab) \cdot \u = a \cdot (b \cdot \u)
+\]
+
+Aksiom~(V6) sier at det å gange en vektor med tallet~$1$ alltid gir
+oss den samme vektoren tilbake:
+\[
+1 \cdot \u = \u
+\]
+Vi kan altså si at tallet~$1$ er et \emph{identitetselement} for
+skalarmultiplikasjonen.
+
+Aksiomene (V7) og~(V8) sier at vi kan gange ut parenteser slik vi er
+vant med, både når vi har en sum av vektorer og når vi har en sum av
+tall:
+\begin{align*}
+a \cdot (\u + \v) &= a \u + a \v \\
+(a + b) \cdot \u  &= a \u + b \u
+\end{align*}
+Dette kalles at skalarmultiplikasjonen er \emph{distributiv} over
+addisjon.
+
+% \FloatBarrier
+
+\section*{Definisjonen av vektorrom}
+
+De åtte aksiomene (V1)--(V8) er det vi vil kreve for at noe skal
+kvalifisere til å være et vektorrom.  Nå er vi derfor klare for å
+skrive ned definisjonen av vektorrom.
+
+\begin{defn}
+La $V$ være en mengde, og anta at vi har definert to operasjoner:
+\begin{align*}
+\text{addisjon av vektorer: } & \V{u} + \V{v} \\
+\text{skalarmultiplikasjon: } & c \cdot \V{u}
+\end{align*}
+Addisjonen skal være definert for alle elementer $\V{u}$ og~$\V{v}$
+i~$V$, og skalarmultiplikasjonen for alle skalarer~$c$ og alle $\V{u}$
+i~$V$.  Resultatet av operasjonene skal alltid være et element i~$V$.
+
+Dersom mengden~$V$ og de to operasjonene oppfyller vektorromsaksiomene
+(V1)--(V8), så sier vi at $V$ er et \defterm{vektorrom}, og vi kaller
+elementene i~$V$ for \defterm{vektorer}.
+\end{defn}
+
+Aksiomene for vektorrom er valgt ut som de egenskapene ved $\R^n$ som
+anses som å være essensielle.  Derfor er selvsagt hver $\R^n$ et
+vektorrom.  Men poenget med å gi en så generell definisjon er at det
+også finnes flere vektorrom enn disse.
+
+Som et første eksempel kan vi se at en delmengde av~$\R^n$ også kan
+være et vektorrom.
+
+\begin{ex}
+\label{ex:underrom1}
+Se på mengden
+\[
+U = \Sp \left\{ \vv{1}{1} \right\}
+\]
+utspent av vektoren $\vvS{1}{1}$ i~$\R^2$, altså denne linjen:
+\begin{center}
+\begin{tikzpicture}[scale=.42]
+\draw[->] (-5,0) -- (5,0);
+\draw[->] (0,-3) -- (0,3);
+\draw (-3,-3) -- (3,3) node[anchor=north west] {$U$};
+\end{tikzpicture}
+\end{center}
+Hvis vi lar addisjonen og skalarmultiplikasjonen være definert som
+i~$\R^2$, så kan vi sjekke at mengden~$U$ i seg selv også blir et
+vektorrom.
+
+Resultatet av å addere eller skalarmultiplisere vektorer i~$U$ blir
+alltid en vektor i~$U$, slik at det gir mening å definere operasjonene
+på denne måten.
+
+Nullvektoren~$\vvS{0}{0}$ i~$\R^2$ er med i~$U$ og fungerer også som
+nullvektor for~$U$, slik at aksiom~(V3) er oppfylt.  For alle
+vektorer~$\u$ i~$U$ er også den additive inversen~$-\u$ med i~$U$,
+slik at aksiom~(V4) er oppfylt.  Vi ser lett at alle de andre
+aksiomene også holder for~$U$, siden de holder for~$\R^2$.
+
+Vektorrommet~$U$ er geometrisk sett en linje, akkurat som~$\R^1$.  Det
+fungerer altså litt som å plassere en kopi av~$\R^1$ på skrå inne
+i~$\R^2$.
+\end{ex}
+
+
+\section*{Eksempler på vektorrom}
+
+La oss nå se på noen vektorrom som er virkelig forskjellige fra de
+gamle og kjente rommene $\R^n$.  Vektorrommene vi definerer her vil vi
+bruke senere, så det er lurt å prøve å bli kjent med dem.  For hvert
+av disse vektorrommene er det lett (men litt tid- og plasskrevende) å
+sjekke at alle vektorromsaksiomene holder.  Du bør prøve å sjekke det
+selv, for i hvert fall ett av vektorrommene vi ser på.
+
+\medskip\noindent\textbf{Polynomer av begrenset grad. }%
+Vi skriver $\P_n$ for mengden av alle polynomer av grad~$n$ eller
+lavere, altså alle funksjoner på formen
+\begin{align*}
+p(x)
+&= a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0 \\
+&= \sum_{i_0}^n a_i x^i.
+\end{align*}
+Vi definerer addisjon og skalarmultiplikasjon av polynomer på den
+åpenbare måten.  Hvis
+\[
+p(x) = \sum_{i_0}^n a_i x^i
+\quad\text{og}\quad
+q(x) = \sum_{i_0}^n b_i x^i
+\]
+er to polynomer i $\P_n$, så er summen $p + q$ polynomet der vi
+summerer koeffisientene fra $p$ og~$q$:
+\[
+(p + q)(x) = \sum_{i_0}^n (a_i + b_i) \cdot x^i
+\]
+Skalarmultiplikasjonen definerer vi ved at $c \cdot p$ er polynomet
+der vi ganger alle koeffisientene i $p$ med~$c$:
+\[
+(cp)(x) = \sum_{i_0}^n (c \cdot a_i) \cdot x^i
+\]
+Med disse operasjonene er $\P_n$ et vektorrom.
+
+\medskip\noindent\textbf{Alle polynomer. }%
+Vi skriver $\P$ for mengden av alle polynomer av vilkårlig grad.  Med
+addisjon og skalarmultiplikasjon definert som i $\P_n$ blir $\P$ også
+et vektorrom.
+
+\begin{ex}
+Vi ser på tre funksjoner $f$, $g$ og~$h$, gitt ved
+\begin{align*}
+f(x) &= x^2, \\
+g(x) &= 3x^2 + x, \\
+h(x) &= x^2.
+\end{align*}
+Disse er polynomer av grad~$2$, så de er vektorer i
+vektorrommet~$\P_2$.  Dette betyr at vi kan regne med dem som vektorer
+-- vi kan for eksempel ta lineærkombinasjoner av dem.
+Lineærkombinasjonen $5f + g$ blir funksjonen gitt ved
+\[
+(5f + g)(x) = 5 \cdot f(x) + g(x) = 8x^2 + x.
+\]
+Siden $f$, $g$ og~$h$ er vektorer, kan vi også spørre om de er lineært
+uavhengige.  Ved å prøve oss frem litt med lineærkombinasjoner av de
+tre vektorene, finner vi ganske raskt ut at
+\[
+-4f + g + h = 0,
+\]
+som betyr at $f$, $g$ og~$h$ er lineært avhengige.
+\end{ex}
+
+\medskip\noindent\textbf{Kontinuerlige funksjoner. }%
+Vi skriver $\Cf(D)$ for mengden av alle kontinuerlige funksjoner
+definert på et område~$D$, der $D \subseteq \R$.  Mengden $\Cf(D)$
+består altså av alle funksjoner som er på formen
+\[
+f \colon D \to \R
+\]
+og er kontinuerlige.
+
+Vi kan definere addisjon og skalarmultiplikasjon av funksjoner på en
+naturlig måte.  Summen $f + g$ av to funksjoner $f$ og~$g$ blir en
+funksjon gitt ved
+\[
+(f + g)(x) = f(x) + g(x),
+\]
+og produktet $cf$ av en skalar~$c$ og en funksjon~$f$ blir en funksjon
+gitt ved
+\[
+(cf)(x) = c \cdot (f(x)).
+\]
+Med disse operasjonene blir mengden $\Cf(D)$ et vektorrom.
+
+\begin{ex}
+\label{ex:sin-cos-lin-uavh}
+La $f$ og~$g$ være funksjonene gitt ved
+\[
+f(x) = \sin x
+\qquad\text{og}\qquad
+g(x) = \cos x.
+\]
+Da kan vi se på $f$ og~$g$ som vektorer i vektorrommet~$\Cf(\R)$ av
+kontinuerlige funksjoner fra $\R$ til~$\R$.  Er disse to vektorene
+lineært uavhengige?
+
+For å finne ut det, kan vi huske at vi vet at to vektorer er lineært
+uavhengige hvis og bare hvis den ene kan skrives som en skalar ganger
+den andre.  Men siden
+\[
+f(0) = \sin 0 = 0
+\qquad\text{og}\qquad
+g(0) = \cos 0 = 1,
+\]
+kan vi ikke ha at $g$ er en skalar ganger $f$, for da måtte $0$ ganger
+denne skalaren vært~$1$.  Tilsvarende ser vi at siden
+\[
+f\left(\frac{\pi}{2}\right) = \sin \frac{\pi}{2} = 1
+\qquad\text{og}\qquad
+g\left(\frac{\pi}{2}\right) = \cos \frac{\pi}{2} = 0,
+\]
+kan vi ikke ha at $f$ er en skalar ganger $g$.  Altså er $f$ og~$g$
+lineært uavhengige vektorer i~$\Cf(\R)$.
+\end{ex}
+
+\medskip\noindent\textbf{Deriverbare og glatte funksjoner. }%
+Vi skriver $\Cf^1(D)$ for mengden av alle funksjoner
+\[
+f \colon D \to \R
+\]
+som er kontinuerlig deriverbare.
+Mer generelt skriver vi $\Cf^n(D)$ for mengden av alle funksjoner som
+er $n$~ganger kontinuerlig deriverbare.
+Funksjoner som er
+deriverbare uendelig mange ganger kalles \emph{glatte} funksjoner, og
+vi skriver $\Cf^\infty(D)$ for mengden av alle glatte funksjoner fra
+$D$ til~$\R$.
+
+Med addisjon og skalarmultiplikasjon definert på samme måte som
+i~$\Cf(D)$ blir mengdene $\Cf^n(D)$ og $\Cf^\infty(D)$ også vektorrom.
+
+\medskip\noindent\textbf{Uendelige lister. }%
+Vi skriver $\R^\N$ for mengden av alle uendelige lister
+\[
+(a_1, a_2, a_3, \ldots) = (a_i)_{i \in \N}
+\]
+av reelle tall.  Vi definerer addisjon og skalarmultiplikasjon for
+slike lister ved:
+\begin{align*}
+(a_i)_{i \in \N} + (b_i)_{i \in \N} &= (a_i + b_i)_{i \in \N} \\
+c \cdot (a_i)_{i \in \N} &= (c \cdot a_i)_{i \in \N}
+\end{align*}
+Da er $\R^\N$ et vektorrom.
+
+\begin{ex}
+Se på de tre vektorene
+\begin{align*}
+\u &= (1, 2, 3, 4, 5, \ldots) \\
+\v &= (1, 1, 1, 1, 1, \ldots) \\
+\w &= (1, 3, 5, 7, 9, \ldots)
+\end{align*}
+i vektorrommet~$\R^\N$.  Er vektoren~$\w$ en lineærkombinasjon av $\u$
+og~$\v$?
+
+Hvis vi ganger~$\u$ med to, så får vi:
+\[
+2 \u = (2, 4, 6, 8, 10, \ldots)
+\]
+Nå kan vi trekke fra~$\v$ og ende opp med:
+\[
+2 \u - \v = (1, 3, 5, 7, 9, \ldots)
+\]
+Vi ser altså at $\w = 2 \u - \v$, så vi kan konkludere med at
+vektoren~$\w$ er en lineærkombinasjon av $\u$ og~$\v$.
+\end{ex}
+
+\medskip\noindent\textbf{Matriser. }%
+Vi skriver $\M_{m \times n}$ for mengden av alle
+$m \times n$-matriser.  Vi har allerede (i kapittel~\ref{ch:matriser})
+definert hvordan vi legger sammen matriser, og hvordan vi ganger en
+skalar med en matrise.  Med disse operasjonene er $\M_{m \times n}$ et
+vektorrom.  Siden kvadratiske matriser er spesielt interessante,
+definerer vi en egen notasjon, $\M_n$, for vektorrommet som består av
+alle $n \times n$-matriser.
+
+
+\section*{Underrom}
+
+I eksempel~\ref{ex:underrom1} så vi at en linje i~$\R^2$ kunne være et
+vektorrom i seg selv.  Et slikt vektorrom som ligger inni et annet
+vektorrom kalles et underrom.
+
+\begin{defn}
+Et \defterm{underrom} av et vektorrom~$V$ er en delmengde
+$U \subseteq V$ som i seg selv utgjør et vektorrom, med addisjon og
+skalarmultiplikasjon definert på samme måte som i~$V$.
+\end{defn}
+
+\begin{ex}
+\label{ex:underrom2}
+Som i eksempel~\ref{ex:underrom1} lar vi $U$ være delmengden
+\[
+U = \Sp \left\{ \vv{1}{1} \right\}
+\]
+av~$\R^2$.  Da er $U$ et underrom av~$\R^2$.
+\end{ex}
+
+% eks \P_0 \subseteq \P_1 \subseteq \P_2 ...
+%     \P_n \subseteq \P \subseteq \Cf(\R)
+%     \Cf(D) \subseteq \R^D
+% (gis som oppgave isteden)
+
+\begin{ex}
+\label{ex:ikke-underrom}
+Se på mengden
+\[
+U = \left\{ \vv{a}{1} \;\middle|\ a \in \R \right\}
+\]
+av alle vektorer i~$\R^2$ på formen $\vvS{a}{1}$, altså den
+horisontale linjen vist her:
+\begin{center}
+\begin{tikzpicture}[scale=.42]
+\draw[->] (-5.5,0) -- (5.8,0);
+\draw[->] (0,-1.3) -- (0,2.8);
+\draw (-5.5,1) -- (5.5,1) node[anchor=south west] {$U$};
+\end{tikzpicture}
+\end{center}
+Er $U$ et underrom av~$\R^2$?
+
+Hvis $U$ skal være et underrom, må vi ha at $U$ i seg selv blir et
+vektorrom når vi bruker vektoraddisjonen og skalarmultiplikasjonen
+fra~$\R^2$.  Men det gir ikke fungerende operasjoner på~$U$.  For
+eksempel har vi at $\vvS{0}{1}$ og~$\vvS{1}{1}$ er vektorer i~$U$, men
+summen
+\[
+\vv{0}{1} + \vv{1}{1} = \vv{1}{2}
+\]
+er ikke i~$U$.  Operasjonene fra $\R^2$ fungerer altså ikke til å
+gjøre $U$ til et vektorrom, så $U$ er ikke et underrom av~$\R^2$.
+\end{ex}
+
+I eksempel~\ref{ex:ikke-underrom} så vi at mengden~$U$ ikke ble et
+underrom fordi vi ikke holder oss innenfor~$U$ når vi legger sammen
+vektorer fra~$U$.  Vi sier da at mengden~$U$ ikke er \emph{lukket}
+under addisjon.
+
+Men hvis vi har en delmengde~$U$ av et vektorrom~$V$ som \emph{er}
+lukket under både addisjon og skalarmultiplikasjon, og som inneholder
+nullvektoren, så blir alle vektorromsaksiomene automatisk oppfylt
+for~$U$ fordi de holder i~$V$.  Vi har dermed følgende teorem.
+
+\begin{thm}
+\label{thm:underrom}
+La $V$ være et vektorrom.  En delmgende $U \subseteq V$ er et underrom
+av~$V$ hvis og bare hvis følgende tre betingelser er oppfylt.
+\begin{enumerate}
+\item Nullvektoren $\V{0}$ i~$V$ ligger i~$U$.
+\item For alle vektorer $\V{u}$ og~$\V{v}$ i~$U$ er også summen
+$\V{u} + \V{v}$ i~$U$.
+\item For alle vektorer~$\V{u}$ i~$U$ og alle skalarer~$c$ er også
+produktet~$c\V{u}$ i~$U$.
+\end{enumerate}
+\end{thm}
+
+Det er lett å se at en mengde utspent av en liste med vektorer
+oppfyller disse tre betingelsene.  Vi skriver opp det også som et
+teorem.
+
+\begin{thm}
+\label{thm:underrom-sp}
+En mengde $\Sp \{ \V{v}_1, \V{v}_2, \ldots, \V{v}_t \}$ utspent av vektorer
+i et vektorrom~$V$ er alltid et underrom av~$V$.
+\end{thm}
+\begin{proof}
+Mengden $\Sp \{ \V{v}_1, \V{v}_2, \ldots, \V{v}_t \}$ består av alle
+lineærkombinasjoner av vektorene $\V{v}_1$, $\V{v}_2$, \ldots,
+$\V{v}_t$.  Uansett hva disse vektorene er, vet vi at nullvektoren er
+en lineærkombinasjon av dem.  Videre ser vi enkelt at summen av to
+lineærkombinasjoner blir en ny lineærkombinasjon av de samme
+vektorene, og at en skalar ganger en lineærkombinasjon igjen blir en
+lineærkombinasjon.  Dermed er alle betingelsene fra
+teorem~\ref{thm:underrom} oppfylt.
+\end{proof}
+
+% TODO tekst?  eks?
+
+
+\section*{Endeligdimensjonale vektorrom}
+
+For vektorrommene $\R^n$ har vi et klart begrep om dimensjon.  Vi sier
+at $\R^2$ er todimensjonalt, at $\R^3$ er tredimensjonalt, og mer
+generelt at $\R^n$ er $n$-dimensjonalt.
+
+For et vilkårlig vektorrom~$V$ er det ikke like klart hva dimensjonen
+skal være.  Vi skal etter hvert komme frem til at vi har en
+meningsfylt måte å snakke om dimensjon på også her, men først skal vi
+foreta en veldig grov inndeling av alle vektorrommene.  Vi skiller
+mellom vektorrom som er endeligdimensjonale (og for disse skal vi om
+en stund se at vi kan definere en dimensjon) og de som ikke er det
+(for disse må vi bare nøye oss med å si at dimensjonen er uendelig).
+
+\begin{defn}
+Et vektorrom~$V$ er \defterm{endeligdimensjonalt} hvis det finnes en
+endelig mengde som utspenner~$V$.  Ellers er~$V$
+\defterm{uendeligdimensjonalt}.
+\end{defn}
+
+Alle de «gode gamle» vektorrommene $\R^n$ som vi kjenner fra før er
+endeligdimensjonale, siden $\R^n$ er utspent av den endelige mengden
+\[
+\left\{
+\vvvv{1}{0}{\vdots}{0},
+\vvvv{0}{1}{\vdots}{0},
+\ldots,
+\vvvv{0}{0}{\vdots}{1}
+\right\}
+\]
+bestående av de~$n$ enhetsvektorene.
+
+Men siden vi tar oss bryet med å definere begrepene
+endeligdimensjonalt og uendeligdimensjonalt, bør det også finnes
+eksempler på vektorrom som er uendeligdimensjonale.  Flere av
+vektorrommene vi har sett tidligere i dette kapitlet er
+uendeligdimensjonale.  Vi sjekker at ett av dem er
+uendeligdimensjonalt nå; de andre skal du få finne ut av selv i
+oppgavene.
+
+\begin{ex}
+Vektorrommet $\P$ av alle polynomer er uendeligdimensjonalt.  Hvordan
+kan vi se det?  La
+\[
+\{ p_1, p_2, \ldots, p_t \}
+\]
+være en endelig mengde av polynomer i~$\P$.  Hvert av polynomene
+$p_1$, $p_2$, \ldots, $p_t$ har en grad.  La $n$ være den høyeste av
+disse gradene.  Da kan vi ikke skrive et polynom av grad $n+1$ som en
+lineærkombinasjon av polynomene $p_1$, $p_2$, \ldots, $p_t$, så disse
+utspenner ikke hele~$\P$.
+
+Siden vi kan si dette om enhver endelig mengde, kan det ikke finnes
+noen endelig mengde som utspenner~$\P$.  Dermed er $\P$ et
+uendeligdimensjonalt vektorrom.
+\end{ex}
+
+
+\section*{Basis}
+
+Vi sa at et vektorrom er endeligdimensjonalt hvis det er utspent av en
+endelig mengde.  Nøkkelen til å definere dimensjonen til et vektorrom
+er å lete etter en «best mulig» utspennende mengde, der «best» betyr
+at den ikke inneholder noen overflødige vektorer.  En slik mengde
+kalles en basis for vektorrommet.
+
+Basiser er essensielle for at vi skal kunne definere dimensjonen til
+et vektorrom, men er også nyttige til mye annet.  Et vektorrom som
+ikke er~$\R^n$ kan være vanskelig å jobbe med, men om vi har en basis,
+blir det mye mer håndterlig.
+
+\begin{defn}
+En \defterm{basis} for et vektorrom~$V$ er en liste
+\[
+\B = (\b_1, \b_2, \ldots, \b_n)
+\]
+av vektorer som både utspenner~$V$ og er lineært uavhengige.
+\end{defn}
+
+\begin{merk}
+Det er to forskjellige måter å definere en basis på.  Enten sier man
+at en basis er en \emph{mengde} med vektorer, eller så sier man (som
+vi gjør) at en basis er en \emph{liste} med vektorer.  Forskjellen er
+at i en mengde har ikke elementene noen bestemt rekkefølge, mens i en
+liste er det ett bestemt element som er det første, ett som er det
+andre, og så videre.
+
+Det viktigste med en basis er å ha vektorer som utspenner det aktuelle
+vektorrommet og er lineært uavhengige, og det har man uansett om man
+velger å plassere dem i en mengde eller en liste.  Forskjellen dukker
+opp når man vil bruke basisen til å innføre koordinater (som vi skal
+gjøre ganske snart).  Da må elementene i basisen ha en rekkefølge.
+Hvis vi hadde valgt å definere en basis som en mengde, ville vi fått
+litt ekstra jobb for å få definert koordinater på en skikkelig måte.
+\end{merk}
+
+\begin{ex}
+La oss se på vektorrommet~$\R^3$.
+Vi ser lett at listen
+\[
+\left(
+\vvv{1}{0}{0},\ %
+\vvv{0}{1}{0},\ %
+\vvv{0}{0}{1}
+\right)
+\]
+bestående av de tre enhetsvektorene er en basis.  Men vi kan også
+finne andre basiser.  Enhver liste med tre lineært uavhengige vektorer
+blir en basis for~$\R^3$ (du husker fra teorem~\ref{thm:linuavhspan}
+at tre vektorer i~$\R^3$ er lineært uavhengige hvis og bare hvis de
+utspenner~$\R^3$).  Så for eksempel er listen
+\[
+\left(
+\vvv{1}{2}{3},\ %
+\vvv{5}{0}{0},\ %
+\vvv{0}{0}{8}
+\right)
+\]
+også en basis for~$\R^3$.
+\end{ex}
+
+Vi ser at vi alltid kan bruke enhetsvektorene til å lage en basis
+for~$\R^n$.  Denne basisen,
+\[
+\left(
+\vvvv{1}{0}{\vdots}{0},
+\vvvv{0}{1}{\vdots}{0},
+\ldots,
+\vvvv{0}{0}{\vdots}{1}
+\right),
+\]
+kalles \defterm{standardbasisen} for~$\R^n$.
+
+Det som gjør $\R^n$ lettere å jobbe med enn andre vektorrom er at vi
+har \emph{koordinater}.  Enhver vektor i~$\R^n$ er en kolonnevektor
+\[
+\vn{v}{n}
+\]
+der $v_1$ er vektorens første koordinat, $v_2$ er dens andre
+koordinat, og så videre.  En av de viktigste egenskapene til en basis
+er at den lar oss innføre koordinater.
+
+\begin{thm}
+\label{thm:koordinater}
+La $V$ være et vektorrom med basis
+\[
+\B = (\b_1, \b_2, \ldots, \b_n).
+\]
+Da kan hver vektor~$\v$ i~$V$ skrives som en lineærkombinasjon
+\[
+\v = c_1 \b_1 + c_2 \b_2 + \cdots + c_n \b_n
+\]
+av basisvektorene i~$\B$, på en entydig måte.
+\end{thm}
+\begin{proof}
+Det at hver vektor~$\v$ kan skrives som en lineærkombinasjon av
+basisvektorene følger av at basisvektorene utspenner~$V$.  Det at
+denne lineærkombinasjonen er entydig følger av at basisvektorene er
+lineært uavhengige.
+% TODO referanse til teorem som skulle vært med i kapitlet om lineær
+% uavhengighet
+\end{proof}
+
+\begin{defn}
+Tallene $c_1$, $c_2$, \ldots, $c_n$ i teorem~\ref{thm:koordinater}
+kalles \defterm{koordinatene} til vektoren~$\v$ \defterm{med hensyn
+  på} basisen~$\B$.  Vi definerer notasjonen $\koord{\v}{\B}$ for
+vektoren i~$\R^n$ som består av koordinatene til~$\v$:
+\[
+\koord{\v}{\B} = \vn{c}{n}\qedhere
+\]
+\end{defn}
+
+\begin{ex}
+I eksempel~\ref{ex:sin-cos-lin-uavh} så vi at funksjonene $\sin$
+og~$\cos$ er lineært uavhengige vektorer i vektorrommet~$\Cf(\R)$ av
+kontinuerlige funksjoner fra~$\R$ til~$\R$.  Det betyr at hvis vi ser
+på underrommet
+\[
+U = \Sp \{ \sin, \cos \}
+\]
+av $\Cf(\R)$ utspent av disse to funksjonene, så er
+\[
+\B = (\sin, \cos)
+\]
+en basis for~$U$.  La oss nå se på en vektor i~$U$, for eksempel
+funksjonen~$f$ gitt ved
+\[
+f(x) = 4 \sin x - 7 \cos x.
+\]
+Koordinatene til~$f$ med hensyn på basisen~$\B$ er $4$ og~$-7$, så
+koordinatvektoren til~$f$ blir vektoren
+\[
+\koord{f}{\B} = \vv{4}{-7}
+\]
+i~$\R^2$.  På denne måten kan vi gå fra å snakke om funksjoner i~$U$
+til å snakke om vektorer i~$\R^2$.
+
+La oss nå se på funksjonen~$2f$, som er lineærkombinasjonen
+\[
+2f = 8 \sin - 14 \cos
+\]
+av vektorene $\sin$ og~$\cos$.  Det betyr at den har koordinatvektor
+\[
+\koord{2f}{\B} = \vv{8}{-14}
+\]
+med hensyn på basisen~$\B$.  Vi ser at å gange vektoren med~$2$
+tilsvarer å gange koordinatvektoren med~$2$.
+\end{ex}
+
+\begin{thm}
+\label{thm:koordinater-lin-komb}
+La $V$ være et vektorrom med basis~$\B$.  Koordinatene til en
+lineærkombinasjon av vektorer er den tilsvarende lineærkombinasjonen
+av koordinatene til hver vektor:
+\begin{multline*}
+\koord{c_1 \v_1 + c_2 \v_2 + \cdots + c_t \v_t}{\B}\\
+= c_1 \cdot \koord{\v_1}{\B} + c_2 \cdot \koord{\v_2}{\B} + \cdots + c_t \cdot \koord{\v_t}{\B}
+\end{multline*}
+\end{thm}
+% TODO bevis
+
+Hvis vi ser på koordinater med hensyn på standardbasisen i~$\R^n$, så
+tilsvarer det å lage et vanlig koordinatsystem.  Men hvis vi ser på
+koordinater med hensyn på en annen basis for~$\R^n$, så tilsvarer det
+å lage et «skrått» koordinatsystem.
+
+\begin{ex}
+Vi ser på~$\R^2$ med basisen
+\[
+\B
+ = (\b_1, \b_2)
+ = \left( \vv{4}{1},\ \vv{1}{2} \right).
+\]
+Det å bruke denne basisen for~$\R^2$ tilsvarer å regne i et skrått
+koordinatsystem der $\b_1$ og~$\b_2$ tar rollene som enhetsvektorer:
+\begin{center}
+\begin{tikzpicture}[scale=.48]
+\draw[->] (-3.8,0) -- (11.5,0);
+\draw[->] (0,-1.5) -- (0,8.8);
+\foreach \x in {-3,-2,-1,1,2,3,4,5,6,7,8,9,10,11}
+\draw (\x,5pt) -- (\x,-5pt);
+\foreach \y in {-1,1,2,3,4,5,6,7,8}
+\draw (5pt,\y) -- (-5pt,\y);
+\draw (-5,-3) -- (7,0);
+\draw (-4,-1) -- (8,2);
+\draw (-3,1) -- (9,4);
+\draw (-2,3) -- (10,6);
+\draw (-1,5) -- (11,8);
+\draw (-5,-3) -- (-1,5);
+\draw (-1,-2) -- (3,6);
+\draw (3,-1) -- (7,7);
+\draw (7,0) -- (11,8);
+\filldraw (4,1) circle [radius=4pt] node[anchor=south east] {$\b_1$};
+\filldraw (1,2) circle [radius=4pt] node[anchor=north west] {$\b_2$};
+\filldraw (11,8) circle [radius=4pt] node[anchor=west] {$\v$};
+\end{tikzpicture}
+\end{center}
+For eksempel har vektoren~$\v$ på tegningen koordinater
+\[
+\v = \vv{11}{8}
+\]
+med hensyn på standardbasisen, men koordinater
+\[
+\koord{\v}{\B} = \vv{2}{3}
+\]
+med hensyn på basisen~$\B$.
+\end{ex}
+
+Nå har vi sett noen eksempler på hva en basis kan brukes til.  Videre
+vil vi vise at det alltid er mulig å finne en basis, forutsatt at
+vektorrommet vårt er endeligdimensjonalt.
+
+\begin{thm}
+La $V$ være et endeligdimensjonalt vektorrom.  Da kan enhver endelig
+mengde som utspenner $V$ reduseres til en basis for~$V$.  Mer presist:
+Hvis $G$ er en endelig mengde av vektorer slik at $\Sp G = V$, så
+finnes en delmengde $B \subseteq G$ slik at vektorene i~$B$ utgjør en
+basis for~$V$.
+\end{thm}
+\begin{proof}
+Det eneste som kan hindre oss fra å bare bruke vektorene i~$G$ som en
+basis er at de kan være lineært avhengige.  Så hvis vektorene i~$G$ er
+lineært uavhengige, kan vi bare sette~$B = G$, og vi er ferdige.
+
+Anta nå at vektorene i~$G$ er lineært avhengige.  Da finnes en
+vektor~$\v$ i~$G$ som er en lineærkombinasjon av de andre.  Vi lager
+en ny mengde
+\[
+G_1 = G - \{ \v \}
+\]
+der vi har fjernet denne vektoren.  Siden $\v$ er en lineærkombinasjon
+av vektorene i~$G_1$, får vi at $G_1$ utspenner det samme som~$G$,
+altså hele vektorrommet~$V$.
+
+Nå kan vi fortsette på samme måte med å fjerne ett og ett element så
+lenge vektorene i mengden vår er lineært avhengige.  Da får vi stadig
+nye delmengder
+\[
+G \supset G_1 \supset G_2 \supset \cdots% \supset G_{s-1} \supset G_s
+\]
+som alle utspenner hele~$V$.  Siden $G$ er en endelig mengde, kan vi
+ikke fortsette slik som dette i det uendelige, og på et eller annet
+punkt må vi derfor få en mengde av lineært uavhengige vektorer.  Disse
+vektorene utgjør en basis for~$V$.
+\end{proof}
+
+Siden et endeligdimensjonalt vektorrom per definisjon er utspent av en
+endelig mengde, viser dette teoremet at det alltid finnes en basis for
+et slikt rom.  Vi skriver dette enda tydeligere i et nytt teorem.
+
+\begin{thm}
+Ethvert endeligdimensjonalt vektorrom har en basis.
+\end{thm}
+
+Vi så over at enhver endelig mengde som utspenner et vektorrom kan
+reduseres til en basis.  På samme måte kan enhver mengde som er
+lineært uavhengig utvides til en basis.
+
+\begin{thm}
+La $V$ være et endeligdimensjonalt vektorrom.  Enhver endelig mengde
+av vektorer i~$V$ som er lineært uavhengig kan utvides til en basis.
+Mer presist: Hvis $L$ er en endelig mengde av vektorer som er lineært
+uavhengige, så finnes en basis for $V$ som inneholder alle vektorene
+i~$L$.
+\end{thm}
+% TODO bevis
+
+
+\section*{Dimensjon}
+
+Nå som vi vet at alle endeligdimensjonale vektorrom har basis, kan vi
+bruke det til å definere dimensjonen til et vektorrom.  Vi vil si at
+dimensjonen til et vektorrom er antall vektorer i basisen, men før vi
+kan si det, må vi forsikre oss om at forskjellige basiser for det
+samme rommet ikke kan ha forskjellig antall elementer.
+
+Vi begynner med å generalisere et kjent resultat fra~$\R^n$ til et
+vektorrom med basis.  Vi husker fra teorem~\ref{thm:linavhspan} at
+hvis vi har en liste med mer enn~$n$ vektorer i~$\R^n$, så må
+vektorene i listen være lineært avhengige.  Det tilsvarende utsagnet
+formulert med utgangspunkt i en basis sier at hvis vi har en liste med
+flere vektorer enn størrelsen på basisen, så må disse vektorene være
+lineært avhengige.
+
+\begin{thm}
+\label{thm:flere-vektorer-enn-str-basis}
+La $V$ være et vektorrom med en basis~$\B$ som består av~$n$ vektorer.
+La $\v_1$, $\v_2$, \ldots, $\v_m$ være $m$ vektorer i~$V$, der $m > n$.
+Da er disse vektorene lineært avhengige.
+\end{thm}
+\begin{proof}
+La
+\begin{align*}
+\u_1 &= \koord{\v_1}{\B} \\
+\u_2 &= \koord{\v_2}{\B} \\
+     &\ \ \vdots \\
+\u_m &= \koord{\v_m}{\B}
+\end{align*}
+være koordinatvektorene til vektorene vi ser på, med hensyn på
+basisen~$\B$.  Da er $\u_1$, $\u_2$, \ldots, $\u_m$ en liste med $m$
+vektorer i~$\R^n$, og siden $m > n$ vet vi da fra
+teorem~\ref{thm:linavhspan} at de er lineært avhengige.  Det vil si at
+det finnes skalarer $c_1$, $c_2$, \ldots, $c_m$ (som ikke alle er~$0$)
+slik at
+\[
+c_1 \u_1 + c_2 \u_2 + \cdots c_m \u_m = \0.
+\]
+Uttrykket på venstresiden her er det samme som
+\[
+c_1 \koord{\v_1}{\B} + c_2 \koord{\v_2}{\B} + \cdots + c_m \koord{\v_m}{\B},
+\]
+og ved teorem~\ref{thm:koordinater-lin-komb} er dette igjen det samme
+som
+\[
+\koord{c_1 \v_1 + c_2 \v_2 + \cdots c_m \v_m}{\B}.
+\]
+Vi har altså at
+\[
+\koord{c_1 \v_1 + c_2 \v_2 + \cdots c_m \v_m}{\B} = \0,
+\]
+og dermed må vi ha
+\[
+c_1 \v_1 + c_2 \v_2 + \cdots c_m \v_m = \0,
+\]
+Dette betyr at vektorene $\v_1$, $\v_2$, \ldots, $\v_m$ er lineært
+avhengige.
+\end{proof}
+
+Ved hjelp av dette teoremet ser vi at alle basiser for samme vektorrom
+må ha like mange elementer.
+
+\begin{thm}
+\label{thm:basis-str-invariant}
+La $V$ være et endeligdimensjonalt vektorrom.  Da har enhver basis
+for~$V$ samme størrelse.
+\end{thm}
+\begin{proof}
+Anta at vi har to basiser
+\begin{align*}
+\B_1 &= (\u_1, \u_2, \ldots, \u_n) \\
+\B_2 &= (\v_1, \v_2, \ldots, \v_m)
+\end{align*}
+for~$V$.  Hvis $m > n$, så sier
+teorem~\ref{thm:flere-vektorer-enn-str-basis} at vektorene
+\[
+\v_1,\ \v_2,\ \ldots,\ \v_m
+\]
+er lineært avhengige, men det kan de ikke være siden $\B_2$ er en
+basis.  Det er altså ikke mulig at $m > n$.  På samme måte viser vi at
+det ikke er mulig at $n > m$.  Da er det bare én mulighet igjen,
+nemlig at $m = n$, altså at basisene har samme størrelse.
+\end{proof}
+
+Nå som vi vet at alle basiser for samme vektorrom har samme størrelse,
+kan vi trygt definere dimensjonen til et vektorrom som størrelsen til
+en hvilken som helst basis for vektorrommet.
+
+\begin{defn}
+La $V$ være et endeligdimensjonalt vektorrom.  Vi definerer
+\defterm{dimensjonen} til~$V$ som antall vektorer i en basis for~$V$.
+Vi bruker notasjonen $\dim V$ for dimensjonen til~$V$.  Hvis $\B$ er
+en basis for~$V$, har vi altså
+\[
+\dim V = |\B|.\qedhere
+\]
+\end{defn}
+
+% TODO tekst? eks?
+
+Det er en enkel og grei sammenheng mellom dimensjon og underrom: Et
+underrom kan aldri ha større dimensjon enn vektorrommet det er
+underrom av.  Vi formulerer dette som et teorem.
+
+\begin{thm}
+La $V$ være et vektorrom med et underrom~$U$.  Hvis $V$ er
+endeligdimensjonalt, så er $U$ også endeligdimensjonalt, og
+\[
+\dim U \le \dim V.
+\]
+\end{thm}
+% TODO bevis
+
+% TODO tekst? eks?
+
+
+\section*{Vektorrom tilknyttet en matrise}
+
+Hittil i dette kapitlet har vi vært veldig generelle og abstrakte, og
+ting har kanskje blitt litt høytflyvende.  Vi avslutter kapitlet med
+noe litt mer håndfast, der vi ikke trenger å tenke på helt generelle
+vektorrom, men bare på underrom av~$\R^n$.
+
+Hvis $A$ er en $m \times n$-matrise, så er det visse underrom
+av~$\R^n$ og av~$\R^m$ som er nært knyttet til~$A$, og det er noen
+interessante sammenhenger mellom disse rommene.
+
+\medskip\noindent\textbf{Nullrommet. }%
+Vi definerer \defterm{nullrommet} til en $m \times n$-matrise~$A$ som
+løsningsmengden til likningen $A \x = \0$, altså delmengden
+\[
+\Null A = \{ \x \in \R^n \mid A \x = \0 \}
+\]
+av $\R^n$.  I utgangspunktet er dette bare en mengde av vektorer
+i~$\R^n$, men vi kan raskt finne ut at det faktisk er et underrom ved
+å sjekke at det oppfyller de tre kriteriene i teorem~\ref{thm:underrom}:
+\begin{enumerate}
+\item Vi ser at nullvektoren er i $\Null A$, siden den er en løsning
+av likningen $A \x = \0$.
+\item Hvis $\u$ og~$\v$ er vektorer i $\Null A$, så har vi at
+$A \u = \0$ og $A \v = \0$.  Da får vi
+\[
+A (\u + \v) = A \u + A \v = \0 + \0 = \0,
+\]
+som betyr at summen $\u + \v$ også er i $\Null A$.
+\item Hvis $\u$ er i $\Null A$ og $c$ er en skalar, så får vi
+\[
+A \cdot (c \cdot \u) = c \cdot (A \u) = c \cdot \0 = \0,
+\]
+slik at $c \cdot \u$ også er i $\Null A$.
+\end{enumerate}
+
+\medskip\noindent\textbf{Kolonnerommet. }%
+Vi definerer \defterm{kolonnerommet} til en $m \times n$-matrise
+\[
+A = \begin{bmatrix} \V{a}_1 & \V{a}_2 & \cdots & \V{a}_n \end{bmatrix}
+\]
+som underrommet av $\R^m$ utspent av kolonnene i~$A$:
+\[
+\Col A = \Sp \{ \V{a}_1, \V{a}_2, \ldots, \V{a}_n \}
+\]
+Kolonnerommet til~$A$ består altså av alle lineærkombinasjoner av
+kolonnene i~$A$.  Siden et produkt $A \v$ av matrisen~$A$ og en
+vektor~$\v$ i~$\R^n$ er definert til å være nettopp en
+lineærkombinasjon av kolonnene i~$A$, kan vi også beskrive
+kolonnerommet som alle vektorer som er på formen $A \v$:
+\[
+\Col A = \{ A \v \mid \v \in \R^n \}
+\]
+
+\medskip\noindent\textbf{Radrommet. }%
+Vi definerer \defterm{radrommet} til en $m \times n$-matrise
+\[
+A = \begin{bmatrix} \V{r}_1\tr \\ \V{r}_2\tr \\ \vdots \\ \V{r}_m\tr \end{bmatrix}
+\]
+som underrommet av $\R^n$ utspent av radene i~$A$:
+\[
+\Row A = \Sp \{ \V{r}_1, \V{r}_2, \ldots, \V{r}_m \}
+\]
+Radrommet til~$A$ består altså av alle lineærkombinasjoner av radene
+i~$A$ (der vi ser på radene som kolonnevektorer).  Dette er det samme
+som kolonnerommet til den transponerte matrisen:
+\[
+\Row A = \Col A\tr
+\]
+
+Vi tar nå et ganske langt eksempel der vi ser på hva vi kan si om
+nullrommet, kolonnerommet og rad\-rommet til en matrise.
+
+\begin{ex}
+La $A$ være følgende matrise:
+\[
+A =
+\begin{bmatrix}
+1 & 2 & 1 &  2 & 0 \\
+2 & 4 & 3 &  7 & 1 \\
+1 & 2 & 2 &  5 & 1 \\
+3 & 6 & 6 & 15 & 3
+\end{bmatrix}
+\]
+Vi vil prøve å beskrive nullrommet, kolonnerommet og radrommet
+til~$A$.
+
+For å finne nullrommet, må vi løse likningen
+\[
+A \x = \0.
+\]
+Det gjør vi ved å gausseliminere matrisen~$A$.  Da får vi (her er
+mellomregningen utelatt):
+\[
+\begin{bmatrix}
+1 & 2 & 1 &  2 & 0 \\
+2 & 4 & 3 &  7 & 1 \\
+1 & 2 & 2 &  5 & 1 \\
+3 & 6 & 6 & 15 & 3
+\end{bmatrix}
+\roweq
+\begin{bmatrix}
+1 & 2 & 0 & -1 & -1 \\
+0 & 0 & 1 &  3 & 1 \\
+0 & 0 & 0 &  0 & 0 \\
+0 & 0 & 0 &  0 & 0
+\end{bmatrix}
+\]
+Vi får tre frie variabler, og den generelle løsningen blir:
+% x1 = -2x2 + x4 + x5
+% x2 fri
+% x3 = -3x4 - x5
+% x4 fri
+% x5 fri
+\[
+\x = \vvvvv{-2}{1}{0}{0}{0} r +
+     \vvvvv{1}{0}{-3}{1}{0} s +
+     \vvvvv{1}{0}{-1}{0}{1} t
+\]
+Dette betyr at de tre vektorene
+\[
+\u = \vvvvv{-2}{1}{0}{0}{0},\quad
+\v = \vvvvv{1}{0}{-3}{1}{0}\quad
+\text{og}\quad
+\w = \vvvvv{1}{0}{-1}{0}{1}
+\]
+utspenner nullrommet til~$A$.  De er dessuten lineært uavhengige: Legg
+merke til at i posisjon to, fire og fem -- som tilsvarer de tre frie
+variablene -- har én av vektorene tallet~$1$ og de andre to
+tallet~$0$.  Dermed ser vi lett at ingen av dem kan være en
+lineærkombinasjon av de to andre, slik at de må være lineært
+uavhengige.  Dette betyr at
+\[
+(\u, \v, \w)
+\]
+er en basis for nullrommet~$\Null A$.
+
+Når det gjelder kolonnerommet og radrommet, har vi direkte fra
+definisjonene at dissee rommene kan beskrives slik:
+\begin{align*}
+\Col A &=
+\Sp \left\{
+\vvvv{1}{2}{1}{3},\ %
+\vvvv{2}{4}{2}{6},\ %
+\vvvv{1}{3}{2}{6},\ %
+\vvvv{2}{7}{5}{15},\ %
+\vvvv{0}{1}{1}{3}
+\right\}
+\\
+\Row A &=
+\Sp \left\{
+\vvvvv{1}{2}{1}{ 2}{0},\ %
+\vvvvv{2}{4}{3}{ 7}{1},\ %
+\vvvvv{1}{2}{2}{ 5}{1},\ %
+\vvvvv{3}{6}{6}{15}{3}
+\right\}
+\end{align*}
+Men her har vi bare en utspennende mengde for hvert av rommene.  Den
+beste måten å beskrive et vektorrom på er å gi en basis.  Det viser
+seg at vi kan finne basiser for kolonnerommet og radrommet til~$A$ ved
+å se på hva som skjer når vi gausseliminerer~$A$.
+
+La oss ta kolonnerommet først.  Se på trappeformmatrisen vi endte opp
+med.  Den har pivotelementer i første og tredje kolonne.  Hvis vi
+stokker om på kolonnene i~$A$ slik at første og tredje kolonne kommer
+først, og gjør det samme med trappeformmatrisen, så blir disse
+matrisene også radekvivalente (fordi dette tilsvarer at vi bytter om
+kolonnene på samme måte i hver matrise vi får underveis i
+gausselimineringen):
+\[
+\left[
+\begin{array}{cc|ccc}
+1 & 1 & 2 &  2 & 0 \\
+2 & 3 & 4 &  7 & 1 \\
+1 & 2 & 2 &  5 & 1 \\
+3 & 6 & 6 & 15 & 3
+\end{array}
+\right]
+\roweq
+\left[
+\begin{array}{cc|ccc}
+1 & 0 & 2 & -1 & -1 \\
+0 & 1 & 0 &  3 & 1 \\
+0 & 0 & 0 &  0 & 0 \\
+0 & 0 & 0 &  0 & 0
+\end{array}
+\right]
+\]
+La oss nå lage en matrise
+\[
+C =
+\begin{bmatrix}
+1 & 1 \\
+2 & 3 \\
+1 & 2 \\
+3 & 6
+\end{bmatrix}
+\]
+av første og tredje kolonne i~$A$ (de to kolonnene som ender opp med
+pivotelementer i trappeformmatrisen), og la oss kalle de tre andre
+kolonnene i~$A$ for
+\[
+\b_1 = \vvvv{2}{4}{2}{6},\ %
+\b_2 = \vvvv{2}{7}{5}{15},\ %
+\b_3 = \vvvv{0}{1}{1}{3}.
+\]
+Matrisen vi fikk ved å stokke om kolonnene i~$A$ kan da beskrives som
+\[
+\left[
+\begin{array}{c|ccc}
+C & \b_1 & \b_2 & \b_3
+\end{array}
+\right].
+\]
+Vi ser fra trappeformmatrisen at kolonnene i~$C$ er lineært
+uavhengige, og at systemene
+\[
+C \x = \b_1,\quad
+C \x = \b_2\quad\text{og}\quad
+C \x = \b_3
+\]
+har løsninger, slik at hver av vektorene $\b_1$, $\b_2$ og~$\b_3$ er
+en lineærkombinasjon av kolonnene i~$C$.  Dette betyr at
+\[
+\left(
+\vvvv{1}{2}{1}{3},\ %
+\vvvv{1}{3}{2}{6}
+\right)
+\]
+er en basis for kolonnerommet~$\Col A$.
+
+Det er litt enklere å se hvordan gausseliminasjonen gir oss en basis
+for radrommet.  Vi kan se at hvis to matriser er radekvivalente, så
+har de samme radrom.  Når vi utfører en radoperasjon er det nemlig
+slik at alle rader i den nye matrisen er lineærkombinasjoner av radene
+i den gamle matrisen (dette kan du ganske enkelt sjekke selv).
+Dessuten kan vi alltid finne en «omvendt» radoperasjon som tar oss
+tilbake til den gamle matrisen, slik at alle rader i den gamle
+matrisen er lineærkombinasjoner av radene i den nye.  Altså har
+matrisene samme radrom.
+
+Dette betyr at for å beskrive radrommet til~$A$ kan vi like godt se på
+trappeformmatrisen vi fikk ved å gausseliminere~$A$.  Der ser vi lett
+at alle radene som ikke er nullrader må være lineært uavhengige.  Vi
+får dermed at
+\[
+\left(
+\vvvvv{1}{2}{0}{-1}{-1},\ %
+\vvvvv{0}{0}{1}{3}{1}
+\right)
+\]
+er en basis for radrommet~$\Row A$.
+\end{ex}
+
+Metodene vi brukte i eksempelet for å finne basiser for nullrommet,
+kolonnerommet og radrommet fungerer generelt for en hvilken som helst
+matrise.  Vi ser dermed at vi kan beskrive dimensjonene til disse tre
+rommene ved hjelp av antall frie variabler og antall pivotelementer i
+trappeformmatrisen.
+
+% TODO: burde beskrevet metodene skikkelig på en generell måte,
+%       og bevist følgende teorem
+
+\begin{thm}
+\label{thm:dim-null-col-row}
+La $A$ være en $m \times n$-matrise, og la $E$ være trappeformmatrisen
+vi får når vi gausseliminerer~$A$.  Da har vi:
+\begin{enumerate}
+\item[(a)] Dimensjonen til nullrommet til~$A$ er lik antall frie
+variabler vi får når vi løser likningssystemet $A \x = \b$, altså
+antall kolonner uten pivotelement i~$E$.
+\item[(b)] Dimensjonen til kolonnerommet til~$A$ er lik antall kolonner
+med pivotelementer i~$E$.
+\item[(c)] Dimensjonen til radrommet til~$A$ er lik antall rader som
+ikke er null i~$E$.
+\end{enumerate}
+\end{thm}
+
+Siden det er ett pivotelement i hver rad som ikke er null, får vi ved
+å kombinere del~(b) og~(c) i dette teoremet at kolonnerommet og
+radrommet har samme dimensjon.  Vi skriver opp dette også som et
+teorem.
+
+\begin{thm}
+\label{thm:dim-row=dim-col}
+La $A$ være en $m \times n$-matrise.  Da har kolonnerommet og
+radrommet til~$A$ samme dimensjon:
+\[
+\dim \Col A = \dim \Row A
+\]
+\end{thm}
+
+Dette ene tallet, som både er dimensjonen til kolonnerommet og
+dimensjonen til radrommet, kalles \defterm{rangen} til matrisen.  Vi
+skriver:
+\[
+\rank A = \dim \Col A = \dim \Row A
+\]
+
+Siden enhver kolonne i trappeformmatrisen enten inneholder et
+pivotelement eller gir opphav til en fri variabel for likningen
+$A \x = \0$, får vi følgende resultat ved å kombinere del~(a) og~(b)
+fra teorem~\ref{thm:dim-null-col-row}.
+
+\begin{thm}
+La $A$ være en $m \times n$-matrise.  Da er
+\[
+\dim \Null A + \rank A = n.
+\]
+\end{thm}
+
+
+\kapittelslutt

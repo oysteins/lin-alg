@@ -1,0 +1,973 @@
+\input{kapittel}
+
+\kapittel{9}{Lineærtransformasjoner}
+\label{ch:lineartransformasjoner}
+
+I forrige kapittel begynte vi å formulere lineær algebra på en
+generell måte, ved å gi en abstrakt definisjon av vektorrom.  For å
+beskrive sammenhenger mellom forskjellige vektorer og vektorrom
+trenger vi også å se på funksjoner som tar inn vektorer og gir ut
+vektorer.  For to vektorrom $V$ og~$W$ er vi interessert i de
+funksjonene fra $V$ til~$W$ som \emph{bevarer vektorromsstrukturen}.
+Slike funksjoner kaller vi lineærtransformasjoner.
+
+
+\section*{Funksjoner}
+
+Siden lineærtransformasjoner er en spesiell type funksjoner, begynner
+vi med å ta en gjennomgang av en del generelle ting om funksjoner som
+vi kommer til å få bruk for.  Aller først definerer vi presist hva en
+funksjon er for noe.  En \defterm{funksjon} består av tre ting:
+\begin{enumerate}
+\item En mengde som kalles funksjonens \defterm{domene}.
+\item En mengde som kalles funksjonens \defterm{kodomene}.
+\item En regel som til hvert element i domenet tilordner et element i
+kodomenet.
+\end{enumerate}
+Vi bruker notasjonen $f \colon A \to B$ for å angi at $f$ er en
+funksjon med mengden $A$ som domene og mengden $B$ som kodomene.
+
+(Mengdene som er tilknyttet en funksjon er også kjent under andre
+navn.  Domenet kan også kalles \emph{definisjonsmengden} til
+funksjonen, og kodomenet kan også kalles \emph{verdimengden}.)
+
+Fra før er du antagelig mest vant til funksjoner som har mengden~$\R$
+av reelle tall som både domene og kodomene, og der regelen for
+funksjonen er gitt ved et aritmetisk uttrykk.  Her er et eksempel på
+en slik funksjon.
+
+\begin{ex}
+\label{ex:funksjon1}
+La $f \colon \R \to \R$ være funksjonen definert ved
+\[
+f(x) = 3x^2 + 1
+\quad\text{for alle $x$ i~$\R$.}
+\]
+Da har vi for eksempel at
+\[
+f(5) = 3 \cdot 5^2 + 1 = 76.
+\]
+Vi kan tegne grafen til funksjonen:
+\begin{center}
+\begin{tikzpicture}[scale=.5]
+\begin{axis}[
+axis y line=center,
+axis x line=middle,
+% axis equal,
+%grid=both,
+xmax=9,xmin=-9,
+ymin=-2,ymax=78,
+% xlabel=$x$,ylabel=$y$,
+% xtick={-10,...,10},
+% ytick={-10,...,10},
+width=15cm,
+anchor=center,
+]
+\addplot[black] {3*x^2 + 1} ;
+\end{axis}
+% \draw[->] (-5,0) -- (5,0);
+% \draw[->] (0,-3) -- (0,100);
+% \addplot {3*x^2 + 1};
+\end{tikzpicture}
+\qedhere
+\end{center}
+\end{ex}
+
+Men det er verdt å merke seg at både domenet og kodomenet kan være
+hvilke som helst mengder, og regelen kan vi spesifisere akkurat slik
+vi vil.
+
+\begin{ex}
+\label{ex:funksjon2}
+La $A$ være mengden bestående av de tre fruktene eple, banan og
+ananas, og la $B$ være mengden bestående av heltallene $0$, $1$,
+\ldots, $5$:
+\begin{align*}
+A &= \{ \text{eple}, \text{banan}, \text{ananas} \} \\
+B &= \{ 0, 1, 2, 3, 4, 5 \}
+\end{align*}
+Nå kan vi lage en funksjon
+\[
+g \colon A \to B
+\]
+ved å bestemme hva hvert av de tre elementene i mengden~$A$ skal
+sendes til.  Hvis vi for eksempel bestemmer at
+\begin{align*}
+g(\text{eple}) &= 4, \\
+g(\text{banan}) &= 3, \\
+g(\text{ananas}) &= 0,
+\end{align*}
+så har vi beskrevet funksjonen~$g$ fullstendig.
+\end{ex}
+
+\begin{ex}
+\label{ex:funksjon3}
+Vi definerer en funksjon
+\[
+h \colon \R^3 \to \R^2
+\]
+ved regelen
+\[
+h\left( \vvv{x_1}{x_2}{x_3} \right)
+= \vv{x_1 + x_2}{x_2 + x_3}.
+\qedhere
+\]
+\end{ex}
+
+% TODO tekst
+
+\begin{defn}
+La $f \colon A \to B$ være en funksjon.
+
+Vi sier at $f$ er \defterm{injektiv} (eller \defterm{en-til-en}) hvis
+det for hver $b$ i~$B$ er maksimalt én $a$ i~$A$ slik at $f(a) = b$.
+
+Vi sier at $f$ er \defterm{surjektiv} (eller \defterm{på}) hvis
+det for hver $b$ i~$B$ finnes en $a$ i~$A$ slik at $f(a) = b$.
+
+\defterm{Bildet} til~$f$ er mengden av alle elementer i kodomenet som
+blir truffet av~$f$, altså delmengden
+\[
+\im f = \{ f(a) \mid a \in A \}
+\]
+av~$B$.
+\end{defn}
+
+Det følger umiddelbart fra definisjonen at en funksjon
+$f \colon A \to B$ er surjektiv hvis og bare hvis bildet til
+funksjonen er hele kodomenet: $\im f = B$.
+
+\begin{ex}
+Vi finner bildene til hver av funksjonene $f$, $g$ og~$h$ fra
+eksempel~\ref{ex:funksjon1}--\ref{ex:funksjon3}, og finner ut om
+funksjonene er injektive og/eller surjektive.
+
+For funksjonen~$f$ ser vi at vi kan få $f(x)$ til å bli alle tall fra
+$1$ og oppover ved å variere~$x$, slik at
+\[
+\im f = [ 1, \infty ).
+\]
+Funksjonen er ikke injektiv, siden den sender flere elementer til det
+samme -- for eksempel har vi:
+\[
+f(1) = 4 = f(-1)
+\]
+Funksjonen er heller ikke surjektiv, siden bildet ikke er hele
+kodomenet.
+
+For funksjonen~$g$ ser vi at bildet blir mengden bestående av de tre
+tallene vi har valgt å sende fruktene til:
+\[
+\im g = \{ 0, 3, 4 \}
+\]
+Funksjonen er injektiv, siden den sender alle fruktene til
+forskjellige tall.  Den er ikke surjektiv, siden bildet ikke er hele
+kodomenet.
+
+For å finne bildet til funksjonen~$h$ må vi kanskje tenke litt.  Men
+når vi prøver oss litt frem, ser vi ganske raskt at den treffer
+hele~$\R^2$, siden vi for enhver vektor $\vvS{v_1}{v_2}$ i~$\R^2$ får:
+\[
+h\left( \vvv{v_1}{0}{v_2} \right) = \vv{v_1}{v_2}
+\]
+Dette betyr at
+\[
+\im h = \R^2.
+\]
+Dermed har vi også vist at $h$ er surjektiv.  Men vi kan lett finne
+flere vektorer i~$\R^3$ som $h$ sender til samme vektor, for eksempel:
+\[
+h\left(\vvv{1}{0}{1}\right) = \vv{1}{1} = h\left(\vvv{0}{1}{0}\right)
+\]
+Dette vil si at $h$ ikke er injektiv.
+\end{ex}
+
+Vi definerer to konsepter til som har med funksjoner å gjøre.
+
+\begin{defn}
+For enhver mengde~$A$ finnes en \defterm{identitetsfunksjon}
+$\id_A \colon A \to A$, definert ved
+\[
+\id_A(a) = a \quad\text{for alle $a$ i~$A$.}
+\qedhere
+\]
+\end{defn}
+
+\begin{defn}
+Hvis $f \colon A \to B$ og $g \colon B \to C$ er funksjoner, så er
+\defterm{sammensetningen} av $g$ og~$f$ en funksjon
+$g \fcomp f \colon A \to C$ definert ved
+\[
+(g \fcomp f)(a) = g(f(a)).
+\qedhere
+\]
+\end{defn}
+
+\begin{ex}
+La $f \colon \R \to \R$ og $g \colon \R \to \R$ være funksjoner
+definert ved:
+\begin{align*}
+f(x) &= \sin x + 1 \\
+g(x) &= x^2 + 5x
+\end{align*}
+Da er sammensetningene $f \fcomp g$ og $g \fcomp f$ også funksjoner
+fra $\R$ til~$\R$, og de er gitt ved:
+\begin{align*}
+(f \fcomp g)(x) &= \sin (x^2 + 5x) + 1 \\
+(g \fcomp f)(x) &= (\sin x + 1)^2 + 5(\sin x + 1)\qedhere
+\end{align*}
+\end{ex}
+
+% TODO tekst
+
+
+\section*{Definisjon av lineærtransformasjoner}
+
+Nå som vi har det grunnleggende om funksjoner på plass, går vi videre
+til å definere lineærtransformasjoner.  En lineærtransformasjon er en
+funksjon mellom vektorrom som bevarer vektorromsstrukturen.  Det vil
+si at vi kan utføre addisjon eller skalarmultiplikasjon før vi
+anvender funksjonen eller etterpå, og resultatet skal bli det samme.
+Vi gjør dette presist i følgende definisjon.
+
+\begin{defn}
+La $V$ og~$W$ være vektorrom.  En funksjon $T \colon V \to W$ er en
+\defterm{lineærtransformasjon} hvis den oppfyller følgende to
+kriterier:
+\begin{enumerate}
+\item $T(\u + \v) = T(\u) + T(\v)$
+      for alle $\u$ og~$\v$ i~$V$.
+\item $T(c \u) = c \cdot T(\u)$
+      for alle vektorer $\u$ i~$V$ og alle skalarer~$c$.
+\qedhere
+\end{enumerate}
+\end{defn}
+
+Vi kan illustrere de to kravene til en lineærtransformasjon slik:
+\begin{center}
+\begin{tikzpicture}[scale=0.27,baseline=(O)]
+\coordinate (O) at (0,0);
+\draw[->] (-1,0) -- (10,0);
+\draw[->] (0,-1) -- (0,10);
+\coordinate (u) at (2,4);
+\coordinate (v) at (7,1);
+\draw[->] (0,0) -- (u) node [anchor=south] {$\u$};
+\draw[->] (0,0) -- (v) node [anchor=west] {$\v$};
+\draw[dashed] (u) -- ++(v);
+\draw[dashed] (v) -- ++(u);
+\draw[->] (0,0) -- ($ (u) + (v) $) node[anchor=south] {$\u + \v$};
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}[scale=0.27,baseline=(O)]
+\coordinate (O) at (0,0);
+\path[->] (0,5) edge[bend left=20] node[anchor=south] {$T$}  (3,5);
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}[scale=0.27,baseline=(O)]
+\coordinate (O) at (0,0);
+\draw[->] (-1,0) -- (10,0);
+\draw[->] (0,-1) -- (0,10);
+\coordinate (Tu) at (2,7);
+\coordinate (Tv) at (6,2);
+\draw[->] (0,0) -- (Tu) node [anchor=south] {$T(\u)$};
+\draw[->] (0,0) -- (Tv) node [anchor=west] {$T(\v)$};
+\draw[dashed] (Tu) -- ++(Tv);
+\draw[dashed] (Tv) -- ++(Tu);
+\draw[->] (0,0) -- ($ (Tu) + (Tv) $) node[anchor=south] {$T(\u + \v)$};
+\end{tikzpicture}
+\\[15pt]
+\begin{tikzpicture}[scale=0.27,baseline=(O)]
+\coordinate (O) at (0,0);
+\draw[->] (-1,0) -- (10,0);
+\draw[->] (0,-1) -- (0,10);
+\coordinate (u) at (3,0.7);
+\coordinate (cu) at ($ 2.5*(u) $);
+\draw[->] (0,0) -- (u) node [anchor=south] {$\u$};
+\draw[->] (0,0) -- (cu) node [anchor=south] {$c \cdot \u$};
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}[scale=0.27,baseline=(O)]
+\coordinate (O) at (0,0);
+\path[->] (0,5) edge[bend left=20] node[anchor=south] {$T$}  (3,5);
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}[scale=0.27,baseline=(O)]
+\coordinate (O) at (0,0);
+\draw[->] (-1,0) -- (10,0);
+\draw[->] (0,-1) -- (0,10);
+\coordinate (Tu) at (3,3);
+\coordinate (Tcu) at ($ 2.5*(Tu) $);
+\draw[->] (0,0) -- (Tu) node [anchor=north west] {$T(\u)$};
+\draw[->] (0,0) -- (Tcu) node [anchor=east,inner sep=6pt] {$T(c \cdot \u)$};
+\end{tikzpicture}
+\\[8pt]
+{\small \textit{Lineærtransformasjonen~$T$ bevarer\\addisjon og skalarmultiplikasjon}}
+\end{center}
+
+\begin{ex}
+Vi definerer $T \colon \R^3 \to \R^2$ ved:
+\[
+T\left( \vvv{x_1}{x_2}{x_3} \right) = \vv{2x_3}{x_1-3x_2}
+\]
+La oss nå sjekke om denne funksjonen er en lineærtransformasjon.  Vi
+regner ut:
+\begin{align*}
+T\left( \vvv{u_1}{u_2}{u_3} + \vvv{v_1}{v_2}{v_3} \right)
+&= T\left( \vvv{u_1 + v_1}{u_2 + v_2}{u_3 + v_3} \right) \\[4pt]
+&= \vv{2(u_3 + v_3)}{(u_1 + v_1) - 3(u_2 + v_2)} \\
+&= \vv{2u_3}{u_1-3u_2} + \vv{2v_3}{v_1-3v_2} \\
+&= T\left( \vvv{u_1}{u_2}{u_3} \right) + T\left( \vvv{v_1}{v_2}{v_3} \right)
+\end{align*}
+Funksjonen $T$ oppfyller altså kravet om å bevare addisjon.  Vi
+sjekker at den også oppfyller kravet om å bevare skalarmultiplikasjon:
+\begin{align*}
+T\left( c \cdot \vvv{u_1}{u_2}{u_3} \right)
+&= T\left( \vvv{c u_1}{c u_2}{c u_3} \right)
+ = \vv{2(c u_3)}{c u_1 - 3(c u_2)}\\
+&= c \vv{2 u_3}{u_1 - 3 u_2}
+ = c \cdot T\left( \vvv{u_1}{u_2}{u_3} \right)
+\end{align*}
+Vi har nå sjekket at funksjonen~$T$ oppfyller begge kravene i
+definisjonen, så den er en lineærtransformasjon.
+\end{ex}
+
+\begin{ex}
+Vi definerer $T \colon \R^2 \to \R^2$ ved:
+\[
+T\left( \vv{x_1}{x_2} \right) = \vv{x_1 + 2 x_2}{x_1 + 1}
+\]
+Nå kan vi for eksempel legge merke til at
+\[
+T\left( \vv{1}{1} \right) = \vv{3}{2},
+\quad\text{men}\quad
+T\left( 2 \cdot \vv{1}{1} \right) = \vv{6}{3}.
+\]
+Vi har altså
+\[
+T\left( 2 \cdot \vv{1}{1} \right) \ne 2 \cdot T\left( \vv{1}{1} \right),
+\]
+så $T$ er ikke en lineærtransformasjon.
+\end{ex}
+
+Her er noen egenskaper ved lineærtransformasjoner som følger ganske
+enkelt fra definisjonen, kombinert med aksiomene for vektorrom:
+
+\begin{thm}
+\label{thm:lin-tr-lin-komb}
+Hvis $T \colon V \to W$ er en lineærtransformasjon, så oppfyller den
+følgende.
+\begin{enumerate}
+\item[(a)] En lineærkombinasjon i~$V$ sendes til den tilsvarende
+lineærkombinasjonen i~$W$:
+\begin{multline*}
+T( c_1 \v_1 + c_2 \v_2 + \cdots + c_r \v_r )
+\\
+= c_1 \cdot T(\v_1) + c_2 \cdot T(\v_2) + \cdots + c_2 \cdot T(\v_r)
+\end{multline*}
+\item[(b)] Nullvektoren i~$V$ sendes til nullvektoren i~$W$:
+\[
+T(\0) = \0
+\]
+\end{enumerate}
+\end{thm}
+% TODO bevis
+
+\begin{ex}
+Anta at $T \colon \R^2 \to \R^2$ er en lineærtransformasjon slik at
+\[
+T\left( \vv{2}{3} \right) = \vv{1}{1}
+\quad\text{og}\quad
+T\left( \vv{0}{5} \right) = \vv{3}{1}.
+\]
+Kan vi ut fra dette finne ut hva
+\[
+T\left( \vv{8}{2} \right)
+\]
+må være?  Vi ser at vi kan skrive $\vvS{8}{2}$ som en
+lineærkombinasjon av $\vvS{2}{3}$ og~$\vvS{0}{5}$:
+\[
+\vv{8}{2} = 4 \cdot \vv{2}{3} - 2 \cdot \vv{0}{5}
+\]
+Ved å bruke teorem~\ref{thm:lin-tr-lin-komb}~(a) får vi nå:
+\begin{align*}
+T\left( \vv{8}{2} \right)
+&= T\left( 4 \cdot \vv{2}{3} - 2 \cdot \vv{0}{5} \right) \\
+&= 4 \cdot T\left( \vv{2}{3} \right) - 2 \cdot T\left( \vv{0}{5} \right) \\
+&= 4 \cdot \vv{1}{1} - 2 \cdot \vv{3}{1}
+ = \vv{-2}{2}
+\end{align*}
+Mer generelt kan vi se at siden de to vektorene
+\[
+\vv{2}{3}
+\quad\text{og}\quad
+\vv{0}{5}
+\]
+utspenner~$\R^2$, er det nok å vite hva $T$ gjør med hver av disse for
+å vite hva den gjør med en hvilken som helst vektor.
+\end{ex}
+
+Nå har vi sett noen eksempler på lineærtransformasjon mellom vektorrom
+på formen~$\R^n$.  Vi tar med ett eksempel på en lineærtransformasjon
+der domenet er et litt annerledes vektorrom.
+
+\begin{ex}
+Vi husker fra forrige kapittel at $\Cf(\R)$ er vektorrommet som består
+av alle kontinuerlige funksjoner fra $\R$ til~$\R$.  La
+$T \colon \Cf(\R) \to \R^2$ være funksjonen gitt ved:
+\[
+T(f) = \vv{f(0)}{f(1)}
+\]
+Hvis vi for eksempel ser på en funksjon $f \colon \R \to \R$ i
+$\Cf(\R)$ gitt ved
+\[
+f(x) = 3x^2 + 1,
+\]
+så har vi:
+\[
+T(f) = \vv{f(0)}{f(1)} = \vv{1}{4}
+\]
+Vi sjekker at $T$ er en lineærtransformasjon:
+\begin{align*}
+T(f + g)
+&= \vv{(f+g)(0)}{(f+g)(1)}
+ = \vv{f(0) + g(0)}{f(1) + g(1)} \\
+&= \vv{f(0)}{f(1)} + \vv{g(0)}{g(1)}
+ = T(f) + T(g) \\[8pt]
+T(cf)
+&= \vv{(cf)(0)}{(cf)(1)}
+ = c \cdot \vv{f(0)}{f(1)}
+ = c \cdot T(f)
+\end{align*}
+Vi kan observere at for enhver vektor~$\vvS{a}{b}$ i~$\R^2$ kan vi
+definere en funksjon~$f$ i~$\Cf(\R)$ ved
+\[
+f(x) = (b - a) x + a,
+\]
+og da får vi:
+\[
+T(f) = \vv{f(0)}{f(1)} = \vv{a}{b}
+\]
+Dette betyr at funksjonen~$T$ treffer alle vektorene i~$\R^2$, slik at
+$\im T = \R^2$, og $T$ er surjektiv.
+
+Men $T$ er ikke injektiv: Vi kan for eksempel se på to funksjoner $f$
+og~$g$ i~$\Cf(\R)$ gitt ved:
+\[
+f(x) = 0
+\quad\text{og}\quad
+g(x) = x^2 - x
+\]
+Da har vi at
+\[
+T(f) = \vv{0}{0} = T(g),
+\]
+men $f \ne g$, så $T$ er ikke injektiv.
+\end{ex}
+
+
+\section*{Kjerne og bilde}
+
+For enhver funksjon $f \colon A \to B$ har vi definert bildet $\im f$,
+som er delmengden av kodomenet~$B$ bestående av alle elementer
+funksjonen treffer.  For en lineærtransformasjon har vi også en
+delmengde av domenet som det er naturlig å knytte til
+lineærtransformasjonen, nemlig mengden av alle vektorer som sendes til
+nullvektoren.
+
+\begin{defn}
+La $T \colon V \to W$ være en lineærtransformasjon.  \defterm{Kjernen}
+til $T$ er mengden av alle vektorer i~$V$ som blir sendt til
+nullvektoren i~$W$:
+\[
+\ker T = \{ \v \in V \mid T(\v) = \0 \}\qedhere
+\]
+\end{defn}
+
+\begin{ex}
+La $T \colon \R^2 \to \R^2$ være lineærtransformasjonen gitt ved:
+\[
+T \left( \vv{x_1}{x_2} \right) = \vv{x_1-x_2}{x_2-x_1}
+\]
+Vi vil finne kjernen og bildet til~$T$.
+
+Vi ser at en vektor $\vvS{x_1}{x_2}$ blir sendt til nullvektoren hvis
+og bare hvis de to komponentene $x_1$ og~$x_2$ er samme tall, så
+kjernen blir mengden
+\[
+\ker T = \left\{ \vv{a}{a}\ \middle|\ a \in \R \right\}.
+\]
+Siden
+\[
+x_2 - x_1 = - (x_1 - x_2),
+\]
+ser vi at alle vektorer vi når ved å anvende~$T$ må være på formen
+\[
+\vv{a}{-a}.
+\]
+Vi ser dessuten at vi kan nå alle slike vektorer, siden vi for hvert
+tall~$a$ har at
+\[
+T \left( \vv{a}{0} \right) = \vv{a}{-a}.
+\]
+Det betyr at
+\[
+\im T = \left\{ \vv{a}{-a}\ \middle|\ a \in \R \right\}.
+\]
+Vi har altså at både kjernen og bildet er rette linjer i~$\R^2$:
+\begin{center}
+\begin{tikzpicture}[scale=.16]
+\draw[->] (-10,0) -- (10,0);
+\draw[->] (0,-10) -- (0,10);
+\draw (-10,-10) -- (10,10) node[anchor=north west] {$\ker T$};
+\draw (-10,10) -- (10,-10) node[anchor=south west] {$\im T$};
+\end{tikzpicture}
+\end{center}
+Spesielt betyr dette at både bildet og kjernen er underrom av~$\R^2$.
+\end{ex}
+
+I eksempelet hadde vi en lineærtransformasjon med $\R^2$ som både
+domene og kodomene, og vi så at både bildet og kjernen ble underrom
+av~$\R^2$.  Dette var ingen tilfeldighet, for vi kan vise generelt at
+kjernen til en lineærtransformasjon alltid må være et underrom av
+domenet, og bildet alltid et underrom av kodomenet.
+
+\begin{thm}
+La $T \colon V \to W$ være en lineærtransformasjon.
+\begin{enumerate}
+\item[(a)] Kjernen $\ker T$ er et underrom av~$V$.
+\item[(b)] Bildet $\im T$ er et underrom av~$W$.
+\end{enumerate}
+\end{thm}
+% TODO bevis
+
+Vi vet at en lineærtransformasjon $T \colon V \to W$ er surjektiv hvis
+og bare hvis $\im T = W$ (dette holder generelt for alle funksjoner,
+ikke bare lineærtransformasjoner).  Vi skal nå se at det på samme måte
+er en nær sammenheng mellom kjernen til~$T$ og hvorvidt $T$ er
+injektiv.
+
+Hvis $T$ er injektiv, så er det maksimalt én vektor i~$V$ som $T$
+sender til nullvektoren i~$W$.  Men vi vet jo at $T$ må sende
+nullvektoren i~$V$ til nullvektoren i~$W$.  Dermed får vi at
+$\ker T = \{ \0 \}$.  Vi kan også vise at den motsatte implikasjonen
+holder, og da får vi følgende teorem.
+
+\begin{thm}
+En lineærtransformasjon $T \colon V \to W$ er injektiv hvis og bare
+hvis $\ker T = \{ \0 \}$.
+\end{thm}
+\begin{proof}
+Vi har allerede vist at hvis $T$ er injektiv, så er
+$\ker T = \{ \0 \}$.  Da gjenstår det å vise at hvis
+$\ker T = \{ \0 \}$, så er $T$ injektiv.
+
+Vi antar derfor at $\ker T = \{ \0 \}$, og vi ser på to vektorer $\u$
+og~$\v$ i~$V$ som er slik at
+\[
+T(\u) = T(\v).
+\]
+Vi vil vise at dette medfører at $\u$ og~$\v$ må være den samme
+vektoren.  Vi kan flytte over $T(\v)$ til venstre side og få:
+\[
+T(\u) - T(\v) = \0.
+\]
+Men $T(\u) - T(\v)$ er det samme som $T(\u-\v)$, siden $T$ er en
+lineærtransformasjon.  Dermed har vi
+\[
+T(\u - \v) = \0,
+\]
+som betyr at $\u - \v$ ligger i kjernen til~$T$.  Antagelsen vi
+startet med var at den eneste vektoren i kjernen til~$T$ er
+nullvektoren, så dette vil si at
+\[
+\u - \v = \0,
+\]
+altså at $\u = \v$.  Vi har altså vist at hvis $T(\u) = T(\v)$, så er
+$\u = \v$, og det vil si at $T$ er injektiv.
+\end{proof}
+
+Dette teoremet forteller oss at det er lettere å finne ut om en
+lineærtransformasjon~$T$ er injektiv enn om en vilkårlig funksjon er
+injektiv.  Det eneste vi trenger å sjekke er hva kjernen er, altså
+hvilke vektorer $T$ sender til nullvektoren.
+
+
+% \section*{Lineær utvidelse fra basis}
+
+% \begin{thm}
+% La $V$ være et vektorrom 
+% \end{thm}
+
+% TODO
+% gitt vektorrom V, W og en basis B for V
+% enhver funksjon B -> W utvides entydig til en lin.tr. V -> W
+
+% flytte til senere i kapitlet?  droppe?
+
+
+\section*{Lineærtransformasjoner gitt ved matriser}
+
+La $A$ være en $m \times n$-matrise.  Da kan vi definere en funksjon
+$T \colon \R^n \to R^m$ ved
+\[
+T(\x) = A \x.
+\]
+Dette blir en lineærtransformasjon, siden vi (ved å bruke regneregler
+for matriser) får at
+\begin{align*}
+T(\u + \v) &= A \cdot (\u + \v) = A\u + A\v = T(\u) + T(\v) \\
+T(c\u) &= A \cdot (c\u) = c \cdot (A\u) = c \cdot T(\u)
+\end{align*}
+for alle vektorer $\u$ og~$\v$ i~$V$, og alle skalarer~$c$.
+
+\begin{ex}
+La $A$ være $3 \times 2$-matrisen
+\[
+A =
+\begin{bmatrix}
+1 & -3 \\
+3 & 5 \\
+-1 & 7
+\end{bmatrix},
+\]
+og definer en lineærtransformasjon $T \colon \R^2 \to \R^3$ ved
+\[
+T(\x) = A \x.
+\]
+Det å spesifisere $T$ på denne måten gjør at vi kan besvare spørsmål
+om~$T$ ved å benytte regneteknikkene vi kjenner for matriser.
+
+Hvis vi for eksempel lurer på hva $T(\vvS{2}{-1})$ blir, så er det
+bare å regne ut:
+\[
+T(\vv{2}{-1})
+ =
+\begin{bmatrix}
+1 & -3 \\
+3 & 5 \\
+-1 & 7
+\end{bmatrix}
+\vv{2}{-1}
+ = \vvv{5}{1}{-9}
+\]
+
+Hvis vi lurer på om det finnes noen vektor~$\x$ i~$\R^2$ slik at
+\[
+T(\x) = \vvv{3}{2}{-5},
+\]
+så er det bare å løse likningssystemet
+\[
+A\x = \vvv{3}{2}{-5}
+\]
+på vanlig måte med gausseliminasjon.  Svaret blir ja, det finnes en
+slik~$\x$, nemlig
+\[
+\x = \vv{3/2}{-1/2}.
+\qedhere
+\]
+\end{ex}
+
+Som vi så i eksempelet, kan vi alltid få til å besvare spørsmål av
+typen «hva er $T(\v)$?» og «finnes det noen $x$ slik at $T(\x) = \b$?»
+når lineærtransformasjonen~$T$ er definert ved en matrise~$A$.  Vi kan
+også bruke matrisen til å regne ut kjernen og bildet til~$T$.
+
+Kjernen $\ker T$ er definert som mengden av alle vektorer~$\v$ slik at
+$T(\v) = \0$.  Men når $T(\x) = A\x$ for alle~$\x$, blir dette det
+samme som mengden av alle vektorer~$\v$ slik at $A\v = \0$, og det er
+nullrommet til~$A$.  Vi får altså at $\ker T = \Null A$.
+
+Bildet $\im T$ er alle vektorer som kan skrives som $T(\v)$.  Når
+$T(\x) = A\x$, blir dette det samme som alle vektorer som kan skrives
+som $A\v$.  Det er det samme som alle lineærkombinasjoner av kolonnene
+i~$A$, altså kolonnerommet til~$A$.  Vi får altså at $\im T = \Col A$.
+
+Vi oppsummerer det vi har vist nå i et teorem.
+
+\begin{thm}
+La $A$ være en $m \times n$-matrise, og la $T \colon \R^n \to \R^m$
+være lineærtransformasjonen gitt ved $T(\x) = A\x$.  Da er
+\[
+\ker T = \Null A
+\qquad\text{og}\qquad
+\im T = \Col A.
+\]
+\end{thm}
+
+Det er altså mange grunner til at det er fordelaktig å ha
+lineærtransformasjonene våre gitt ved matriser.  Hvis vi har en
+lineærtransformasjon $T \colon \R^n \to \R^m$ som ikke er gitt ved en
+matrise, kan det derfor være nyttig å prøve å finne en matrise~$A$
+slik at $T(\x) = A\x$ for alle vektorer~$\x$ i~$\R^n$.  I det neste
+eksempelet gjør vi nettopp dette.
+
+\begin{ex}
+La $\e_1 = \vvS{1}{0}$ og $\e_2 = \vvS{0}{1}$ være enhetsvektorene
+i~$\R^2$, og la $T \colon \R^2 \to \R^3$ være en lineærtransformasjon
+slik at
+\[
+T(\e_1) = \vvv{5}{-7}{2}
+\quad\text{og}\quad
+T(\e_2) = \vvv{-3}{8}{0}
+\]
+Basert på dette kan vi finne ut hva $T(\x)$ er for en vilkårlig vektor
+$\x$ i~$\R^2$.  Vi kan nemlig skrive
+\[
+\x = \vv{x_1}{x_2} = x_1 \e_1 + x_2 \e_2,
+\]
+og da får vi:
+\begin{align*}
+T(\x)
+&= T(x_1 \e_1 + x_2 \e_2)
+ = x_1 \cdot T(\e_1) + x_2 \cdot T(\e_2) \\
+&= x_1 \cdot \vvv{5}{-7}{2} + x_2 \cdot \vvv{-3}{8}{0} \\
+&=
+\begin{bmatrix}
+ 5 & -3 \\
+-7 &  8 \\
+ 2 &  0
+\end{bmatrix}
+\x
+\end{align*}
+Her har vi endt opp med å skrive lineærtransformasjonen ved hjelp av
+en matrise.  La $A$ være denne matrisen:
+\[
+A = \begin{bmatrix} \ T(\e_1) & T(\e_2)\;\ \end{bmatrix}
+  =
+\begin{bmatrix}
+ 5 & -3 \\
+-7 &  8 \\
+ 2 &  0
+\end{bmatrix}
+\]
+Da har vi altså at $T(\x) = A\x$ for alle vektorer~$\x$ i~$\R^2$.
+\end{ex}
+
+På samme måte som i dette eksempelet kan vi skrive enhver
+lineærtransformasjon $T \colon \R^n \to \R^m$ på matriseform ved å
+lage en matrise av vektorene som $T$ sender enhetsvektorene i~$\R^n$
+til.  Vi beskriver det generelle tilfellet i et teorem.
+
+\begin{thm}
+\label{thm:standardmatrise}
+La $T \colon \R^n \to \R^m$ være en lineærtransformasjon.
+Da finnes en $m \times n$-matrise $A$ slik at
+\[
+T(\x) = A\x
+\quad\text{for alle $\x$ i $\R^n$.}
+\]
+Matrisen $A$ er entydig bestemt av~$T$, og er gitt ved
+\[
+\begin{bmatrix} \ T(\e_1) & T(\e_2) & \cdots & T(\e_n) \;\ \end{bmatrix},
+\]
+der $(\e_1, \e_2, \ldots, \e_n)$ er standardbasisen for~$\R^n$.
+\end{thm}
+% TODO bevis?
+
+\begin{defn}
+Matrisen $A$ i teorem~\ref{thm:standardmatrise} kalles
+\defterm{standardmatrisen} til lineærtransformasjonen~$T$.
+\end{defn}
+
+% TODO eks?
+
+Faktisk kan vi gjøre teorem~\ref{thm:standardmatrise} mer generelt.
+Så lenge vektorrommene våre er endeligdimensjonale, kan enhver
+lineærtransformasjon beskrives ved en matrise.  Men det krever at vi
+velger en basis for hvert vektorrom.
+% TODO tekst
+
+\begin{thm}
+La $V$ og~$W$ være endeligdimensjonale vektorrom, og la $\B$ og
+$\mathscr{C}$ være basiser for henholdsvis $V$ og~$W$.  La
+$T \colon V \to W$ være en lineærtransformasjon.  Da finnes en
+matrise~$A$ slik at
+\[
+\koord{T(\x)}{\mathscr{C}} = A \cdot \koord{\x}{\B}
+\]
+for alle vektorer~$\x$ i~$V$.
+\end{thm}
+
+Egentlig er det et valg av basis involvert i
+teorem~\ref{thm:standardmatrise} også.  Der har vi valgt å bruke
+standardbasisene for $\R^n$ og~$\R^m$.  For et vilkårlig vektorrom~$V$
+har vi ikke nødvendigvis noen slik basis som er det åpenbare valget.
+
+% TODO forklaring, eks?
+
+
+% TODO sammensetning av lineærtransformasjoner er matrisemultiplikasjon
+
+
+\section*{Egenverdier og egenvektorer}
+
+Vi er vant til å se på egenverdier og egenvektorer for kvadratiske
+matriser.  Nå vet vi at en $n \times n$-matrise~$A$ gir opphav til en
+lineærtransformasjon $T \colon \R^n \to \R^n$ definert ved
+\[
+T(\x) = A\x,
+\]
+og da kan vi beskrive egenverdiene og egenvektorene til~$A$ ved hjelp
+av denne lineærtransformasjonen.  Dersom $A$ har en
+egenverdi~$\lambda$ med tilhørende egenvektor~$\v$, så betyr det at
+\[
+T(\v) = \lambda \v.
+\]
+Dette kan vi generalisere til mer generelle lineærtransformasjoner.
+
+Hvis vi har en lineærtransformasjon $T \colon V \to V$ der domenet og
+kodomenet er det samme vektorrommet~$V$, så kan vi definere
+egenverdier og egenvektorer for~$T$ på tilsvarende måte som for
+matriser.  Vi sier at $\lambda$ er en \defterm{egenverdi} for~$T$, og
+$\v$ en tilhørende \emph{egenvektor}, dersom
+\[
+T(\v) = \lambda \v
+\qquad\text{og}\qquad
+\v \ne \0.
+\]
+Hvis $\lambda$ er en egenverdi for~$T$, så har $\lambda$ et tilhørende
+\defterm{egenrom}, nemlig underrommet
+\[
+\{ \v \in V \mid T(\v) = \lambda \v \}
+\]
+av~$V$.
+
+
+\section*{Isomorfi}
+
+Til slutt i dette kapitlet ser vi på hvordan vi kan bruke
+lineærtransformasjoner til å beskrive at to vektorrom er «strukturelt
+like».  Med dette mener vi at de oppfører seg på akkurat samme måte
+som vektorrom, selv om de kan bestå av helt forskjellige elementer.
+Da vil vi si at de to vektorrommene er \emph{isomorfe}.  For å kunne
+definere dette, trenger vi først et begrep om inverser for
+lineærtransformasjoner.
+
+\begin{defn}
+La $T \colon V \to W$ være en lineærtransformasjon.  En
+\defterm{invers} til~$T$ er en lineærtransformasjon $S \colon W \to V$
+som er slik at
+\begin{align*}
+S(T(\v)) &= \v &&\text{for alle $\v$ i~$V$, og} \\
+T(S(\w)) &= \w &&\text{for alle $\w$ i~$W$.}
+\qedhere
+% TODO formulere ved at sammensetningene er \id_V, \id_W
+\end{align*}
+\end{defn}
+
+Vi vil si at to vektorrom er isomorfe hvis det er mulig å bevege seg
+frem og tilbake mellom dem ved hjelp av lineærtransformasjoner som
+bevarer all informasjonen om vektorrommene.  Vi vil altså ha en
+situasjon slik som dette, der $T$ og~$S$ er hverandres inverser:
+\begin{center}
+\begin{tikzpicture}
+\node(V) at (0,0) {$V$};
+\node(W) at (1,0) {$W$};
+\draw[->] (V) to[bend left=20] node[anchor=south] {$T$} (W);
+\draw[->] (W) to[bend left=20] node[anchor=north] {$S$} (V);
+\end{tikzpicture}
+\end{center}
+\begin{defn}
+Hvis $T \colon V \to W$ er en lineærtransformasjon som har en invers,
+så er $T$ en \defterm{isomorfi}.  Da sier vi dessuten at vektorrommene
+$V$ og~$W$ er \defterm{isomorfe}, og vi skriver $V \iso W$.
+\end{defn}
+
+\begin{ex}
+Vi lar $V$ være underrommet
+\[
+V = \Sp \left\{ \vv{3}{2} \right\}
+\]
+i~$\R^2$ utspent av vektoren~$\vvS{3}{2}$.  Da er $V$ et
+endimensjonalt vektorrom, og geometrisk sett er det en linje.
+Vektorrommet~$V$ ser ut og oppfører seg akkurat som
+vektorrommet~$\R^1$.  Forskjellen er bare at elementene ser
+forskjellige ut.  Hvert element i $V$ er en vektor på formen
+\[
+\vv{3t}{2t}
+\]
+mens hvert element i $\R^1$ er bare et tall.
+\begin{center}
+\begin{tikzpicture}[scale=.5,baseline]
+\draw[->] (-3,0) -- (3,0);
+\draw[->] (0,-2) -- (0,2);
+\draw (-3,-2) -- (3,2) node[anchor=north] {$V$};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[scale=.5,baseline]
+\draw[->] (-3,0) -- (3,0) node[anchor=north] {$\R^1$};
+\draw (0,.1) -- (0,-.1);
+\coordinate (O) at (0,0);
+\end{tikzpicture}
+\\[4pt]
+{\small \textit{De to vektorrommene $V$ og~$\R^1$}}
+\end{center}
+
+Det at $V$ og $\R^1$ «ser like ut» kan vi gjøre mer presist ved å vise
+at de er isomorfe.  Vi definerer lineærtransformasjoner
+\[
+T \colon V \to \R^1
+\quad\text{og}\quad
+S \colon \R^1 \to V
+\]
+ved:
+\[
+T \left( \vv{3t}{2t} \right) = t
+\qquad\quad
+S(x) = \vv{3x}{2x}
+\]
+Vi kan lett sjekke at disse faktisk er lineærtransformasjoner, og vi
+ser at de er hverandres inverser.  Det betyr at de er isomorfier, og
+de viser dermed at $V \iso \R^1$.
+\end{ex}
+
+\begin{ex}
+Vi husker at $\P_1$ er vektorrommet som består av alle polynomer av
+grad~$1$ eller lavere, altså alle funksjoner på formen
+\[
+p(x) = a_1 x + a_0.
+\]
+Polynomet~$p$ er entydig bestemt av de to tallene $a_1$ og~$a_0$, og
+vi vet at addisjon og skalarmultiplikasjon av polynomer foregår ved å
+addere eller skalarmultiplisere hver koeffisient.  Hvis vi bare ser på
+hva som skjer med koeffisientene, så ligner altså vektorrommet~$\P_1$
+veldig på~$\R^2$.
+
+Vi definerer to lineærtransformasjoner
+\[
+T \colon \P_1 \to \R^2
+\quad\text{og}\quad
+S \colon \R^2 \to \P_1
+\]
+på følgende måte:
+\begin{align*}
+T(p) &= \vv{a_1}{a_0}
+ &&\text{for et polynom~$p$ definert} \\[-8pt]
+&&&\text{ved $p(x) = a_1x + a_0$,} \\
+S\left( \vv{v_1}{v_2} \right) &= q,
+ &&\text{der $q$ er polynomet definert} \\[-8pt]
+&&&\text{ved $q(x) = v_1 x + v_2$.}
+\end{align*}
+Det er lett å sjekke at $T$ og~$S$ er lineærtransformasjoner, og at de
+er hverandres inverser.  Dermed er de isomorfier, og vi får at
+$\P_1 \iso \R^2$.
+\end{ex}
+
+I dette eksempelet viste vi at det todimensjonale vektorrommet~$\P_1$
+er isomorft med~$\R^2$.  På tilsvarende måte kan vi vise at ethvert
+todimensjonalt vektorrom er isomorft med~$\R^2$, og mer generelt at
+ethvert $n$-dimensjonalt vektorrom er isomorft med~$\R^n$.
+
+\begin{thm}
+Hvis $V$ er $n$-dimensjonalt vektorrom, så er $V$ isomorft med~$\R^n$.
+\end{thm}
+
+Vi kan også merke oss at det å være en isomorfi kan beskrives ved
+hjelp av injektivitet og surjektivitet.
+
+\begin{thm}
+En lineærtransformasjon er en isomorfi hvis og bare hvis den er både
+injektiv og surjektiv.
+\end{thm}
+
+\kapittelslutt

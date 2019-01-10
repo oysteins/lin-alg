@@ -1,0 +1,776 @@
+\input{kapittel}
+
+\kapittel{6}{Determinanter}
+\label{ch:determinanter}
+
+En matrise inneholder mange tall og dermed mye informasjon -- så mye
+at det kan være litt overveldende.  Vi kan kondensere ned all
+informasjonen i en kvadratisk matrise til ett enkelt tall som kalles
+\emph{determinanten} til matrisen.  Dette ene tallet sier oss en hel
+del om hvordan matrisen oppfører seg.
+
+Vi har to forskjellige notasjoner for determinanter.
+Hvis
+\[
+A =
+\begin{bmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{bmatrix}
+\]
+er en $n \times n$-matrise, så skriver vi enten
+\[
+\det A
+\qquad\text{eller}\qquad
+\begin{vmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{vmatrix}
+\]
+for determinanten til~$A$.  De to notasjonene betyr akkurat det samme.
+Den første er praktisk å bruke når vi har en variabel som står for
+matrisen vi vil ta determinanten av; den andre når vi vil liste opp
+alle tallene i matrisen.
+
+%TODO mer intro
+
+
+\section*{Determinanter for $2 \times 2$-matriser}
+
+For en $2 \times 2$-matrise
+\[
+A =
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}
+\]
+er determinanten definert ved:
+\[
+\det A =
+\begin{vmatrix}
+a & b \\
+c & d
+\end{vmatrix}
+= ad - bc
+\]
+Determinanten har en fin geometrisk tolkning.  Vi ser på de to
+kolonnene i~$A$ som vektorer i~$\R^2$, tegner dem som piler i planet,
+og lager et parallellogram med disse som to av sidene.  Dette
+paralellogrammet kan vi kalle parallellogrammet utspent av de to
+vektorene.
+\begin{center}
+\begin{tikzpicture}[scale=.7]
+\draw[->] (-1,0) -- (10,0);
+\draw[->] (0,-1) -- (0,6);
+\draw (2,2pt) -- (2,-6pt) node[anchor=north] {$b$};
+\draw (7,0pt) -- (7,-6pt) node[anchor=north] {$a$};
+%\draw (9,0pt) -- (9,-6pt) node[anchor=north] {$a + b$};
+\draw (2pt,1.5) -- (-6pt,1.5) node[anchor=east] {$c$};
+\draw (0,4) -- (-6pt,4) node[anchor=east] {$d$};
+%\draw (0,5.5) -- (-6pt,5.5) node[anchor=east] {$c + d$};
+\draw[->] (0,0) -- (7,1.5);
+\draw[->] (0,0) -- (2,4);
+\draw[dashed] (7,1.5) -- (9,5.5);
+\draw[dashed] (2,4) -- (9,5.5);
+\node[anchor=west] at (7.2,1.3) {$\vv{a}{c}$};
+\node[anchor=south] at (1.8,4) {$\vv{b}{d}$};
+\end{tikzpicture}
+\\
+{\small \textit{Parallellogrammet utspent av kolonnene i~$A$}}
+\end{center}
+
+La oss beregne arealet av dette parallellogrammet.  Vi tegner på noen
+hjelpelinjer:
+\begin{center}
+\begin{tikzpicture}[scale=.6]
+\draw[->] (-1,0) -- (10,0);
+\draw[->] (0,-1) -- (0,6);
+\draw (2,2pt) -- (2,-6pt) node[anchor=north] {$b$};
+\draw (7,0pt) -- (7,-6pt) node[anchor=north] {$a$};
+\draw (9,0pt) -- (9,-6pt) node[anchor=north] {$a + b$};
+\draw (2pt,1.5) -- (-6pt,1.5) node[anchor=east] {$c$};
+\draw (0,4) -- (-6pt,4) node[anchor=east] {$d$};
+\draw (0,5.5) -- (-6pt,5.5) node[anchor=east] {$c + d$};
+\draw[->] (0,0) -- (7,1.5);
+\draw[->] (0,0) -- (2,4);
+\draw (7,1.5) -- (9,5.5);
+\draw (2,4) -- (9,5.5);
+\draw (0,5.5) -- (9,5.5);
+\draw (9,0) -- (9,5.5);
+\draw (0,4) -- (2,4);
+\draw (2,5.5) -- (2,4);
+\draw (7,0) -- (7,1.5);
+\draw (7,1.5) -- (9,1.5);
+\end{tikzpicture}
+\\
+{\small \textit{Parallellogramarealberegningshjelpefigur}}
+\end{center}
+Vi kan finne arealet av parallellogrammet ved å starte med arealet av
+det store rektangelet, som er
+\[
+(a + b) (c + d),
+\]
+og trekke fra arealene av de to små rektanglene og de fire trekantene
+som omgir parallellogrammet.  Vi ser at hvert av de små rektanglene
+har areal~$bc$, at de to trekantene øverst og nederst til sammen har
+areal~$ac$, og at trekantene til venstre og høyre til sammen har
+areal~$bd$.  Det betyr at arealet av parallellogrammet er:
+\begin{align*}
+& \!\!\!\!\!\!\!\!(a + b) (c + d) - 2bc - ac - bd \\
+&= ac + ad + bc + bd - 2bc - ac - bd \\
+&= ad - bc \\
+&= \det A
+\end{align*}
+Vi kommer altså frem til at arealet av parallellogrammet utspent av
+kolonnene i~$A$ er lik determinanten til~$A$.  Denne utregningen var
+imidlertid litt avhengig av hvordan disse to kolonnevektorene er
+plassert i forhold til hverandre i planet.  Hvis vi hadde byttet plass
+på kolonnene, så ville vi isteden fått $bc - ad$ som areal.  Da ville
+altså determinanten vært negativ.
+
+Det som holder i alle tilfeller, er at arealet av parallellogrammet
+utspent av kolonnene i~$A$ er lik absoluttverdien til determinanten:
+\[
+\abs{\det A}
+\]
+
+\medskip
+
+Så determinanten gir oss arealet til et parallellogram.  Men hva
+forteller det oss om matrisen~$A$?
+
+Vi kan tenke på~$A$ som en transformasjon av planet der hver
+vektor~$\V{v}$ i~$\R^2$ sendes til vektoren~$A \V{v}$.  Determinanten
+sier noe om hvordan planet endres under denne transformasjonen.
+
+La
+\[
+\V{e}_1 = \vv{1}{0}
+\qquad\text{og}\qquad
+\V{e}_2 = \vv{0}{1}
+\]
+være de to enhetsvektorene i~$\R^2$, og se på kvadratet utspent av
+disse:
+\begin{center}
+\begin{tikzpicture}[scale=2]
+\draw[fill=gray!35] (0,0) -- (0,1) -- (1,1) -- (1,0) -- cycle;
+\draw[->] (-.6,0) -- (1.6,0);
+\draw[->] (0,-.2) -- (0,1.2);
+\draw[->,thick] (0,0) -- (1,0);
+\draw[->,thick] (0,0) -- (0,1);
+\node[anchor=north] at (1,0) {$\V{e}_1$};
+\node[anchor=east] at (0,1) {$\V{e}_2$};
+\draw (1,0) -- (1,1) -- (0,1);
+\node at (.5,.5) {$1$};
+\end{tikzpicture}
+\\
+{\small \textit{Enhetskvadratet}}
+\end{center}
+Nå vil vi se på hva som skjer med dette kvadratet dersom vi sender
+hvert punkt $\V{v}$ i~$\R^2$ til $A \V{v}$, der
+\[
+A = \begin{bmatrix} \V{a}_1 & \V{a}_2 \end{bmatrix}
+\]
+er en $2 \times 2$-matrise med $\V{a}_1$ og~$\V{a}_2$ som kolonner.
+Da sendes vektoren $\V{e}_1$ til $\V{a}_1$, og vektoren $\V{e}_2$
+sendes til~$\V{a}_2$.  Alle vektorene som ligger inni enhetskvadratet
+i forrige figur sendes til vektorer som ligger inni parallellogrammet
+utspent av $\V{a}_1$ og~$\V{a}_2$.
+
+Vi skisserer noen forskjellige muligheter, for forskjellige valg av
+matrisen~$A$:
+\begin{center}
+\begin{tabular}{cl}
+$\det A > 0$ &
+\begin{tikzpicture}[scale=.5,baseline=30pt]
+\draw[->] (-1,0) -- (10,0);
+\draw[->] (0,-.2) -- (0,5);
+\draw[fill=gray!35] (0,0) -- (6,1) -- (8,4) -- (2,3) -- cycle;
+\draw[->] (0,0) -- (6,1);
+\draw[->] (0,0) -- (2,3);
+\draw (2,3) -- (8,4) -- (6,1);
+\node at (4,2) {$\det A$};
+\node[anchor=west] at (6,1) {$\V{a}_1$};
+\node[anchor=south] at (2,3) {$\V{a}_2$};
+\end{tikzpicture}
+\\[44pt]
+$\det A < 0$ &
+\begin{tikzpicture}[scale=.5,baseline=30pt]
+\draw[->] (-1,0) -- (10,0);
+\draw[->] (0,-.2) -- (0,5);
+\draw[fill=gray!35] (0,0) -- (6,1) -- (8,4) -- (2,3) -- cycle;
+\draw[->] (0,0) -- (6,1);
+\draw[->] (0,0) -- (2,3);
+\draw (2,3) -- (8,4) -- (6,1);
+\node at (4,2) {$- \det A$};
+\node[anchor=west] at (6,1) {$\V{a}_2$};
+\node[anchor=south] at (2,3) {$\V{a}_1$};
+\end{tikzpicture}
+\\[44pt]
+$\det A = 0$ &
+\begin{tikzpicture}[scale=.5,baseline=30pt]
+\draw[->] (-1,0) -- (10,0);
+\draw[->] (0,-.2) -- (0,5);
+\draw[->] (0,0) -- (4,1);
+\draw[->] (0,0) -- (6,1.5);
+\draw (0,0) -- (8,2);
+\node[anchor=south] at (4,1) {$\V{a}_1$};
+\node[anchor=south] at (6,1.5) {$\V{a}_2$};
+%\node[anchor=west] at (8,2) {$\V{a}_1 + \V{a}_2$};
+\end{tikzpicture}
+\\[44pt]
+$\det A = 0$ &
+\begin{tikzpicture}[scale=.5,baseline=30pt]
+\draw[->] (-1,0) -- (10,0);
+\draw[->] (0,-.2) -- (0,5);
+\draw[->] (0,0) -- (5,2);
+\filldraw (0,0) circle [radius=2pt];
+\node[anchor=west] at (5,2) {$\V{a}_2$};
+\node[anchor=north west] at (0,0) {$\V{a}_1$};
+\end{tikzpicture}
+\end{tabular}
+\end{center}
+
+I den første figuren har vi en matrise med positiv determinant.  Da
+gjør transformasjonen $\V{v} \mapsto A\V{v}$ at enhetskvadratet
+skaleres til et parallellogram med areal $\det A$.  Hvis $\det A > 1$
+betyr dette at planet «blåses opp»; hvis $0 < \det A < 1$ betyr det at
+planet «krympes sammen».
+
+I den andre figuren har vi en matrise med negativ determinant.  Da er
+situasjonen helt lik som i den første figuren, bortsett fra at det er
+$(- \det A)$ som er arealet.  Da får vi at med $\det A < -1$ blir
+planet «blåst opp», og med $-1 < \det A < 0$ blir det «krympet
+sammen».
+
+I den tredje og den fjerde figuren har vi situasjoner der
+determinanten er~$0$.  Det vil si at parallellogrammet utspent av
+kolonnene i~$A$ har areal~$0$.  Det blir altså ikke et virkelig
+parallellogram i disse tilfellene; det har kollapset til et
+«degenerert» parallellogram som er bare en linje.  På samme måte vil
+transformasjonen $\V{v} \mapsto A \V{v}$ i disse tilfellene kollapse
+hele planet ned til linjen utspent av $\V{a}_1$ og~$\V{a}_2$.
+
+
+\section*{Determinanter for $3 \times 3$-matriser}
+
+For en $3 \times 3$-matrise
+\[
+A =
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & a_{33}
+\end{bmatrix}
+\]
+er determinanten definert ved:
+\begin{align*}
+\det A &=
+\begin{vmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & a_{33}
+\end{vmatrix}
+\\
+&=
+a_{11}
+\begin{vmatrix}
+a_{22} & a_{23} \\
+a_{32} & a_{33}
+\end{vmatrix}
+- a_{12}
+\begin{vmatrix}
+a_{21} & a_{23} \\
+a_{31} & a_{33}
+\end{vmatrix}
++ a_{13}
+\begin{vmatrix}
+a_{21} & a_{22} \\
+a_{31} & a_{32}
+\end{vmatrix}
+\end{align*}
+Her er det også en geometrisk tolkning.  Vi kan tegne opp kolonnene
+i~$A$ som piler i~$\R^3$, og lage et parallell\-epiped med disse pilene
+som tre av sidene.  Dette kaller vi for parallell\-epipedet utspent av
+de tre vektorene.  Da har vi at volumet av parallell\-epipedet utspent
+av kolonnene i~$A$ er lik absoluttverdien av determinanten til~$A$.
+
+
+\section*{Den generelle definisjonen}
+
+Vi definerer determinanten til en vilkårlig stor kvadratisk matrise
+etter samme mønster som determinanten til en $3 \times 3$-matrise.
+
+\begin{defn}
+La
+\[
+A =
+\begin{bmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{bmatrix}
+\]
+være en $n \times n$-matrise.  \defterm{Determinanten} til~$A$, som
+har notasjonen $\det A$, defineres på følgende måte.
+\begin{enumerate}
+\item Hvis $n = 1$, så har vi at
+$A = \begin{bmatrix} a_{11} \end{bmatrix}$, og da definerer vi at
+$\det A = a_{11}$.
+\item Hvis $n > 1$, innfører vi først noen hjelpevariabler.  For hver
+$i$ og~$j$ fra $1$ til~$n$ setter vi $A_{ij}$ til å være
+$(n-1) \times (n-1)$-matrisen vi får ved å fjerne rad~$i$ og
+kolonne~$j$ fra~$A$, og vi setter
+\[
+C_{ij} = (-1)^{i + j} \det A_{ij}
+\]
+til å være determinanten til denne matrisen, med et fortegn som
+avhenger av $i$ og~$j$.  Determinanten til~$A$ defineres ved:
+\[
+\det A = \sum_{j=1}^n a_{1j} C_{1j}\qedhere
+\]
+\end{enumerate}
+\end{defn}
+
+Tallene $C_{ij}$ i definisjonen kalles \defterm{kofaktorer} av~$A$.
+
+Det er ikke vanskelig å se at hvis vi setter inn en
+$2 \times 2$-matrise eller en $3 \times 3$-matrise i denne generelle
+definisjonen, så får vi bare de vanlige reglene for determinanter av
+$2 \times 2$- og $3 \times 3$-matriser.
+
+For å få litt erfaring med å bruke definisjonen på større matriser
+regner vi ut determinanten av en $4 \times 4$-matrise.
+
+\begin{ex}
+\label{ex:det-4x4}
+La $A$ være følgende $4 \times 4$-matrise:
+\[
+A =
+\begin{bmatrix}
+3 & 0 & 2 & 4 \\
+1 & 2 & 1 & 0 \\
+2 & 0 & 1 & 0 \\
+7 & 0 & 5 & 3
+\end{bmatrix}
+\]
+Vi regner ut determinanten til~$A$.  Fra definisjonen får vi:
+\begin{align*}
+\det A &=
+3 \begin{vmatrix}
+2 & 1 & 0 \\
+0 & 1 & 0 \\
+0 & 5 & 3
+\end{vmatrix}
+- 0 \begin{vmatrix}
+1 & 1 & 0 \\
+2 & 1 & 0 \\
+7 & 5 & 3
+\end{vmatrix}
+\\
+&\qquad
++ 2 \begin{vmatrix}
+1 & 2 & 0 \\
+2 & 0 & 0 \\
+7 & 0 & 3
+\end{vmatrix}
+- 4 \begin{vmatrix}
+1 & 2 & 1 \\
+2 & 0 & 1 \\
+7 & 0 & 5
+\end{vmatrix}
+\end{align*}
+Vi regner ut hver av $3 \times 3$-determinantene som trengs (merk at
+vi ikke trenger å regne ut den andre, for den skal uansett ganges
+med~$0$):
+\begin{align*}
+\begin{vmatrix}
+2 & 1 & 0 \\
+0 & 1 & 0 \\
+0 & 5 & 3
+\end{vmatrix}
+&=
+  2 \begin{vmatrix} 1 & 0 \\ 5 & 3 \end{vmatrix}
+- 1 \begin{vmatrix} 0 & 0 \\ 0 & 3 \end{vmatrix}
++ 0 \begin{vmatrix} 0 & 1 \\ 0 & 5 \end{vmatrix}
+ = 6 \\
+\begin{vmatrix}
+1 & 2 & 0 \\
+2 & 0 & 0 \\
+7 & 0 & 3
+\end{vmatrix}
+&=
+  1 \begin{vmatrix} 0 & 0 \\ 0 & 3 \end{vmatrix}
+- 2 \begin{vmatrix} 2 & 0 \\ 7 & 3 \end{vmatrix}
++ 0 \begin{vmatrix} 2 & 0 \\ 7 & 0 \end{vmatrix}
+ = -12 \\
+\begin{vmatrix}
+1 & 2 & 1 \\
+2 & 0 & 1 \\
+7 & 0 & 5
+\end{vmatrix}
+&=
+  1 \begin{vmatrix} 0 & 1 \\ 0 & 5 \end{vmatrix}
+- 2 \begin{vmatrix} 2 & 1 \\ 7 & 5 \end{vmatrix}
++ 1 \begin{vmatrix} 2 & 0 \\ 7 & 0 \end{vmatrix}
+ = -6
+\end{align*}
+Ved å sette inn disse i uttrykket for $\det A$ får vi:
+\[
+\det A = 3 \cdot 6 - 0 + 2 \cdot (-12) - 4 \cdot (-6) = 18
+\]
+Vi har altså regnet ut at $\det A = 18$.
+\end{ex}
+
+Ved hjelp av definisjonen kan vi regne ut determinanten til en hvilken
+som helst kvadratisk matrise, men det kan bli veldig mye jobb.  I
+eksempelet så vi at determinanten til en $4 \times 4$-matrise er
+definert ut fra determinantene til fire $3 \times 3$-matriser, og hver
+av disse er igjen definert ut fra determinantene til tre
+$2 \times 2$-matriser.  Hvis vi går til større matriser, blir
+arbeidsmengden fort enormt stor.
+
+I løpet av dette kapitlet skal vi se på noen lure teknikker for å
+regne ut determinanter på mindre arbeidskrevende måter.
+
+
+\section*{Kofaktorekspansjon}
+
+I definisjonen av determinanten går vi gjennom første rad i matrisen,
+og ser på tallene
+\[
+a_{11},\ a_{12},\ \ldots,\ a_{1n}.
+\]
+Hvert tall $a_{1j}$ ganges med den tilhørende kofaktoren~$C_{1j}$, og
+til slutt summerer vi alle disse produktene.
+
+Det er imidlertid ikke nødvendig å gå langs første rad når vi gjør
+dette.  Det fungerer like bra å gå langs en annen rad og følge det
+samme systemet, og resultatet blir det samme.  Det går dessuten an å
+gå langs en hvilken som helst kolonne med samme system.  Vi
+oppsummerer dette i følgende teorem.
+
+\begin{thm}
+La $A$ være en $n \times n$-matrise, der $n > 1$, og la $A_{ij}$
+og~$C_{ij}$ være som i definisjonen av determinant.  Da har vi
+\[
+\det A
+= \sum_{j=1}^n a_{kj} C_{kj}
+= \sum_{i=1}^n a_{il} C_{il}
+\]
+for alle $k$ og~$l$ slik at $1 \le k \le n$ og $1 \le l \le n$.
+\end{thm}
+
+Å regne ut determinanten ved å beregne en sum av tall fra matrisen
+ganget med kofaktorer slik som i teoremet kalles
+\defterm{kofaktor\-ekspansjon}.  Vi sier at vi gjør kofaktorekspansjon
+langs rad~$k$ eller langs kolonne~$l$.
+
+La oss nå regne ut den samme determinanten som i
+eksempel~\ref{ex:det-4x4}, men på en lurere måte.
+
+\begin{ex}
+Vi lar igjen $A$ være denne $4 \times 4$-matrisen:
+\[
+A =
+\begin{bmatrix}
+3 & 0 & 2 & 4 \\
+1 & 2 & 1 & 0 \\
+2 & 0 & 1 & 0 \\
+7 & 0 & 5 & 3
+\end{bmatrix}
+\]
+Vi kan observere at den andre kolonnen inneholder nesten bare nuller,
+så det er lurt å gjøre kofaktor\-ekspansjon langs den.  Da får vi:
+\begin{align*}
+\det A &=
+- 0 \begin{vmatrix}
+1 & 1 & 0 \\
+2 & 1 & 0 \\
+7 & 5 & 3
+\end{vmatrix}
++ 2 \begin{vmatrix}
+3 & 2 & 4 \\
+2 & 1 & 0 \\
+7 & 5 & 3
+\end{vmatrix}
+\\
+&\qquad
+- 0 \begin{vmatrix}
+3 & 2 & 4 \\
+1 & 1 & 0 \\
+7 & 5 & 3
+\end{vmatrix}
++ 0 \begin{vmatrix}
+3 & 2 & 4 \\
+1 & 1 & 0 \\
+2 & 1 & 0
+\end{vmatrix}
+\\
+&= 2 \cdot \left( 4 \cdot \begin{vmatrix} 2 & 1 \\ 7 & 5 \end{vmatrix} +
+                  3 \cdot \begin{vmatrix} 3 & 2 \\ 2 & 1 \end{vmatrix} \right)
+\\
+&= 2 \cdot (4 \cdot 3 + 3 \cdot (-1))
+ = 18
+\end{align*}
+Vi fikk samme resultat som i eksempel~\ref{ex:det-4x4}, men med mindre
+arbeid, siden vi bare trengte å regne ut én $3 \times 3$-determinant.
+\end{ex}
+
+Vi må passe på at vi får fortegnene i kofaktorene riktig.  Når vi gjør
+kofaktorekspansjon langs første rad (slik som i definisjonen) eller
+langs første kolonne, starter vi alltid med positivt fortegn i det
+første leddet.  Men når vi ekspanderer langs en annen rad eller
+kolonne, kan det hende vi må starte med negativt fortegn.  Det kan
+være nyttig å bruke følgende diagram som en huskeregel for hvilket
+fortegn vi skal ha i de forskjellige kofaktorene:
+\[
+\begin{bmatrix}
++ & - & + & - & \cdots \\
+- & + & - & + & \cdots \\
++ & - & + & - & \cdots \\
+- & + & - & + & \cdots \\
+\vdots & \vdots & \vdots & \vdots & \ddots
+\end{bmatrix}
+\]
+
+
+\section*{Determinanter og radoperasjoner}
+
+Hvis vi utfører en radoperasjon på en matrise, så får vi en ny
+matrise.  Den matrisen har ikke nødvendigvis samme determinant som den
+opprinnelige, men det viser seg at determinanten endrer seg på ganske
+kontrollerte måter når vi utfører radoperasjoner.  Dette kan vi
+utnytte for å spare oss for en del arbeid når vi skal regne ut
+determinanter, spesielt hvis vi har store matriser.
+
+\begin{thm}
+\label{thm:det-radop}
+La $A$ være en $n \times n$-matrise, og la $B$ være en matrise vi får
+ved å utføre en radoperasjon på~$A$.  Da har vi følgende sammenheng
+mellom determinantene til $A$ og~$B$, basert på hvilken type
+radoperasjon vi utførte:
+\[
+\begin{array}{ll}
+\text{Radoperasjon} & \text{Resultat} \\\hline
+\textup{Gange en rad med et tall~$k$} &
+\det B = k \cdot \det A \\\hline
+\textup{Legge til et multiplum}\\\textup{av én rad i en annen} &
+\det B = \det A \\\hline
+\textup{Bytte om to rader} &
+\det B = - \det A \\\hline
+\end{array}
+\]
+\end{thm}
+
+\medskip
+La oss bruke dette teoremet til å beregne en determinant.
+
+\begin{ex}
+\label{ex:det-radop}
+Vi regner ut $\det A$, der
+\[
+A =
+\begin{bmatrix}
+3 & 3 & 12 \\
+2 & 2 & 13 \\
+4 & 2 & 19
+\end{bmatrix}
+\]
+Vi får:
+\begin{align*}
+\det A &=
+\begin{vmatrix}
+3 & 3 & 12 \\
+2 & 2 & 13 \\
+4 & 2 & 19
+\end{vmatrix}
+=
+3 \cdot
+\begin{vmatrix}
+1 & 1 &  4 \\
+2 & 2 & 13 \\
+4 & 2 & 19
+\end{vmatrix}
+\\
+&=
+3 \cdot
+\begin{vmatrix}
+1 &  1 &  4 \\
+0 &  0 &  5 \\
+0 & -2 &  3
+\end{vmatrix}
+=
+- 3 \cdot
+\begin{vmatrix}
+1 &  1 &  4 \\
+0 & -2 &  3 \\
+0 &  0 &  5
+\end{vmatrix}
+\\
+&= -3 \cdot 1 \cdot \begin{vmatrix} -2 & 3 \\ 0 & 5 \end{vmatrix}
+\\
+&= -3 \cdot 1 \cdot (-2) \cdot 5
+= 30
+\end{align*}
+Her startet vi med å gjøre radoperasjoner på matrisen, samtidig som vi
+holdt styr på hvordan determinanten endret seg.
+
+Først ganget vi øverste rad med~$1/3$.  Det medførte at determinanten
+til den nye matrisen ble $1/3$ ganger determinanten til~$A$, så vi
+måtte gange den med~$3$ for at tallene skal bli like.  En hendig måte
+å huske hvordan dette fungerer er å tenke på det som å sette et tall
+utenfor parentes.  På samme måte som vi kan trekke ut et $3$-tall fra
+en parentes og få
+\[
+(3 + 3 + 12) = 3 \cdot (1 + 1 + 12),
+\]
+kan vi trekke ut et $3$-tall fra en rad i en determinant.
+
+Etterpå trakk vi fra multipler av første rad i de to andre radene, men
+det medførte ingen endring av determinanten.
+
+Så byttet vi de to nederste radene, og det gjorde at determinanten
+skifter fortegn.
+
+Til slutt gjorde vi kofaktorekspansjon langs den første kolonnen.
+Siden vi ved å utføre radoperasjoner hadde sørget for å få bare nuller
+under diagonalen, ble kofaktorekspansjonen enkel og grei.
+\end{ex}
+
+
+\section*{Triangulære matriser}
+
+Vi sier at en $n \times n$-matrise er \defterm{øvre triangulær} hvis
+alle tall under diagonalen er~$0$, altså hvis den er på følgende form:
+\[
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} & \cdots & a_{1n} \\
+0      & a_{22} & a_{23} & \cdots & a_{2n} \\
+0      & 0      & a_{33} & \cdots & a_{3n} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+0      & 0      & 0      & \cdots & a_{nn}
+\end{bmatrix}
+\]
+Tilsvarende sier vi at en $n \times n$-matrise er \defterm{nedre
+  triangulær} hvis alle tall over diagonalen er~$0$, altså hvis den
+er på følgende form:
+\[
+\begin{bmatrix}
+a_{11} & 0      & 0      & \cdots & 0      \\
+a_{21} & a_{22} & 0      & \cdots & 0      \\
+a_{31} & a_{32} & a_{33} & \cdots & 0      \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+a_{n1} & a_{n2} & a_{n3} & \cdots & a_{nn}
+\end{bmatrix}
+\]
+
+\begin{ex}
+I eksempel~\ref{ex:det-radop} brukte vi radoperasjoner til å skrive om
+matrisen vår til følgende:
+\[
+\begin{bmatrix}
+1 &  1 &  4 \\
+0 & -2 &  3 \\
+0 &  0 &  5
+\end{bmatrix}
+\]
+Denne matrisen er øvre triangulær.
+\end{ex}
+
+Hvis vi skal finne determinanten til en øvre triangulær matrise er det
+praktisk å kofaktorekspandere langs første kolonne.  Da får vi bare
+ett ledd i ekspansjonen, nemlig tallet øverst til venstre i matrisen
+ganget med determinanten til matrisen der første rad og kolonne er
+fjernet.  Denne matrisen er igjen øvre triangulær.  Så fortsetter vi
+med kofaktorekspansjon langs første kolonne i hvert steg nedover.  Det
+vi ender opp med til slutt er å bare gange sammen alle tallene på
+diagonalen.
+
+Vi oppsummerer dette i et teorem.
+
+\begin{thm}
+\label{thm:det-diag}
+La $A$ være en (øvre eller nedre) triangulær $n \times n$-matrise.  Da
+er determinanten til~$A$ lik produktet av tallene på diagonalen i~$A$:
+\[
+\det A = a_{11} \cdot a_{22} \cdot a_{33} \cdots a_{nn}\qedhere
+\]
+\end{thm}
+
+\begin{ex}
+Ved å bruke teoremet kan vi skrive opp determinanten til en triangulær
+matrise direkte, uten å måtte beregne andre determinanter først:
+\[
+\begin{vmatrix}
+1 &  1 &  4 \\
+0 & -2 &  3 \\
+0 &  0 &  5
+\end{vmatrix}
+= 1 \cdot (-2) \cdot 5
+\qedhere
+\]
+\end{ex}
+
+Hvis vi skal beregne determinanten til en stor og stygg matrise, er
+det en god strategi å bruke radoperasjoner for å skrive om matrisen
+til øvre triangulær form (og holde orden på hvordan determinanten
+endrer seg ved hjelp av teorem~\ref{thm:det-radop}), og så regne ut
+determinanten til den triangulære matrisen ved hjelp av
+teorem~\ref{thm:det-diag}.
+
+
+\section*{Flere regneregler}
+
+Vi tar med et par regneregler til for determinanter.
+
+\begin{thm}
+\label{thm:det-produkt}
+Determinanten til et produkt av to matriser er produktet av
+determinantene.  Altså: Hvis $A$ og~$B$ er to $n \times n$-matriser,
+så er
+\[
+\det (AB) = (\det A) (\det B).
+\]
+\end{thm}
+
+\begin{thm}
+\label{thm:det-tr}
+Determinanten endrer seg ikke når vi transponerer matrisen.  Altså:
+Hvis $A$ er en $n \times n$-matrise, så er
+\[
+\det A = \det A\tr.
+\]
+\end{thm}
+
+
+\section*{Karakterisering av inverterbarhet}
+
+Vi kan bruke determinanten til å sjekke om en matrise er inverterbar
+eller ikke.  Dette kan dessuten knyttes sammen med hvorvidt kolonnene
+i matrisen vår er lineært uavhengige, og hva det utspenner.
+
+Følgende teorem gir en presis sammenheng mellom inverterbarhet,
+determinant, lineær uavhengighet og mengden utspent av kolonnene.
+
+\begin{thm}
+\label{thm:karakterisering-inverterbar}
+La $A$ være en $n \times n$-matrise.  Følgende påstander er
+ekvivalente:
+\begin{enumerate}
+\item $A$ er inverterbar.
+\item $\det A \ne 0$.
+\item Kolonnene i~$A$ er lineært uavhengige.
+\item Kolonnene i~$A$ utspenner~$\R^n$.
+\end{enumerate}
+\end{thm}
+
+
+\kapittelslutt
+

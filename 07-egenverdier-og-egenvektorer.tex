@@ -1,0 +1,972 @@
+\input{kapittel}
+
+\kapittel{7}{Egenverdier og egenvektorer}
+\label{ch:egenverdier-og-egenvektorer}
+
+Det er ofte hensiktsmessig å tenke på en matrise ikke bare som en
+tabell med tall, men som en transformasjon av vektorer.  Hvis $A$ er
+en $m \times n$-matrise, så gir $A$ en transformasjon
+\[
+\V{v} \mapsto A \V{v}
+\]
+fra $\R^n$ til~$\R^m$.  Vi kan anvende $A$ på en vektor~$\V{v}$
+i~$\R^n$, og den vektoren transformeres til en vektor~$A \V{v}$
+i~$\R^m$.
+
+Hvis $A$ er en $n \times n$-matrise, altså en kvadratisk matrise, så
+sender den vektorer i~$\R^n$ til andre vektorer som også er i~$\R^n$.
+Generelt kan vektoren $A \V{v}$ være veldig forskjellig fra~$\V{v}$,
+men noen ganger er den ikke det.  Hvis virkningen av~$A$ på~$\V{v}$ er
+det samme som å bare gange opp $\V{v}$ med et tall, så kalles $\V{v}$
+en \emph{egenvektor} for~$A$, og tallet kalles en \emph{egenverdi}.
+
+I dette kapitlet skal vi se hvordan vi kan finne alle egenverdiene og
+egenvektorene til en matrise, og vi skal se noen interessante
+egenskaper de har.
+
+
+\section*{Definisjon av egenverdier og egenvektorer}
+
+Vi starter med et enkelt eksempel, slik at vi har et konkret tilfelle
+vi kan ha i tankene når vi kommer til definisjonen.
+
+\begin{ex}
+\label{ex:egenverdier-intro}
+La $A$ være følgende $2 \times 2$-matrise:
+\[
+A = \begin{bmatrix}
+1 &  3 \\
+4 & -3
+\end{bmatrix}
+\]
+Vi vil se på hva som skjer med punkter i planet når vi ganger dem
+med~$A$, altså når vi sender en vektor~$\V{x}$ til vektoren $A \V{x}$.
+
+Vi velger følgende fire vektorer og ser hva $A$ gjør med dem:
+\[
+\V{e}_1 = \vv{1}{0},\quad
+\V{e}_2 = \vv{0}{1},\quad
+\V{u} = \vv{-1}{-2},\quad
+\V{v} = \vv{3}{2}
+\]
+Vi får:
+\[
+A \V{e}_1 = \vv{1}{4},\ 
+A \V{e}_2 = \vv{3}{-3},\ 
+A \V{u} = \vv{-7}{2},\ 
+A \V{v} = \vv{9}{6}
+\]
+La oss tegne opp de fire vektorene, samt vektorene $A$ sender dem til,
+som punkter i planet.
+\begin{center}
+\begin{tikzpicture}[scale=.42]
+\draw[->] (-7.5,0) -- (9.8,0);
+\draw[->] (0,-3.5) -- (0,6.8);
+\foreach \x in {-7,-6,-5,-4,-3,-2,-1,1,2,3,4,5,6,7,8,9}
+\draw (\x,5pt) -- (\x,-5pt);
+\foreach \y in {-3,-2,-1,1,2,3,4,5,6}
+\draw (5pt,\y) -- (-5pt,\y);
+\filldraw (1,0) circle [radius=3pt] node[anchor=north] {$\V{e}_1$};
+\filldraw (0,1) circle [radius=3pt] node[anchor=east] {$\V{e}_2$};
+\filldraw (-1,-2) circle [radius=3pt] node[anchor=east] {$\V{u}$};
+\filldraw (3,2) circle [radius=3pt] node[anchor=east] {$\V{v}$};
+\filldraw (1,4) circle [radius=3pt] node[anchor=south] {$A \V{e}_1$};
+\filldraw (3,-3) circle [radius=3pt] node[anchor=north] {$A \V{e}_2$};
+\filldraw (-7,2) circle [radius=3pt] node[anchor=east] {$A \V{u}$};
+\filldraw (9,6) circle [radius=3pt] node[anchor=north] {$A \V{v}$};
+\draw[->,shorten <=4pt,shorten >=4pt] (1,0) to[bend right=20] (1,4);
+\draw[->,shorten <=4pt,shorten >=4pt] (0,1) to[bend right=30] (3,-3);
+\draw[->,shorten <=4pt,shorten >=4pt] (-1,-2) to[bend right=20] (-7,2);
+\draw[->,shorten <=4pt,shorten >=4pt] (3,2) to[bend left=20] (9,6);
+\end{tikzpicture}
+\\
+{\small \textit{Matrisen~$A$ kaster vektorene rundt i planet}}
+\end{center}
+Vi ser at matrisen sender de fire eksempelvektorene våre i
+forskjellige retninger.  Men akkurat vektoren
+\[
+\V{v} = \vv{3}{2}
+\]
+er interessant.  Det som skjer med den er at den blir sendt til
+\[
+\vv{9}{6},
+\]
+men det er jo det samme som $3 \cdot \V{v}$.  Virkningen av
+matrisen~$A$ på akkurat denne vektoren er altså bare å skalere den opp
+med~$3$:
+\[
+A \V{v} = 3 \V{v}\qedhere
+\]
+\end{ex}
+
+Teorien om egenverdier og egenvektorer handler om å identifisere slike
+situasjoner som den vi så i eksempelet, der virkningen av en matrise
+på en vektor blir det samme som å bare gange opp vektoren med et tall.
+
+\begin{defn}
+La $A$ være en $n \times n$-matrise, $\lambda$ et tall og $\V{v}$ en
+vektor i~$\R^n$ som ikke er nullvektoren.  Hvis
+\[
+A \V{v} = \lambda \V{v},
+\]
+så sier vi at tallet~$\lambda$ er en \defterm{egenverdi} for
+matrisen~$A$, og at vektoren~$\V{v}$ er en \defterm{egenvektor}
+for~$A$ som hører til egenverdien~$\lambda$.
+\end{defn}
+
+Et par merknader -- én matematisk og én språklig -- er på sin plass
+etter denne definisjonen.
+
+\begin{merk}
+Hvorfor sier vi at $\V{v}$ ikke skal være nullvektoren?  Jo, for hvis
+vi setter inn nullvektoren for~$\V{v}$, så får vi likningen
+\[
+A \cdot \V{0} = \lambda \cdot \V{0},
+\]
+som er oppfylt for alle matriser~$A$ og alle tall~$\lambda$.  Hvis vi
+hadde tillatt nullvektoren som en egenvektor, så ville vi altså fått
+at alle tall er egenverdier for alle matriser.  Da blir
+egenverdibegrepet ganske meningsløst.
+\end{merk}
+
+\begin{merk}
+Det er vanlig å bruke den greske bokstaven~$\lambda$ som variabelnavn
+for egenverdier.  Vi kunne i og for seg brukt en hvilken som helst
+annen bokstav, men siden det er $\lambda$ folk vanligvis bruker, så
+gjør vi det.  Navnet på bokstaven uttales «lambda», og den tilsvarer
+bokstaven \emph{l} i det latinske alfabetet.
+Hvis vi for eksempel
+skriver navnet på filosofen Platon på hans eget språk, så er $\lambda$
+den andre bokstaven: \textPi\textlambda\textalpha\texttau\textomega\textnu.
+\end{merk}
+
+\begin{ex}
+Vi ser igjen på matrisen~$A$ fra eksempel~\ref{ex:egenverdier-intro}.
+Vi så at vektoren
+\[
+\V{v} = \vv{3}{2}
+\]
+oppfylte likheten
+\[
+A \V{v} = 3 \V{v}.
+\]
+Det betyr at $3$ er en egenverdi for matrisen~$A$, og at $\V{v}$ er en
+egenvektor som hører til egenverdien~$3$.
+
+Finnes det flere egenvektorer?  Hvis vi ser på en vektor som er
+parallell med~$\V{v}$, altså som er på formen $\V{w} = c \cdot \V{v}$
+der $c$ er et tall, så får vi:
+\[
+A \V{w}
+= A \cdot (c \V{v})
+= c \cdot (A \V{v})
+= c \cdot (3 \V{v})
+%= 3 \cdot (c \V{v})
+= 3 \cdot \V{w}
+\]
+Enhver slik vektor er altså en egenvektor som hører til
+egenverdien~$3$, forutsatt at den ikke er nullvektoren.
+
+Vi har altså funnet ut at~$A$ i hvert fall har én egenverdi,
+nemlig~$3$, og uendelig mange egenvektorer som hører til denne
+egenverdien, nemlig alle vektorene på denne linjen (unntatt
+nullvektoren):
+\begin{center}
+\begin{tikzpicture}[scale=.42]
+\draw[->] (-6.5,0) -- (6.8,0);
+\draw[->] (0,-4.5) -- (0,4.8);
+\foreach \x in {-6,-5,-4,-3,-2,-1,1,2,3,4,5,6}
+\draw (\x,5pt) -- (\x,-5pt);
+\foreach \y in {-4,-3,-2,-1,1,2,3,4}
+\draw (5pt,\y) -- (-5pt,\y);
+\draw (-6,-4) -- (6,4);
+\end{tikzpicture}
+\end{center}
+
+Det vi foreløpig ikke vet, er om det kan finnes enda flere
+egenvektorer, og om $A$ har flere egenverdier enn~$3$.  Vi skal vende
+tilbake til dette eksempelet om en stund og finne ut av dette, etter
+at vi har kommet frem til en generell metode for å finne alle
+egenverdiene og egenvektorene til en matrise.
+\end{ex}
+
+I eksempelet så vi at vi ut fra én egenvektor kunne finne uendelig
+mange egenvektorer som hørte til den samme egenverdien.  Vi formulerer
+dette generelt som et teorem.  (Beviset får du enkelt ved å
+generalisere det vi gjorde i eksempelet.)
+
+\begin{thm}
+\label{thm:egenvektor-sp}
+Anta at $\lambda$ er en egenverdi for en $n \times n$-matrise~$A$, og
+at $\V{v}$ er en tilhørende egenvektor.  Da er alle multipler
+$c \V{v}$ av vektoren~$\V{v}$, der $c$ er et tall som ikke er~$0$,
+også egenvektorer som hører til egenverdien~$\lambda$.  Med andre ord
+er alle vektorer i mengden $\Sp \{\V{v}\}$, unntatt nullvektoren,
+egenvektorer som hører til egenverdien~$\lambda$.
+\end{thm}
+% TODO bevis?
+
+En annen ting som vi enkelt kan se ut fra definisjonen av egenverdier
+og egenvektorer, er hva som skal til for at en matrise skal ha~$0$ som
+egenverdi.  Hvis vi setter inn $0$ for~$\lambda$ i likheten
+\[
+A \V{v} = \lambda \V{v},
+\]
+så får vi $A \V{v} = \V{0}$.  Det vil si at en matrise $A$ har $0$ som
+egenverdi hvis og bare hvis likningen
+\[
+A \V{x} = \V{0}
+\]
+har ikketrivielle løsninger, og dette er igjen sant hvis og bare hvis
+$A$ ikke er inverterbar.  Vi formulerer dette også som et teorem.
+
+\begin{thm}
+\label{thm:egenverdi-0}
+En $n \times n$-matrise~$A$ har $0$ som egenverdi hvis og bare hvis
+den ikke er inverterbar.
+\end{thm}
+
+
+\section*{Noen geometriske eksempler}
+
+Før vi utleder den generelle fremgangsmåten for å regne ut egenverdier
+og egenvektorer, tar vi noen enkle eksempler der vi kan se geometrisk
+hva egenverdiene og egenvektorene må være.
+
+\begin{ex}
+\label{ex:ingen-egenverdier}
+La $A$ være matrisen
+\[
+A =
+\begin{bmatrix}
+0 & 1 \\
+1 & 0
+\end{bmatrix}
+\]
+Da er
+\[
+A \vv{v_1}{v_2} = \vv{v_2}{v_1}
+\]
+for enhver vektor $(v_1, v_2)$ i~$\R^2$.  Virkningen av~$A$ er altså
+en refleksjon om diagonallinjen som går gjennom origo og punktet
+$(1,1)$.
+\begin{center}
+\begin{tikzpicture}[scale=.25]
+\draw[->] (-6,0) -- (10,0);
+\draw[->] (0,-5) -- (0,8);
+\draw (-5,-5) -- (8,8);
+\filldraw (7,2) circle [radius=3pt];
+\filldraw (2,7) circle [radius=3pt];
+\draw[<->,shorten <=4pt,shorten >=4pt] (7,2) to[bend right=20] (2,7);
+\end{tikzpicture}
+\\
+{\small \textit{Matrisen~$A$ reflekterer vektorene om diagonalen}}
+\end{center}
+Vi ser lett at alle punkter på denne diagonalen sendes til seg selv,
+så disse oppfyller likheten
+\[
+A \V{v} = \V{v},
+\]
+og er altså egenvektorer tilhørende egenverdien~$1$.  Når vi tenker
+oss litt mer om, finner vi dessuten ut at alle punkter på den omvendte
+diagonalen reflekteres gjennom origo slik at de oppfyller likheten
+\[
+A \V{v} = - \V{v}
+\]
+og er egenvektorer tilhørende egenverdien~$-1$.  Da har vi funnet at
+alle vektorene på disse to diagonallinjene (unntatt nullvektoren,
+selvsagt) er egenvektorer:
+\begin{center}
+\begin{tikzpicture}[scale=.25]
+\draw[->] (-6,0) -- (6,0);
+\draw[->] (0,-6) -- (0,6);
+\draw (-6,-6) -- (6,6);
+\draw (-6,6) -- (6,-6);
+\end{tikzpicture}
+\\
+{\small \textit{Egenvektorene er på diagonalene}}
+\end{center}
+Men for alle andre vektorer~$\V{v}$ i planet gjør refleksjonen av
+$A \V{v}$ peker i en annen retning enn~$\V{v}$, så det finnes ikke
+flere egenvektorer.
+\end{ex}
+
+\begin{ex}
+La $A$ være matrisen
+\[
+A =
+\begin{bmatrix}
+0 & -1 \\
+1 &  0
+\end{bmatrix}
+\]
+Da er
+\[
+A \vv{v_1}{v_2} = \vv{-v_2}{v_1}
+\]
+for enhver vektor $(v_1, v_2)$ i~$\R^2$.  Virkningen av~$A$ er altså
+å rotere planet med~$90^{\circ}$.
+\begin{center}
+\begin{tikzpicture}[scale=.3]
+\draw[->] (-6,0) -- (10,0);
+\draw[->] (0,-2) -- (0,8);
+\filldraw (5.3,2.7) circle [radius=3pt];
+\filldraw (-2.7,5.3) circle [radius=3pt];
+\centerarc[->](0,0)(30:115:6);
+\end{tikzpicture}
+\\
+{\small \textit{Matrisen~$A$ roterer planet}}
+\end{center}
+Dermed kan ikke $A$ ha noen egenvektorer, siden enhver vektor (utenom
+nullvektoren) sendes til en som peker i en annen retning.
+\end{ex}
+
+
+
+\section*{Hvordan finne egenverdier/-vektorer}
+
+Gitt en $n \times n$-matrise~$A$, hvordan kan vi finne alle
+egenverdiene og egenvektorene dens?
+
+Ut fra definisjonen er vi på jakt etter tall~$\lambda$ og
+vektorer~$\V{v} \ne \V{0}$ som oppfyller likheten
+\[
+A \V{v} = \lambda \V{v}.
+\]
+Vi har altså en likning med både $\lambda$ og~$\V{v}$ som ukjente, og
+den ser ved første øyekast ganske uhåndterlig ut.  Men vi kan trikse
+litt med den.  Vi kan først flytte alt over til venstre side:
+\[
+A \V{v} - \lambda \V{v} = \V{0}
+\]
+Nå fremstår det som veldig fristende å sette $\V{v}$-en utenfor
+parentes, altså å skrive $(A - \lambda) \V{v}$.  Men det går ikke an,
+for uttrykket $A - \lambda$, altså en matrise minus et tall, gir ikke
+mening.
+
+Nå kan vi bruke et lurt triks: Vi ganger inn identitetsmatrisen $I_n$.
+Vi vet at $I_n \V{v}$ bare blir $\V{v}$ uansett hva vektoren~$\V{v}$
+er, så vi kan skrive om likningen til:
+\[
+A \V{v} - \lambda I_n \V{v} = \V{0}
+\]
+Det vi har oppnådd nå er at vi har en $n \times n$-matrise ganget
+med~$\V{v}$ i hvert ledd, og da kan vi sette $\V{v}$ utenfor parentes:
+\[
+(A - \lambda I_n) \cdot \V{v} = \V{0}
+\]
+Nå ser vi at $\lambda$ er en egenverdi for~$A$ hvis og bare hvis
+likningen
+\[
+(A - \lambda I_n) \cdot \V{x} = \V{0}
+\]
+har en ikketriviell løsning.  Men dette er bare et vanlig lineært
+likningssystem med
+\[
+A - \lambda I_n
+\]
+som koeffisientmatrise, og vi vet fra før %TODO ref?
+at et slikt system har ikketrivielle løsninger hvis og bare hvis
+\[
+\det (A - \lambda I_n) = 0.
+\]
+Her har vi endt opp med en likning med bare~$\lambda$ som ukjent.  Vi
+kan altså løse denne for å finne egenverdiene, uten at vi samtidig må
+tenke på hva de tilhørende egenvektorene skal være.
+
+Vi oppsummerer det vi har funnet ut i et teorem.
+
+\begin{thm}
+\label{thm:finne-egenverdier}
+La $A$ være en $n \times n$-matrise.
+\begin{enumerate}
+\item[(a)] Egenverdiene til~$A$ er alle løsninger~$\lambda$ av
+likningen
+\[
+\det (A - \lambda I_n) = 0.
+\]
+\item[(b)] Hvis $\lambda$ er en egenverdi for~$A$, så er de tilhørende
+egenvektorene gitt ved alle ikketrivielle løsninger av likningen
+\[
+(A - \lambda I_n) \cdot \V{x} = \V{0}.
+\]
+\end{enumerate}
+\end{thm}
+
+Uttrykket
+\[
+\det (A - \lambda I_n),
+\]
+som står på venstresiden av likningen vi løser for å finne
+egenverdiene, blir et $n$-tegradspolynom i~$\lambda$.  Vi kaller det
+for det \defterm{karakteristiske polynomet} til~$A$.
+
+\begin{ex}
+\label{ex:finne-egenverdier}
+Nå kan vi bruke teorem~\ref{thm:finne-egenverdier} til å finne alle
+egenverdiene og egenvektorene til matrisen
+\[
+A = \begin{bmatrix}
+1 &  3 \\
+4 & -3
+\end{bmatrix}
+\]
+fra eksempel~\ref{ex:egenverdier-intro}.
+
+Vi finner egenverdiene ved å løse likningen
+\[
+\det (A - \lambda I_2) = 0,
+\]
+der venstresiden er det karakteristiske polynomet til~$A$.  La oss
+først se hvordan matrisen $A - \lambda I_2$ ser ut:
+\[
+A - \lambda I_2
+=
+\begin{bmatrix}
+1 &  3 \\
+4 & -3
+\end{bmatrix}
+-
+\begin{bmatrix}
+\lambda &       0 \\
+      0 & \lambda
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 - \lambda &  3           \\
+4           & -3 - \lambda
+\end{bmatrix}
+\]
+Det karakteristiske polynomet blir:
+\begin{align*}
+\det (A - \lambda I_2)
+&=
+\begin{vmatrix}
+1 - \lambda &  3           \\
+4           & -3 - \lambda
+\end{vmatrix}
+\\
+&= (1 - \lambda)(-3 - \lambda) - 3 \cdot 4 \\
+&= \lambda^2 + 2\lambda - 15
+\end{align*}
+Det betyr at vi kan løse andregradslikningen
+\[
+\lambda^2 + 2\lambda - 15 = 0
+\]
+for å finne egenverdiene.  Vi løser den på vanlig måte og får:
+\[
+\lambda
+ = \frac{-2 \pm \sqrt{2^2 - 4 \cdot (-15)}}{2}
+ = -1 \pm 4
+\]
+Vi får altså to egenverdier: $3$ og~$-5$.
+
+Vi finner alle egenvektorer som hører til egenverdien~$3$ ved å løse
+likningen $(A - 3I_2) \V{x} = \V{0}$.  Vi kan løse denne likningen ved
+å gausseliminere matrisen $(A - 3I_2)$:
+\[
+\begin{bmatrix}
+-2 &  3 \\
+ 4 & -6
+\end{bmatrix}
+\roweq
+\begin{bmatrix}
+-2 & 3 \\
+ 0 & 0
+\end{bmatrix}
+\]
+Vi får én fri variabel, og løsningene blir
+\[
+\V{x} = \vv{3}{2} \cdot t
+\]
+for alle tall~$t$.  Egenvektorene som hører til egenverdien~$3$ er
+altså alle vektorer i
+\[
+\Sp \left\{ \vv{3}{2} \right\},
+\]
+unntatt nullvektoren.
+
+Vi finner alle egenvektorer som hører til egenverdien~$-5$ ved å løse
+likningen $(A + 5I_2) \V{x} = \V{0}$.  Vi kan løse denne likningen ved
+å gausseliminere matrisen $(A + 5I_2)$:
+\[
+\begin{bmatrix}
+6 & 3 \\
+4 & 2
+\end{bmatrix}
+\roweq
+\begin{bmatrix}
+2 & 1 \\
+0 & 0
+\end{bmatrix}
+\]
+Vi får én fri variabel, og løsningene blir
+\[
+\V{x} = \vv{1}{-2} \cdot t
+\]
+for alle tall~$t$.  Egenvektorene som hører til egenverdien~$-5$ er
+altså alle vektorer i
+\[
+\Sp \left\{ \vv{1}{-2} \right\},
+\]
+unntatt nullvektoren.
+\end{ex}
+
+
+\section*{Egenrom}
+
+Vi har sett at egenverdiene til en matrise er noen enkeltverdier, mens
+egenvektorene er uendelig mange (dersom matrisen har egenverdier og
+egenvektorer).  I eksempel~\ref{ex:finne-egenverdier} beskrev vi
+egenvektorene tilhørende en gitt egenvektor ved å si «alle vektorer i
+(\ldots) unntatt nullvektoren».  Vi innfører nå et nytt begrep som
+gjør det litt enklere å beskrive alle egenvektorene til en egenverdi.
+
+\begin{defn}
+La $A$ være en $n \times n$-matrise, og anta at $\lambda$ er en
+egenverdi for~$A$.  Da er \defterm{egenrommet} til~$\lambda$ mengden
+av alle egenvektorer som hører til~$\lambda$, samt nullvektoren; altså
+mengden
+\[
+\{\, \V{v} \in \R^n \mid A \V{v} = \lambda \V{v} \,\}.\qedhere
+\]
+\end{defn}
+
+% \begin{merk}
+% TODO merknad om notasjonen \{ \mid \}
+% \end{merk}
+
+\begin{ex}
+I eksempel~\ref{ex:finne-egenverdier} kunne vi sagt at egenrommet til
+egenvektoren~$3$ er
+\[
+\Sp \left\{ \vv{3}{2} \right\},
+\]
+og at egenrommet til egenvektoren~$-5$ er
+\[
+\Sp \left\{ \vv{1}{-2} \right\}.
+\]
+Hvert av disse to egenrommene er en linje i planet:
+\begin{center}
+\begin{tikzpicture}[scale=.42]
+\draw[->] (-6.5,0) -- (6.8,0);
+\draw[->] (0,-4.5) -- (0,4.8);
+\foreach \x in {-6,-5,-4,-3,-2,-1,1,2,3,4,5,6}
+\draw (\x,5pt) -- (\x,-5pt);
+\foreach \y in {-4,-3,-2,-1,1,2,3,4}
+\draw (5pt,\y) -- (-5pt,\y);
+\draw (-6,-4) -- (6,4);
+\draw (-2,4) -- (2,-4);
+\node[anchor=west] at (4,2.5) {\footnotesize egenrommet til~$3$};
+\node[anchor=west] at (1.5,-3) {\footnotesize egenrommet til~$-5$};
+\end{tikzpicture}
+\end{center}
+\vspace{-20pt}
+\end{ex}
+
+La oss nå ta et litt større eksempel.
+
+\begin{ex}
+Vi finner egenverdiene til matrisen
+\[
+A =
+\begin{bmatrix}
+ -8 & 0 &  6 \\
+ 12 & 4 & -6 \\
+-20 & 0 & 14
+\end{bmatrix},
+\]
+og de tilhørende egenrommene.
+
+Det karakteristiske polynomet til~$A$ er:
+\begin{align*}
+\det (A - \lambda I_3)
+&=
+\begin{vmatrix}
+ -8 - \lambda & 0           &  6           \\
+ 12           & 4 - \lambda & -6           \\
+-20           & 0           & 14 - \lambda
+\end{vmatrix}
+\\
+&= (4 - \lambda) \cdot
+\begin{vmatrix}
+ -8 - \lambda &  6           \\
+-20           & 14 - \lambda
+\end{vmatrix}
+\\
+&= (4 - \lambda) \big((-8 - \lambda) (14 - \lambda) + 6 \cdot 20\big)
+\\
+&= (4 - \lambda) (\lambda^2 - 6\lambda + 8)
+\end{align*}
+Vi finner altså egenverdiene til~$A$ ved å løse tredjegradslikningen
+\[
+(4 - \lambda) (\lambda^2 - 6\lambda + 8) = 0.
+\]
+Denne likningen er ekvivalent med at
+\[
+4 - \lambda = 0
+\qquad\text{eller}\qquad
+\lambda^2 - 6\lambda + 8 = 0.
+\]
+Andregradslikningen $\lambda^2 - 6\lambda + 8 = 0$ har løsninger
+\[
+\lambda = \frac{6 \pm \sqrt{6^2 - 4 \cdot 8}}{2} = 3 \pm 1,
+\]
+så vi får to egenverdier: $2$ og~$4$.
+
+Vi finner egenrommene ved å løse likningene
+\[
+(A - 2 I_3) \V{x} = \V{0}
+\qquad\text{og}\qquad
+(A - 4 I_3) \V{x} = \V{0}.
+\]
+Vi tar ikke med all utregningen her, men du bør gjøre den selv.
+Resultatet blir at egenrommet til egenverdien~$2$ er
+\[
+\Sp \left\{ \vvv{3}{-3}{5} \right\},
+\]
+og egenrommet til egenverdien~$4$ er
+\[
+\Sp \left\{ \vvv{0}{1}{0}, \vvv{1}{0}{2} \right\}.
+\]
+Egenrommet til~$2$ er altså en linje i~$\R^3$, mens egenrommet til~$4$
+er et plan.
+\end{ex}
+
+
+\section*{Diagonalmatriser}
+
+La oss se på noen eksempler på matriser der det er veldig lett å se
+hva egenverdiene er.
+
+\begin{ex}
+Har identitetsmatrisen~$I_n$ noen egenverdier?  Vi vet at
+\[
+I_n \cdot \V{v} = 1 \cdot \V{v}
+\]
+for alle vektorer~$\V{v}$ i~$\R^n$.  Dermed ser vi at $I_n$ har
+tallet~$1$ som egenverdi, med hele~$\R^n$ som det tilhørende
+egenrommet.
+\end{ex}
+
+\begin{ex}
+La $A$ være følgende $2 \times 2$-matrise:
+\[
+A =
+\begin{bmatrix}
+9 & 0 \\
+0 & 9
+\end{bmatrix}
+\]
+Da har vi at
+\[
+A \V{v} = 9 \V{v}
+\]
+for alle $\V{v}$ i~$\R^2$.  Det betyr at $9$ er en egenverdi for~$A$,
+og det tilhørende egenrommet er hele~$\R^2$.
+\end{ex}
+
+\begin{ex}
+La $A$ være følgende $3 \times 3$-matrise:
+\[
+A =
+\begin{bmatrix}
+7 &  0 & 0 \\
+0 & -3 & 0 \\
+0 &  0 & 1
+\end{bmatrix}
+\]
+Da har vi at
+\[
+A \cdot \vvv{v_1}{v_2}{v_3} = \vvv{7v_1}{-3v_2}{1v_3}
+\]
+for en vektor $(v_1,v_2,v_3)$ i~$\R^3$.  Da ser vi lett at de tre
+enhetsvektorene
+\[
+\vvv{1}{0}{0},\quad
+\vvv{0}{1}{0}\quad\text{og}\quad
+\vvv{0}{0}{1}
+\]
+er egenvektorer, med $7$, $-3$ og~$1$ som tilhørende egenverdier.  Det
+er også lett å se at hvis vi har en vektor $(v_1,v_2,v_3)$ der minst
+to av komponentene $v_1$, $v_2$ og~$v_3$ ikke er~$0$, så kan den ikke
+være en egenvektor, siden komponentene ganges opp med ulike tall når
+vi ganger vektoren med~$A$.
+
+Vi ser altså at matrisen har egenverdiene $7$, $-3$ og~$1$, med
+\[
+\Sp \left\{ \vvv{1}{0}{0} \right\},\quad
+\Sp \left\{ \vvv{0}{1}{0} \right\}\quad\text{og}\quad
+\Sp \left\{ \vvv{0}{0}{1} \right\}
+\]
+som tilhørende egenrom.
+\end{ex}
+
+I alle disse tre eksemplene hadde vi matriser der de eneste tallene
+som ikke er~$0$ er på diagonalen.  Vi gir et navn til slike matriser.
+
+\begin{defn}
+En \defterm{diagonalmatrise} er en kvadratisk matrise der alle tall
+utenfor diagonalen er~$0$, altså en matrise på følgende form:
+\[
+\begin{bmatrix}
+a_{11} & 0      & 0      & \cdots & 0      \\
+0      & a_{22} & 0      & \cdots & 0      \\
+0      & 0      & a_{33} & \cdots & 0      \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+0      & 0      & 0      & \vdots & a_{nn}
+\end{bmatrix}
+\vspace{-17pt}
+\]
+\end{defn}
+
+På samme måte som i eksemplene over kan vi lett finne egenverdiene til
+enhver diagonalmatrise.
+
+\begin{thm}
+Egenverdiene til en diagonalmatrise er tallene på diagonalen.
+\end{thm}
+
+
+\section*{Lineær uavhengighet av egenvektorer}
+
+Vi skal nå ta en ganske omfattende diskusjon om hvorvidt egenvektorer
+er lineært uavhengige av hverandre, og hva vi kan si om vektorer som
+ligger i mengden utspent av noen gitte egenvektorer.
+
+Hele diskusjonen kommer til å bli konkludert med et fint og flott
+teorem (teorem~\ref{thm:egenvektorer-lin-uavh}), men la oss ikke se på
+konklusjonen helt med en gang.  For å prøve å forstå hvordan man kunne
+kommet frem til det teoremet på egen hånd, skal vi bygge oss opp mot
+det i små steg.  Vi begynner med å se på én egenvektor, og deretter to
+egenvektorer som hører til forskjellige egenverdier.  Vi ser hva vi
+kan si om disse, og etter hvert kommer vi til å nærme oss et generelt
+resultat.
+
+Gjennom alt det vi skal gjøre nå lar vi $A$ være en
+$n \times n$-matrise.
+
+Vi vet fra før (teorem~\ref{thm:egenvektor-sp}) at hvis vi har en
+egenvektor~$\V{v}$ som hører til en egenverdi~$\lambda$, så er enhver
+vektor i $\Sp \{ \V{v} \}$, utenom nullvektoren, også en egenvektor
+som hører til~$\lambda$.  Vi har altså:
+
+\smallskip
+\noindent\emph{Hvis $\V{w}$ er en skalar ganger en egenvektor~$\V{v}$,
+ og ikke er lik nullvektoren,
+ så er $\V{w}$ en egenvektor tilhørende samme egenverdi som~$\V{v}$.}
+\smallskip
+
+Dette enkle og greie resultatet skal vi utnytte når vi nå går videre
+til å se på flere egenvektorer som hører til forskjellige egenverdier.
+
+\smallskip
+La oss se på hva vi kan si hvis vi har to egenvektorer
+\[
+\V{v}_1\ \text{og}\ \V{v}_2
+\]
+som hører til to forskjellige egenverdier
+\[
+\lambda_1\ \text{og}\ \lambda_2.
+\]
+Vi vet at alle vektorer i $\Sp \{ \V{v}_1 \}$ er egenvektorer som
+hører til egenverdien~$\lambda_1$.  Dermed er det klart at $\V{v}_2$
+ikke kan være i $\Sp \{ \V{v}_1 \}$, siden $\V{v}_2$ hører til
+egenverdien~$\lambda_2$.  På samme måte ser vi at $\V{v}_1$ ikke kan
+være i $\Sp \{ \V{v}_2 \}$.  Dermed ser vi (ved å bruke
+teorem~\ref{thm:lin-uavh-2}, eller ved å tenke selv) at vektorene
+$\V{v}_1$ og~$\V{v}_2$ er lineært uavhengige.  Vi har altså vist:
+
+\smallskip
+\noindent\emph{To egenvektorer som hører til forskjellige egenverdier
+  må være lineært uavhengige.}
+\smallskip
+
+Dette betyr at vi kan se for oss de to vektorene $\V{v}_1$
+og~$\V{v}_2$ som to piler som peker i forskjellige retninger:
+\begin{center}
+\begin{tikzpicture}[scale=.35]
+\draw[->] (0,0) -- (3,1) node[anchor=north,inner sep=7pt,pos=.9] {$\V{v}_1$};
+\draw[->] (0,0) -- (1,4) node[anchor=east,inner sep=6pt] {$\V{v}_2$};
+\end{tikzpicture}
+\\
+{\small \textit{De to egenvektorene våre}}
+\end{center}
+
+La oss nå se hva vi kan si om en vektor $\V{w}$ i
+$\Sp \{ \V{v}_1, \V{v}_2 \}$, altså i planet utspent av $\V{v}_1$
+og~$\V{v}_2$.  En slik vektor $\V{w}$ er en lineærkombinasjon av
+$\V{v}_1$ og~$\V{v}_2$, så det finnes tall $c_1$ og~$c_2$ slik at
+\[
+\V{w} = c_1 \V{v}_1 + c_2 \V{v}_2.
+\]
+For det første: Hvis $c_2 = 0$, så er $\V{w}$ bare et tall
+ganger~$\V{v}_1$, og da vet vi at den er en egenvektor som hører til
+egenverdien~$\lambda_1$.  På samme måte får vi at hvis $c_1 = 0$, så
+er $\V{w}$ en egenvektor som hører til egenverdien~$\lambda_2$.  Men
+hva kan vi si dersom både $c_1$ og~$c_2$ er forskjellige fra~$0$,
+altså dersom $\V{w}$ ikke ligger i $\Sp \{\V{v}_1\}$ eller i
+$\Sp \{\V{v}_2\}$?
+
+Vi tegner inn $\V{w}$ på tegningen vår, og får med hvordan den er en
+lineærkombinasjon av $\V{v}_1$ og~$\V{v}_2$:
+\begin{center}
+\begin{tikzpicture}[scale=.35]
+\draw[->] (0,0) -- (3,1) node[anchor=north,inner sep=7pt,pos=.9] {$\V{v}_1$};
+\draw[->] (0,0) -- (1,4) node[anchor=east,inner sep=6pt] {$\V{v}_2$};
+\draw[->] (0,0) -- (4.5,1.5) node[anchor=north,inner sep=7pt,pos=1.1] {$c_1 \V{v}_1$};
+\draw[->] (0,0) -- (2,8) node[anchor=east,inner sep=6pt] {$c_2 \V{v}_2$};
+\draw[->] (0,0) -- (6.5,9.5) node[anchor=west] {$\V{w}$};
+\draw[dashed] (2,8) -- (6.5,9.5);
+\draw[dashed] (4.5,1.5) -- (6.5,9.5);
+\end{tikzpicture}
+\\
+{\small \textit{Vektoren~$\V{w}$ er en lineærkombinasjon av $\V{v}_1$ og~$\V{v}_2$}}
+\end{center}
+Nå vil vi finne ut om $\V{w}$ er en egenvektor eller ikke, altså om
+det finnes et tall~$\lambda$ slik at $A \V{w} = \lambda \V{w}$.  Vi
+ser på uttrykket $A \V{w}$.  Siden vi vet at $\V{v}_1$ og~$\V{v}_2$ er
+egenvektorer tilhørende egenverdiene $\lambda_1$ og~$\lambda_2$, får
+vi:
+\[
+A \V{w}
+ = A c_1 \V{v}_1 + A c_2 \V{v}_2
+ = \lambda_1 c_1 \V{v}_1 + \lambda_2 c_2 \V{v}_2
+\]
+Vi tegner inn $A \V{w}$ også på tegningen vår:
+\begin{center}
+\begin{tikzpicture}[scale=.35]
+\draw[->] (0,0) -- (3,1) node[anchor=north,inner sep=7pt,pos=.9] {$\V{v}_1$};
+\draw[->] (0,0) -- (1,4) node[anchor=east,inner sep=6pt] {$\V{v}_2$};
+\draw[->] (0,0) -- (4.5,1.5) node[anchor=north,inner sep=7pt,pos=1.1] {$c_1 \V{v}_1$};
+\draw[->] (0,0) -- (2,8) node[anchor=east,inner sep=6pt] {$c_2 \V{v}_2$};
+\draw[->] (0,0) -- (6.5,9.5) node[anchor=west] {$\V{w}$};
+\draw[dashed] (2,8) -- (6.5,9.5);
+\draw[dashed] (4.5,1.5) -- (6.5,9.5);
+\draw[->] (0,0) -- (12,4) node[anchor=north,inner sep=7pt,pos=1.05] {$\lambda_1 c_1 \V{v}_1$};
+\draw[->] (0,0) -- (2.5,10) node[anchor=east,inner sep=6pt,pos=1.05] {$\lambda_2 c_2 \V{v}_2$};
+\draw[->] (0,0) -- (14.5,14) node[anchor=west,inner sep=6pt,pos=.95] {$A \V{w}$};
+\draw[dashed] (12,4) -- (14.5,14);
+\draw[dashed] (2.5,10) -- (14.5,14);
+\end{tikzpicture}
+\\
+{\small \textit{Vektoren $A \V{w}$ må peke i en annen\\
+ retning enn $\V{w}$ fordi $\lambda_1 \ne \lambda_2$}}
+\end{center}
+Denne siste figuren viser at $\V{w}$ ikke kan være en egenvektor.  Den
+eneste muligheten for å få $A \V{w}$ til å peke i samme retning
+som~$\V{w}$ er å anta at $\lambda_1 = \lambda_2$, og vi har jo antatt
+akkurat det motsatte, nemlig at $\lambda_1 \ne \lambda_2$.
+
+Denne figuren er det man bør se for seg for å forstå hva som skjer,
+men vi kan vise det samme på en mer presis og rent algebraisk måte som
+ikke avhenger av figuren.
+
+Hvis vi ganger $\V{w}$ med et tall~$\lambda$, så får vi:
+\[
+\lambda \V{w} = \lambda c_1 \V{v}_1 + \lambda c_2 \V{v}_2
+\]
+Og vi så at hvis vi ganger $A$ med~$\V{w}$, så får vi:
+\[
+A \V{w} = \lambda_1 c_1 \V{v}_1 + \lambda_2 c_2 \V{v}_2
+\]
+Hvis $\V{w}$ er en egenverdi, så finnes det en $\lambda$ slik at
+$A \V{w} = \lambda \V{w}$, og dermed:
+\[
+\lambda_1 c_1 \V{v}_1 + \lambda_2 c_2 \V{v}_2 = \lambda c_1 \V{v}_1 + \lambda c_2 \V{v}_2
+\]
+Siden $\V{v}_1$ og~$\V{v}_2$ er lineært uavhengige, betyr dette at
+\[
+\lambda_1 c_1 = \lambda c_1
+\qquad\text{og}\qquad
+\lambda_2 c_2 = \lambda c_2.
+\]
+Men vi har antatt at både $c_1$ og~$c_2$ er forskjellige fra~$0$ og at
+$\lambda_1 \ne \lambda_2$, og da er dette umulig.  Det vil si at
+$\V{w}$ ikke er en egenvektor.
+
+Nå har vi vist:
+
+\smallskip
+\noindent\emph{Hvis $\V{w}$ er en lineærkombinasjon av to egenvektorer som
+  hører til forskjellige egenverdier, så er det to muligheter: Enten
+  er $\V{w}$ lik en skalar ganger én av de to egenvektorene, eller så
+  er $\V{w}$ ikke en egenvektor.}
+\smallskip
+
+Nå går vi videre til å se på tre egenvektorer
+\[
+\V{v}_1,\ \V{v}_2\ \text{og}\ \V{v}_3
+\]
+som hører til forskjellige egenverdier
+\[
+\lambda_1,\ \lambda_2\ \text{og}\ \lambda_3.
+\]
+Da kan vi bruke det vi nettopp viste til å konkludere med at ingen av
+disse egenvektorene kan være en lineærkombinasjon av de andre to.  For
+hvis $\V{v}_3$ skulle vært i $\Sp \{ \V{v}_1, \V{v}_2 \}$, så ville vi
+fått at den enten er nullvektoren, eller en skalar ganger $\V{v}_1$
+eller $\V{v}_2$ (men da ville den hatt $\lambda_1$ eller $\lambda_2$
+som tilhørende egenverdi istedenfor~$\lambda_3$), eller så ville den
+ikke vært en egenvektor i det hele tatt.  Alle disse alternativene er
+utelukket, siden vi har antatt at $\V{v}_3$ er en egenvektor
+tilhørende egenverdien~$\lambda_3$.
+
+På samme måte får vi at $\V{v}_2$ ikke kan være i
+$\Sp \{ \V{v}_1, \V{v}_3 \}$ og at $\V{v}_1$ ikke kan være i
+$\Sp \{ \V{v}_2, \V{v}_3 \}$.
+
+Siden vi har vist at ingen av de tre vektorene er en lineærkombinasjon
+av de andre to, får vi (fra teorem~\ref{thm:lin-uavh-lin-komb}) at de
+er lineært uavhengige.  Vi har altså vist:
+
+\smallskip
+\noindent\emph{Tre egenvektorer som hører til forskjellige egenverdier
+  må være lineært uavhengige.}
+\smallskip
+
+Men vi trenger ikke å gi oss der.  Ved et helt tilsvarende argument
+som det vi hadde i tilfellet med to vektorer kan
+vi vise:
+
+\smallskip
+\noindent\emph{Hvis $\V{w}$ er en lineærkombinasjon av tre egenvektorer som
+  hører til forskjellige egenverdier, så er det to muligheter: Enten
+  er $\V{w}$ lik en skalar ganger én av de tre egenvektorene, eller så
+  er $\V{w}$ ikke en egenvektor.}
+\smallskip
+
+Hvis du fremdeles henger med, så ser du antagelig hvordan vi nå kan gå
+videre til:
+
+\smallskip
+\noindent\emph{Fire egenvektorer som hører til forskjellige egenverdier
+  må være lineært uavhengige.}
+\smallskip
+
+Herfra kan vi fortsette på akkurat samme måte, og vi får de samme
+resultatene for enhver liste av vilkårlig mange egenvektorer som hører
+til forskjellige egenverdier.  Da har vi kommet til slutten på vår
+lange diskusjon om lineær uavhengighet for egenvektorer, og vi
+oppsummerer det vi har funnet ut i et teorem.
+
+\begin{thm}
+\label{thm:egenvektorer-lin-uavh}
+La $\lambda_1$, $\lambda_2$, \ldots, $\lambda_t$ være
+forskjellige egenverdier for en matrise~$A$, og la $\V{v}_1$,
+$\V{v}_2$, \ldots, $\V{v}_t$ være egenvektorer som hører til hver av
+disse egenverdiene.  Da har vi:
+\begin{enumerate}
+\item[(a)] Vektorene $\V{v}_1$, $\V{v}_2$, \ldots, $\V{v}_t$ er lineært uavhengige.
+\item[(b)] I mengden
+\[
+\Sp \{ \V{v}_1,\ \V{v}_2,\ \cdots,\ \V{v}_t \}
+\]
+utspent av egenvektorene vi ser på finnes det ingen andre egenvektorer
+enn de som er et multippel $c \cdot \V{v}_i$ av én av vektorene i
+listen.
+\end{enumerate}
+\end{thm}
+
+
+\kapittelslutt
