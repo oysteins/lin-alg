@@ -122,23 +122,6 @@
 
 \setlength{\columnsep}{26pt}
 
-\newcommand{\Tittel}[2]{%
-\twocolumn[
-\begin{center}
-\Large
-\begin{tabularx}{\textwidth}{cXr}
-\cellcolor{black}\color{white}%
-\bf {#1} &
-#2
-\hfill &
-\footnotesize TMA4110 høsten 2018
-\\ \hline
-\end{tabularx}
-\end{center}
-]}
-
-\newcommand{\tittel}[1]{\Tittel{\arabic{notatnr}}{#1}}
-
 \newcommand{\linje}{%
 \begin{center}
 \rule{.8\linewidth}{0.4pt}
@@ -146,12 +129,6 @@
 }
 
 
-\newcommand{\kapittelemnenavn}{
-\footnotesize
-\href{https://wiki.math.ntnu.no/tma4110/2018h/}{TMA4110 høsten 2018}
-/
-\href{http://creativecommons.org/licenses/by-sa/4.0/}{CC BY-SA}
-}
 \newcommand{\chapternumber}{}
 
 \makechapterstyle{tma4110}{%
@@ -168,7 +145,7 @@
 \textbf{\chapternumber} &
 \textbf{##1}
 \hfill &
-\footnotesize\kapittelemnenavn
+\footnotesize% kan legge til tekst her hvis vi vil
 \\ \hline
 \end{tabularx}%
 }
