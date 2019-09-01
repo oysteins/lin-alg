@@ -3,24 +3,16 @@
 \kapittel{10}{Komplekse tall}
 \label{ch:komplekse-tall}
 
-
-Oppfinnelsen av nye tallsystemer henger gjerne sammen med polynomligninger. Ligningen 
+Oppfinnelsen av nye tallsystemer henger gjerne sammen med løsning av polynomligninger. Ligningen 
 \[
 2x+4=0
 \]
 har ingen positiv løsning, selv om koeffisientene er positive tall. 
-Vi må altså inn med negative tall, og skrive 
-\[
-x=-2.
-\]
 Ligningen
 \[
 2x-3=0
 \]
-har ingen heltallig løsning, selv om koeffisientente er hele tall, så nå må vi inn med rasjonale tall:
-\[
-x=\frac{3}{2}
-\]
+har ingen heltallig løsning, selv om koeffisientente er hele tall.
 Ligningen
 \[
 x^2-2=0
@@ -29,7 +21,8 @@ har ingen rasjonale løsninger, siden
 \[
 x=\sqrt{2}
 \]
-ikke kan skrives som en brøk. Dette viste vi i TMA4100, før lunsj på fredag i uke 33. 
+ikke kan skrives som en brøk. 
+
 Generelt er det slik at en polynomlikning
 \[
 a_nx^n+a_{n-1}x^{n-1}+...+a_1x+a_0=0
@@ -46,34 +39,43 @@ Vi skal ta for oss et slikt tallsystem, nemlig de \defterm{komplekse tallene}.
 
 
 \section*{Den imaginære enheten}
-Ligningen
+For å komme igang med komplekse tall, kan vi betrakte ligningen
 \[
-x^2+1=0
+x^2+1=0.
 \]
-har ingen reell løsning. 
-La oss finne opp et nytt tall. Vi kaller det $i$, den \emph{den imaginære enheten}. 
-Nå kan det være fristende å løse likningen over for $x$, definere
+På gymnaset ville du sagt at denne ligningen ikke har noen løsning, for det finnes ingen relle tall som passer i ligningen. 
+
+Derfor finner vi opp et nytt tall. Vi kaller det $i$, den \emph{den imaginære enheten}. 
+Nå kan det være fristende å 'løse' likningen over for $x$, og definere
 \[
-i=\sqrt{-1},
+i=\sqrt{-1}.
 \]
-og så skrive kvadratroten av negative tall på en pen måte:
+Med dette nye tallet kan vi skrive kvadratroten av negative tall på en pen måte:
 \begin{equation*}
 \sqrt{-4}=\sqrt{4\cdot (-1)}=\sqrt{4}\cdot \sqrt{(-1)}=2i.
 \end{equation*}
-Dette må man være litt forsiktig med, 
-for vanlige regneregler for røtter gjelder ikke for negative tall:
+Men vi må være litt forsiktige med denne strategien. 
+Regneregelen
+\[
+\sqrt{ab}=\sqrt{a}\sqrt{b}
+\]
+gjelder nemlig ikke når $a$ og $b$ er negative tall.
+Følgende klassiske eksempel er litt artig:
 \begin{align*}
 1&=(-1)\cdot(-1)\\&=\sqrt{(-1)\cdot (-1)}\\&=\sqrt{-1}\cdot \sqrt{ -1}=i^2=-1.
 \end{align*}
-Men disse suspekte beregningene gir oss allikevel en pekepinn om hva vi ønsker å oppnå. 
-En bedre løsning er å definere $i$ ved ligningen
+
+Med andre ord må vi være litt forsiktige med å sjonglere med negative tall og rottegn.
+En god strategi er å definere $i$ ved ligningen
 \[
 i^2=-1,
 \]
-og så får vi være enige om å si $2i$ istedet for $\sqrt{-4}$, 
-og skulle vi slumpe til å ta roten av negative tall, 
-må vi passe på at vi ikke gjør noe som ikke er riktig.
+for dette er egenskapen vi er ute etter. 
+Skulle vi slumpe til å ta roten av et negativt tall, 
+forter vi oss bare med å skrive det ved hjelp av den imaginære enheten, 
+slik at vi ikke blir forledet til å utføre noen ulovlige regneoperasjoner.
 
+\begin{ex}
 Løser vi likningen
 \[
 x^2+x+1=0
@@ -84,80 +86,23 @@ x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
 \]
 at
 \[
-x=\frac{-1\pm\sqrt{-3}}{2}=-\frac{1}{2}\pm\frac{\sqrt{3}}{2}i,
+x=\frac{-1\pm\sqrt{-3}}{2}=-\frac{1}{2}\pm\frac{\sqrt{3}}{2}i. \qedhere
 \]
-og dette inspirerer oss til å definere \emph{komplekse tall} som 
+\end{ex}
+
+Eksemplet over inspirerer oss til å definere \emph{komplekse tall} som 
 \[
 z=a+bi.
 \]
 Her er $a$ og $b$ reelle tall. 
 De kalles henholdsvis \emph{realdelen} og \emph{imaginærdelen} til $z$,
 og skrives gjerne $\Re z$ og $\Im z$. 
-Mengden av alle komplekse tall kalles $\C$. 
-Dersom $b=0$, er $z$ reell, og vi ser at de reelle tallene er inneholdt i de komplekse, $\R \subset \C$.
-
-
-\section*{Operasjoner på komplekse tall}
-Regneregler for komplekse tall følger regnereglene for reelle tall, 
-men du må huske at $i^2=-1$. 
-\begin{thm}
-La $z=a+bi$ og $w=c+di$ være komplekse tall. Vi har  
-\begin{align*}
-z+w&=a+c+(b+d)i \\[4pt]
-z-w&=a-c+(b-d)i \\[4pt]
-z\cdot w&=ac-bd+(bc+ad)i\\[4pt]
-\frac{z}{w}&=\frac{ac+bd+(bc-ad)i}{c^2+d^2}
-\end{align*}
-\end{thm}
-\begin{proof}
-De to første er trivielle. Vi beviser gangeregelen:
-\begin{align*}
-z\cdot w&=(a+bi)(c+di)\\
-&= ac+bci+adi+bdi^2\\ 
-&=ac-bd+(bc+ad)i
-\end{align*}
-og deleregelen:
-\begin{align*}
-\frac{z}{w}&=\frac{a+bi}{c+di}= \frac{a+bi}{c+di}\cdot \frac{c-di}{c-di}\\[4pt]
-&=\frac{ac+bd+(bc-ad)i}{c^2+d^2} \qedhere
-\end{align*}
-\end{proof}
-
-\begin{ex}
-La $z=2+3i$ og $w=4+5i$. 
-\begin{align*}
-z+w&=2+4+(3+5)i=6+8i \\[7pt]
-z-w&=2-4+(3-5)i=-2-2i \\[7pt]
-z\cdot w&=(2+3i)\cdot(4+5i)\\&=2\cdot 4+3\cdot 4i+2\cdot 5i+3\cdot 5 i^2\\&=8-15+(12+10)i=-7+22i.\\[7pt]
-\frac{z}{w}&=\frac{2+3i}{4+5i}=\frac{2+3i}{4+5i}\cdot\frac{4-5i}{4-5i}\\&=\frac{8+15+(12-10)i}{16+25}=\frac{22}{41}-\frac{2}{41}i. \qedhere
-\end{align*}
-\end{ex}
-La $z=a+bi$. I det siste eksemplet 
-ganget vi oppe og nede med \emph{$z$ konjugert}
-\[
-\overline z =a-bi.
-\]
-Merk at $z\overline z=a^2+b^2$ er et reelt tall, 
- og dette utnytter vi når vi deler komplekse tall på hverandre. 
-Her  er et par andre regneregler. 
-\begin{thm}
-La $z=a+bi$ og $w$ være komplekse tall. Noen regneregler er:
-\begin{align*}
-\overline{z+w}&=\overline{z} + \overline{w} \hspace{.8cm}
-\overline{z-w}=\overline{z} - \overline{w} \\
-\overline{z\cdot w}&=\overline{z} \cdot \overline{w} \hspace{1.25cm}
-\overline{z/ w}=\overline{z} / \overline{w} \\
-z+\overline{z}&=2a  \hspace{1.43cm}
-z-\overline{z}=2bi
-\end{align*}
-\end{thm}
-\noindent Bevisene blir gitt i øvingsopplegget.
-
-
-\section*{Det komplekse planet}
+Mengden av alle komplekse tall skrives $\C$. 
+De reelle tallene er en delmengde av de komplekse tallene,% $\R \subset \C$, 
+for dersom $b=0$, er $z$ reell. 
 
 Et komplekst tall har en viss ytre likhet med vektorer i $\R^2$. 
-Hvis komponentene til $\V x$ er $x_1$ og $x_2$ og enhetsvektorer i koordinatretningene er 
+Hvis komponentene til $\V x$ er $x_1$ og $x_2$, og enhetsvektorer i koordinatretningene er 
 \[
 \V{e}_1=\vv{1}{0} \quad \text{og} \quad \V{e}_2=\vv{0}{1}, 
 \]
@@ -165,11 +110,11 @@ skriver vi gjerne
 \[
 \V{x}=x_1 \V{e}_1+x_2 \V{e}_2.
 \]
-På lignende vis kan vi tenke at realdelen $a$ og imaginærdelen $b$ er komponenter i en vektor
-\[
-z=a+bi,
-\] 
-og avmerke $z$ i \emph{det komplekse planet}.
+På lignende vis kan vi tenke at realdelen $a$ og imaginærdelen $b$ er komponenter i en vektor,
+%\[
+%z=a+bi,
+%\] 
+og avmerke $z$ i \emph{det komplekse planet}. 
 \begin{center}
 \begin{tikzpicture}[scale=.42]
 \draw[->] (-4,0) -- (7,0);
@@ -200,14 +145,78 @@ og avmerke $z$ i \emph{det komplekse planet}.
 \end{center}
 %Nå tenker du sikkert at det er på sin plass å sjekke om vektorromsaksiomene holder for de komplekse tallene. 
 %Det er en helt riktig ting å gjøre, $\C$ er et vektorrom, 
-De vanlige geometriske operasjonene man gjør på vektorer i $\R^2$, 
-fungerer fint på komplekse tall. 
-Komplekse tall legges sammen komponentvis akkurat som vektorer i $\R^2$, 
-og bevisene for kjente og kjære sannheter, som for eksempel \emph{trekantulikheten}
+%og de vanlige geometriske operasjonene man gjør på vektorer i $\R^2$, 
+%fungerer fint på komplekse tall. 
+
+
+
+\section*{Operasjoner på komplekse tall}
+Regneregler for komplekse tall følger regnereglene for reelle tall, 
+men du må huske at $i^2=-1$. 
+\begin{tcolorbox}
+\begin{thm}
+La $z=a+bi$ og $w=c+di$ være komplekse tall. Vi har  
+\begin{align*}
+z+w&=a+c+(b+d)i \\[4pt]
+z-w&=a-c+(b-d)i \\[4pt]
+z\cdot w&=ac-bd+(bc+ad)i\\[4pt]
+\frac{z}{w}&=\frac{ac+bd+(bc-ad)i}{c^2+d^2}
+\end{align*}
+\end{thm}
+\vspace{1mm}
+\end{tcolorbox}
+\begin{proof}
+De to første er trivielle. Vi beviser gangeregelen:
+\begin{align*}
+z\cdot w&=(a+bi)(c+di)\\
+&= ac+bci+adi+bdi^2\\ 
+&=ac-bd+(bc+ad)i
+\end{align*}
+og deleregelen:
+\begin{align*}
+\frac{z}{w}&=\frac{a+bi}{c+di}= \frac{a+bi}{c+di}\cdot \frac{c-di}{c-di}\\[4pt]
+&=\frac{ac+bd+(bc-ad)i}{c^2+d^2} \qedhere
+\end{align*}
+\end{proof}
+
+Komplekse tall legges altså sammen komponentvis akkurat som vektorer i $\R^2$, 
+mens multiplikasjon og divisjon har ingen tilsvarende operasjoner i $\R^2$.
+
+
+\begin{ex}
+La $z=2+3i$ og $w=4+5i$. 
+\begin{align*}
+z+w&=2+4+(3+5)i=6+8i \\[7pt]
+z-w&=2-4+(3-5)i=-2-2i \\[7pt]
+z\cdot w&=(2+3i)\cdot(4+5i)\\&=2\cdot 4+3\cdot 4i+2\cdot 5i+3\cdot 5 i^2\\&=8-15+(12+10)i=-7+22i.\\[7pt]
+\frac{z}{w}&=\frac{2+3i}{4+5i}=\frac{2+3i}{4+5i}\cdot\frac{4-5i}{4-5i}\\&=\frac{8+15+(12-10)i}{16+25}=\frac{22}{41}-\frac{2}{41}i. \qedhere
+\end{align*}
+\end{ex}
+Når vi deler et komplekst tall på $z=a+bi$, 
+ganger vi oppe og nede med \emph{$w$ konjugert}
 \[
-|z+w|\leq |z| + |w|
+\overline z =a-bi.
 \]
-er i prinsippet helt like.
+Merk at $z\overline z=a^2+b^2$ er et reelt tall.
+Her  er et par regneregler for konjugering.
+\begin{tcolorbox}
+\begin{thm}
+La $z=a+bi$ og $w$ være komplekse tall. Noen regneregler er:
+\begin{align*}
+\overline{z+w}&=\overline{z} + \overline{w} \hspace{.8cm}
+\overline{z-w}=\overline{z} - \overline{w} \\
+\overline{z\cdot w}&=\overline{z} \cdot \overline{w} \hspace{1.25cm}
+\overline{z/ w}=\overline{z} / \overline{w} \\
+z+\overline{z}&=2a  \hspace{1.43cm}
+z-\overline{z}=2bi  \hspace{1.43cm}
+\end{align*}
+\end{thm}
+\vspace{1mm}
+\end{tcolorbox}
+\noindent Bevisene blir gitt i øvingsopplegget.
+
+
+
 
 
 \section*{Polare koordinater}
@@ -248,7 +257,7 @@ b=\Im z = r\sin \theta.
 {\small \textit{Polare koordinater}}
 \end{center}
 Formlene over gir $a$ og $b$ som funksjon av $r$ og $\theta$. 
-Litt mer trigonometri gir den andre veien
+Litt mer trigonometri gir den andre veien:
 \begin{align*}
 r&=\sqrt{a^2+b^2} \\
 \theta&= \begin{cases} \arctan \frac{b}{a} \quad &\text{for}\; a>0\\ \arctan \frac{b}{a} + \pi \quad &\text{for}\;  a<0 \\  \pi/2 \quad &\text{for}\;  a=0, \; b>0 \\ 3\pi/2 \quad &\text{for}\;  a=0, \; b<0  \end{cases}
@@ -266,23 +275,33 @@ og er $z$ imaginær blir den ihvertfall forvirret. Derav alle tilfellene.
  \[
  \theta= \arg z
  \] 
- kalles \emph{vinkelen} eller \emph{argumentet} til $z$.
+ kalles \emph{vinkelen} eller \emph{argumentet} til $z$. Følgende ulikhet, populært kalt \defterm{trekantulikheten}, er også bevist i øvingsopplegget.
+
+\begin{tcolorbox}
+\begin{thm}
+La $z$ og $w$ være komplekse tall. Da gjelder at
+\[
+|z+w|\leq |z| + |w|
+\]
+\end{thm}
+\vspace{1mm}
+\end{tcolorbox}
 
 
 \section*{Eulers formel}
-Fra envariabel kalkulus husker du kanskje de tre taylorrekkene til eksponensialfunksjonen
+Fra envariabel kalkulus husker du kanskje taylorrekkene til eksponensialfunksjonen:
 \[
 e^{x}=1+x+\frac{x^{2}}{2}+\frac{x^{3}}{3!}+\dots=\sum_{n=0}^{\infty}\frac{x^{n}}{n!}, 
 \]
-sinusfunksjonen
+sinusfunksjonen:
 \[
 \sin{x}=x-\frac{x^{3}}{3!}+\frac{x^{5}}{5!}-\dots=\sum_{n=0}^{\infty}(-1)^{n}\frac{x^{2n+1}}{(2n+1)!} 
 \]
-og cosinusfunksjonen
+og cosinusfunksjonen:
 \[
-\cos{x}=1-\frac{x^{2}}{2!}+\frac{x^{4}}{4!}-\dots=\sum_{n=0}^{\infty}(-1)^{n}\frac{x^{2n}}{(2n)!}.
+\cos{x}=1-\frac{x^{2}}{2!}+\frac{x^{4}}{4!}-\dots=\sum_{n=0}^{\infty}(-1)^{n}\frac{x^{2n}}{(2n)!}
 \]
-Dersom bruker $i$ til å skrive
+Dersom bruker den imaginære enheten $i$ til å skrive
 \[
 \cos{x}=1+\frac{(ix)^{2}}{2!}+\frac{(ix)^{4}}{4!}-\dots=\sum_{n=0}^{\infty}\frac{(ix)^{2n}}{(2n)!}
 \]
@@ -296,13 +315,14 @@ og legger disse to sammen, får vi
 \]
 Dette er kun en symbolsk manipulasjon, 
 vi vet strengt tatt ikke hva som skjer med konvergensen til en taylorrekke når du ganger den med $i$. 
-Men hvis vi definerer 
+Men beregningen inspirerer oss til å definere
 \[
-e^{ix}=\cos x + i\sin x,
+e^{ix}=\cos x + i\sin x.
 \]
-gjør vi ihvertfall ikke noe som er inkonsistent med den reelle analysen. 
 Formelen kalles \emph{Eulers formel}. 
-Vanlige regneregler for eksponensialfunksjonen er lette å utlede herfra. 
+At vi er inne på noe, kan vi få bekreftet ved å observere at 
+vanlige regneregler for eksponensialfunksjonen er lette å utlede fra denne formelen. 
+\begin{tcolorbox}
 \begin{thm}
 La
 $
@@ -313,20 +333,31 @@ Da er
 e^{i(x+y)}  = e^{ix}e^{iy}
 \]
 \end{thm}
+\vspace{1mm}
+\end{tcolorbox}
 \begin{proof}
 \begin{align*}
 e^{i(x+y)}  &= \cos (x+y) + i\sin (x+y) \\[5pt] &= \cos x \cos y - \sin x \sin y \\ &+ i (\cos x \sin y + \sin x \cos y) \\[5pt] &= 
 (\cos x+ i \sin x) \cdot (\cos y+ i \sin y) = e^{ix}e^{iy} \qedhere
 \end{align*}
 \end{proof}
-\noindent Tar vi Eulers formel for god fisk, kan vi skrive komplekse tall veldig kompakt på \emph{polar form}:
+
+Med Eulers formel kan vi skrive komplekse tall veldig kompakt på \emph{polar form}:
 \[
 z=r(\cos \theta+i\sin \theta)=re^{i\theta}.
 \]
-%Vi kan også definere
-%\[
-%e^z=e^{a+bi}=e^ae^{bi}.
-%\]
+Skrivemåten $z=a+bi$ kalles gjerne \defterm{kartesisk form}.
+Her er noen regneregler for polar form.
+\begin{tcolorbox}
+\begin{thm}
+La $z=re^{i\theta}$ og $w=se^{i\alpha}$. Da gjelder:
+\begin{align*}
+z \cdot w&=rs e^{i(\theta + \alpha)} \\[6pt]
+\frac{z}{w}&=\frac{r}{s} e^{i(\theta - \alpha)} \\
+\end{align*}
+\end{thm}
+\vspace{1mm}
+\end{tcolorbox}
 
 \begin{ex}
 Polar form er praktisk når man skal gange og dele komplekse tall. 
@@ -344,7 +375,7 @@ z\cdot w=2\sqrt{2}e^{i\frac{7\pi}{12}}
 \]
 og
 \[
-\frac{z}{w}=\frac{1}{\sqrt{2}}e^{-i\frac{\pi}{12}}. \qedhere
+\frac{z}{w}=\frac{1}{\sqrt{2}}e^{i\frac{-\pi}{12}}. \qedhere
 \]
 \end{ex}
 
@@ -360,23 +391,26 @@ Dersom $z=re^{i\theta}$ gir Eulers formel $\overline z=re^{-i\theta}$.
 Hvis du plukker opp en tilfeldig bok i algebra eller kompleks analyse, 
 er det bevist følgende teorem et eller annet sted. 
 Teoremet heter algebraens fundamentalteorem.
+\begin{tcolorbox}
 \begin{thm}
 Et polynom
 \[
-z^n+a_{n-1}z^{n-1}+...+a_1z+a_0
+a_nz^n+a_{n-1}z^{n-1}+...+a_1z+a_0
 \]
 kan alltid faktoriseres
 \[
-z^n+a_{n-1}z^{n-1}+...+a_1z+a_0= \prod_{i=1}^n (z-z_i),
+a_nz^n+a_{n-1}z^{n-1}+...+a_1z+a_0=a_n \prod_{i=1}^n (z-z_i),
 \]
-der $z_i$ er løsninger av likningen
+der $z_i \in \C$ er løsninger av likningen
 \[
-z^n+a_{n-1}z^{n-1}+...+a_1z+a_0=0
+a_nz^n+a_{n-1}z^{n-1}+...+a_1z+a_0=0
 \]
-Dersom en faktor $(z-z_k)$  forekommer $m$ ganger i faktoriseringen, 
-sier vi at $z_k$ har multiplisitet $m$.
 \end{thm}
+\vspace{1mm}
+\end{tcolorbox}
 
+Dersom en faktor $(z-z_k)$  forekommer $m$ ganger i faktoriseringen, 
+sier vi at $z_k$ har \defterm{multiplisitet} $m$.
 \begin{ex}
 Polynomet 
 \[
@@ -450,11 +484,11 @@ Siden
 \]
 får vi 
 \[
-(-1)^{1/5}=e^{i(\pi/5+2m\pi/5)},
+(-1)^{1/5}=e^{i(\pi/5+2m\pi/5)}.
 \]
-og for $0\leq m\leq 4$ spyttes ut
+Vi skriver opp løsningene for  $0\leq m\leq 4$:
 \[
-e^{i\pi/5} (=\sqrt[5]{-1}),\; e^{i3\pi/5},\; e^{i5\pi/5}(=-1),\; e^{i7\pi/5}\; \text{og}\; e^{i9\pi/5}.
+e^{i\pi/5} (=\sqrt[5]{-1}),\; e^{i3\pi/5},\; e^{i5\pi/5}(=-1),\; e^{i7\pi/5}\; \text{og}\; e^{i9\pi/5}
 \]
 \begin{center}
 \begin{tikzpicture}[scale=.42]
@@ -494,136 +528,22 @@ e^{i\pi/5} (=\sqrt[5]{-1}),\; e^{i3\pi/5},\; e^{i5\pi/5}(=-1),\; e^{i7\pi/5}\; \
 \end{center}
 Merk hvordan røttene sprer seg jevnt ut på en sirkel om origo. 
 Merk også at om vi lar $m> 4$ eller $m<0$, får vi røtter som allerede er listet opp.
-Vi kan også spinne litt videre, 
-og faktorisere:
-\begin{align*}
-z^5+1&=\\ (z- e^{i\pi/5})&(z- e^{i3\pi/5})\\ &(z+1)(z- e^{i7\pi/5})(z- e^{i9\pi/5}).
-\end{align*}
-Forresten er 
-\[
-\cos \frac{\pi}{5}=\frac{1+\sqrt{5}}{4}=\frac{\phi}{2}
-\]
-der $\phi=\frac{1+\sqrt{5}}{2}$ er det gyldne snitt.
 \end{ex}
 
-\section*{Går alt dette greit?}
-Dette har vært et litt kjapt kapittel. 
-Vi har jo ikke vist noe som helst, bare definert komplekse tall, sagt at $i$ oppfører seg som tallene vi kjenner fra før, 
-og slengt ut en masse regneregler uten å argumentere for at dette går greit, 
-eller at det i det hele tatt finnes et tallsystem der likningen
-\[
-x^2+1
-\]
-har en løsning. 
-
-Konstruksjonen av de reelle tallene $\R$ fra de rasjonale tallene $\Q$ er komplisert nok til at selv matematikkstudenter ikke blir plaget nevneverdig med det. 
-Den formelle konstruksjonen av $\C$ fra $\R$ er ikke på langt nær så komplisert, 
-men man trenger fremdeles noen konsepter som ligger noe utenfor det vi kan gjøre i dette kurset.
-En måte å gjøre dette på, er indikert på slutten introduksjonskapitlet. 
-
-De reelle tallene er et eksempel på en \emph{ordnet} kropp med addisjon og multiplikasjon. 
-Det at de er ordnet, betyr at man alltid kan avgjøre hvilket av to reelle tall som er størst, 
-og kropp betyr at de tilfredsstiller noen aksiomer som vi ikke skal gå gjennom.
-
-De komplekse tallene er et eksempel på en kropp som ikke er ordnet, 
-siden man ikke kan si om et komplekst tall er større enn et annet, 
-akkurat som vi ikke i $\R^2$ kan si at en vektor er større enn en annen. 
-Du kan si at en vektor er lengre enn en annen, men det er ikke noen ordning, 
-for to forskjellige vektorer kan være like lange. 
-To reelle tall er like store kun dersom de er identiske.
-
-\section*{Lineære ligninger med komplekse tall}
-
-Et lineært likningssystem med komplekse koeffisienter og løsning, 
-kan løses med gausseliminasjon på samme måte som i det reelle tilfellet.
-Vi tar to eksempler.
-
-\begin{ex}
-Vi løser likningssystemet
-\begin{align*}
-(1-i) z + 3w   &= 2-3i \\
-i z + (1+2i) w &= 1
-\end{align*}
-som har totalmatrise
-\[
-\begin{amatrix}{2}
-1-i & 3 & 2-3i \\ i &1+2i & 1
-\end{amatrix}.
-\]
-Vi ønsker å kvitte oss med $i$-en til venstre i den andre raden. 
-Den første raden ganget  med $\frac{i}{1-i}$ er
-\[
-\begin{amatrix}{2}
-i & \frac{3i}{1-i} & \frac{3+2i}{1-i} 
-\end{amatrix}.
-\]
-Vi trekker dette fra den andre raden og erstatter den andre raden med resultatet:
-\[
-\begin{amatrix}{2}
-1-i & 3 & 2-3i \\ 0 &1+2i -\frac{3i}{1-i} & 1-\frac{3+2i}{1-i} 
-\end{amatrix}.
-\]
-Jeg tror vi ganger den andre raden med $1-i$ for å rydde litt:
-\[
-\begin{amatrix}{2}
-1-i & 3 & 2-3i \\ 0 &3 -2i  & -2-3i
-\end{amatrix}
-\]
-Vi er nå klare for å beregne $w$ og $z$:
-\begin{align*}
-w&=\frac{-2-3i}{3-2i}=\frac{-2-3i}{3-2i}\cdot \frac{3+2i}{3+2i}=-i \\
-z&=\frac{2-3i-3(-i)}{1-i}=1+i \qedhere
-\end{align*}
-\end{ex}
-
-\begin{ex}
-Vi ser på systemet
-\begin{align*}
-	3x + y - 2z &= -1+i \\
-	  x - iy     \quad\quad\;    &= 0
-\end{align*}
-Vi bytter rekkefølge på ligningene, slik at 
-den utvidede matrisen til systemet blir:
-\[
-\left[
-\begin{array}{ccc|c}
-  1 & -i & 0 & 0 \\
-  3 & 1 & -2 & -1+i
-\end{array}
-\right]
-\]
-Vi legger til $-3$ ganger første rad til andre rad og får den radekvivalente matrisen
-\[
-\left[
-\begin{array}{ccc|c}
-  1 & -i & 0 & 0 \\
-  0 & 1+3i & -2 & -1+i
-\end{array}
-\right]
-\]
-Så skalerer vi andre rad ved å gange med $\frac{1-3i}{10}$ og får den radekvivalente matrisen
-\[
-\left[
-\begin{array}{ccc|c}
-  1 & -i & 0 & 0 \\
-  0 & 1 & \frac{-1+3i}{5} & \frac{1+2i}{5}
-\end{array}
-\right]
-\]
-Så tar vi $i$ ganger andre rad og legger til første rad, og får matrisen på redusert trappeform
-\[
-\left[
-\begin{array}{ccc|c}
-  1 & 0 & \frac{-3-i}{5} & \frac{-2+i}{5} \\
-  0 & 1 & \frac{-1+3i}{5} & \frac{1+2i}{5}
-\end{array}
-\right]
-\]
-Vi lar $z=t$ være fri variabel, og får da at generell løsning blir
-\[
-\vvv{x}{y}{z} = \vvv{\frac{-2+i}{5}}{\frac{1+2i}{5}}{0} + t \vvv{\frac{3+i}{5}}{\frac{1-3i}{5}}{1} \qedhere
-\]
-\end{ex} 
-
+%\section*{Går alt dette greit?}
+%Konstruksjonen av de reelle tallene $\R$ fra de rasjonale tallene $\Q$ er komplisert nok til at selv matematikkstudenter ikke blir plaget særlig med det. 
+%Den formelle konstruksjonen av $\C$ fra $\R$ er ikke på langt nær så komplisert, 
+%men man trenger fremdeles noen konsepter som ligger noe utenfor det vi kan gjøre i dette kurset.
+%
+%De reelle tallene er et eksempel på en \emph{ordnet} kropp med addisjon og multiplikasjon. 
+%Det at de er ordnet, betyr at man alltid kan avgjøre hvilket av to reelle tall som er størst, 
+%og kropp betyr at de tilfredsstiller noen aksiomer som er til forveksling like vektorromsaksiomene, 
+%og noen andre aksiomer i tillegg. 
+%De komplekse tallene er et eksempel på en kropp som ikke er ordnet, 
+%siden man ikke kan si om et komplekst tall er større enn et annet, 
+%akkurat som vi ikke i $\R^2$ kan si at en vektor er større enn en annen. 
+%(Du kan si at en vektor er lengre enn en annen, men det er ikke noen ordning, 
+%for to forskjellige vektorer kan være like lange. 
+%To reelle tall er like store kun dersom de er identiske.)
 
 \kapittelslutt
