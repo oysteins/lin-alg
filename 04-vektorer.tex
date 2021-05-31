@@ -1,6 +1,6 @@
 \input{kapittel}
 
-\kapittel{3}{Vektorer}
+\kapittel{4}{Vektorer}
 \label{ch:vektorer}
 
 Nå har vi funnet ut nøyaktig hvordan vi kan løse et hvilket som helst
@@ -473,7 +473,7 @@ Hva skjer hvis vi bytter ut likning~\To{} med en annen likning?
 Om vi ser på den første tegningen, så er det veldig greit å tenke på
 dette spørsmålet: Vi beholder grafen for likning~\En{} akkurat som den
 er, og tegner en ny graf for likning~\To.  Men om vi ser på den andre
-tegningen, så vil det å bytte ut likning~To{} påvirke alle deler av
+tegningen, så vil det å bytte ut likning~\To{} påvirke alle deler av
 tegningen, så alt må tegnes på nytt.
 
 Men så kan vi tenke på et annet spørsmål:
@@ -481,19 +481,21 @@ Men så kan vi tenke på et annet spørsmål:
 Hva skjer hvis vi bytter ut tallene på høyresiden av likningssystemet?
 \end{quote}
 Nå blir det helt omvendt.  Den første tegningen må tegnes helt på
-nytt, mens den andre enkelt kan modifiseres.
+nytt, siden tallene på høyresiden påvirker begge grafene.  Den andre
+tegningen, derimot, kan enkelt modifiseres.  Begge de to pilene blir
+værende akkurat som de er; vi bare flytter på målpunktet.
 
-Vi kan forfølge tanken fra dette siste spørsmålet litt videre: Kan det
-tenkes at det er noen muligheter for høyresiden som ville gjort at
-systemet ikke blir løsbart?  Hvis vi ser på den andre tegningen vår,
-så kan vi ganske raskt overbevise oss selv om at vi kan komme til et
-hvilket som helst punkt ved å kombinere de to vektorene $\vvS{5}{3}$
-og~$\vvS{2}{4}$ (husk at vi kan bruke både positive og negative tall
-til å skalere vektorene med).  Det betyr at uansett hvilke tall vi
-måtte putte på høyresiden, så blir systemet løsbart.  Denne (riktignok
-ikke veldig dype) innsikten kommer naturlig ved å se på det andre
-tegningen, men er overhodet ikke mulig å få øye på i den første.
-
+% Vi kan forfølge tanken fra dette siste spørsmålet litt videre: Kan det
+% tenkes at det er noen muligheter for høyresiden som ville gjort at
+% systemet ikke blir løsbart?  Hvis vi ser på den andre tegningen vår,
+% så kan vi ganske raskt overbevise oss selv om at vi kan komme til et
+% hvilket som helst punkt ved å kombinere de to vektorene $\vvS{5}{3}$
+% og~$\vvS{2}{4}$ (husk at vi kan bruke både positive og negative tall
+% til å skalere vektorene med).  Det betyr at uansett hvilke tall vi
+% måtte putte på høyresiden, så blir systemet løsbart.  Denne (riktignok
+% ikke veldig dype) innsikten kommer naturlig ved å se på det andre
+% tegningen, men er overhodet ikke mulig å få øye på i den første.
+%%%%%% TODO fiks ^ (eller bare ikke ta det med)
 
 \section*{Vektorer i planet, rommet og videre}
 
@@ -596,7 +598,9 @@ se pilen for vektoren, så kan du sette blyantspissen i origo og holde
 blyanten så den går gjennom punktet du nettopp fant.
 
 Ved å gjenta denne øvelsen for hver vektor, kan du klare å se for deg
-sånn omtrent hvor i rommet vektorene befinner seg.
+sånn omtrent hvor i rommet vektorene befinner seg.  Da kan du også se
+om du klarer å se for deg hvordan vi kan skalere opp de to første
+vektorene og legge dem sammen slik at vi ender opp i den siste.
 
 \smallskip
 Hva om vi legger til \emph{enda en likning}?
@@ -688,6 +692,7 @@ får vi ved å legge sammen tallene komponentvis:
 = \vn{u}{n} + \vn{v}{n}
 = \vvvv{u_1 + v_1}{u_2 + v_2}{\vdots}{u_n + v_n}
 \]
+
 Noen ganger er det upraktisk å skrive en høy kolonne med mange tall i.
 Da kan vi isteden skrive tallene bortover, med vanlige parenteser
 rundt og komma mellom, slik som dette: $\v = (v_1, v_2, \ldots, v_n)$.
@@ -695,6 +700,8 @@ Men det er fremdeles akkurat den samme kolonnevektoren det er snakk om:
 \[
 (v_1, v_2, \ldots, v_n) = \vn{v}{n}
 \]
+
+% TODO nullvektor
 
 Ved noen anledninger senere i boken vil vi også ha bruk for
 \emph{radvektorer}.  En radvektor skriver vi slik som dette:
@@ -751,7 +758,11 @@ bruke gausseliminasjon for å løse den.
 
 \section*{Mengder av vektorer}
 
-Vi kan plassere tallene våre på en tallinje:
+Det er vanlig å skrive~$\R^n$ for mengden av alle $n$-dimensjonale
+kolonnevektorer.  Her står $n$ for dimensjonen, men hva står $\R$ for?
+For å forklare det, må vi starte med en kort fortelling om tall.
+
+Vi kan plassere alle tall på en tallinje:
 \[
 \begin{tikzpicture}[scale=.7]
 \draw[->] (-4.7,0) -- (4.7,0);
@@ -810,6 +821,36 @@ Tilsvarende skriver vi $\R^3$ for mengden av alle tredimensjonale
 kolonnevektorer, og mer generelt skriver vi $\R^n$ for mengden av alle
 $n$-dimensjonale kolonnevektorer.
 
+\smallskip
+I hver slik mengde av vektorer finnes det én veldig spesiell vektor,
+nemlig \emph{nullvektoren}, som består av bare nuller:
+\[
+\0 = \vvvv{0}{0}{\vdots}{0}
+\]
+Her tillater vi oss å være litt slurvete med notasjonen.  Det er
+selvfølgelig ikke den samme nullvektoren i $\R^2$, $\R^3$, $\R^4$ og
+så videre, men vi kaller alle nullvektorene for~$\0$, så lenge det går
+frem av konteksten hvilken av dem det er vi snakker om.
+Hvis vi snakker om vektorer i~$\R^2$, så er det dette som er
+nullvektoren:
+\[
+\0 = \vv{0}{0}
+\]
+Men hvis vi snakker om vektorer i~$\R^3$, så er det:
+\[
+\0 = \vvv{0}{0}{0}
+\]
+
+Det er flere ting som er spesielt med nullvektoren.  Én ting er at
+hvis vi tar en hvilken som helst vektor $\v$ i $\R^n$ og ganger den
+med tallet~$0$, så blir resultatet alltid nullvektoren:
+\[
+0 \v = \0.
+\]
+En annen ting er at nullvektoren er den eneste vektoren som vi ikke
+kan tenke på som en pil, for den har ingen retning.
+
+% TODO ordne litt i denne seksjonen, avslutte annerledes?
 
 
 \kapittelslutt

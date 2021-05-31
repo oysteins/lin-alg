@@ -1,0 +1,242 @@
+% -*- mode: LaTeX; TeX-master: "lin-alg"; -*-
+\oppgaver{3}
+
+% TODO enkle oppgaver
+
+\begin{oppgave}
+Du finner denne papirbiten som er revet ut av en bok om lineær algebra:
+\begin{center}
+\begin{tikzpicture}
+\draw[gray!40,line width=10,xshift=3,yshift=-3] (0,0) -- (1,.4) -- (1.2,.25) -- (1.4,-.3) -- (1.9,.1) -- (2.4,0) -- (3,.3)
+ -- (3.1,-.2) -- (2.9,-.5) -- (3.1,-.6) -- (2.5,-.75) -- (2.1,-.9)
+ -- (2.3,-1.2) -- (1.5,-1.6)
+ -- (1.25,-1.7) -- (1.2,-1.9) -- (1,-2.1) -- (1.1,-2.3) -- (.9,-2.6)
+ -- (1.1,-3.2) -- (.98,-4) -- (1.15,-4.7)
+ -- (1.4,-5) -- (1.2,-5.1) -- (.7,-5.3) -- (.5,-5.2) -- (.2,-5.4) -- (-.4,-5.3)
+ -- (-1,-5.5) -- (-1.4,-5.4) -- (-2,-5.5) -- (-2.6,-5.6) -- (-3,-5.4) -- (-3.5,-5.15)
+ -- (-3.4,-5) -- (-3.42,-4.7) -- (-3,-4) -- (-3.1,-3)
+ -- (-2.9,-1.4) -- (-3.2,-1.08) -- (-3.18,-.9) -- (-3.25,-.7) -- (-3.3,-.4) -- (-3.25,-.1)
+ -- (-3.4,.1) -- (-2.7,.2)
+ -- (-1.9,-.1) -- (-1.4,.2) -- cycle;
+\filldraw[white] (0,0) -- (1,.4) -- (1.2,.25) -- (1.4,-.3) -- (1.9,.1) -- (2.4,0) -- (3,.3)
+ -- (3.1,-.2) -- (2.9,-.5) -- (3.1,-.6) -- (2.5,-.75) -- (2.1,-.9)
+ -- (2.3,-1.2) -- (1.5,-1.6)
+ -- (1.25,-1.7) -- (1.2,-1.9) -- (1,-2.1) -- (1.1,-2.3) -- (.9,-2.6)
+ -- (1.1,-3.2) -- (.98,-4) -- (1.15,-4.7)
+ -- (1.4,-5) -- (1.2,-5.1) -- (.7,-5.3) -- (.5,-5.2) -- (.2,-5.4) -- (-.4,-5.3)
+ -- (-1,-5.5) -- (-1.4,-5.4) -- (-2,-5.5) -- (-2.6,-5.6) -- (-3,-5.4) -- (-3.5,-5.15)
+ -- (-3.4,-5) -- (-3.42,-4.7) -- (-3,-4) -- (-3.1,-3)
+ -- (-2.9,-1.4) -- (-3.2,-1.08) -- (-3.18,-.9) -- (-3.25,-.7) -- (-3.3,-.4) -- (-3.25,-.1)
+ -- (-3.4,.1) -- (-2.7,.2)
+ -- (-1.9,-.1) -- (-1.4,.2) -- cycle;
+\draw[black!60] (0,0) -- (1,.4) -- (1.2,.25) -- (1.4,-.3) -- (1.9,.1) -- (2.4,0) -- (3,.3)
+ -- (3.1,-.2) -- (2.9,-.5) -- (3.1,-.6) -- (2.5,-.75) -- (2.1,-.9)
+ -- (2.3,-1.2) -- (1.5,-1.6)
+ -- (1.25,-1.7) -- (1.2,-1.9) -- (1,-2.1) -- (1.1,-2.3) -- (.9,-2.6)
+ -- (1.1,-3.2) -- (.98,-4) -- (1.15,-4.7)
+ -- (1.4,-5) -- (1.2,-5.1) -- (.7,-5.3) -- (.5,-5.2) -- (.2,-5.4) -- (-.4,-5.3)
+ -- (-1,-5.5) -- (-1.4,-5.4) -- (-2,-5.5) -- (-2.6,-5.6) -- (-3,-5.4) -- (-3.5,-5.15)
+ -- (-3.4,-5) -- (-3.42,-4.7) -- (-3,-4) -- (-3.1,-3)
+ -- (-2.9,-1.4) -- (-3.2,-1.08) -- (-3.18,-.9) -- (-3.25,-.7) -- (-3.3,-.4) -- (-3.25,-.1)
+ -- (-3.4,.1) -- (-2.7,.2)
+ -- (-1.9,-.1) -- (-1.4,.2) -- cycle;
+\clip (0,0) -- (1,.4) -- (1.2,.25) -- (1.4,-.3) -- (1.9,.1) -- (2.4,0) -- (3,.3)
+ -- (3.1,-.2) -- (2.9,-.5) -- (3.1,-.6) -- (2.5,-.75) -- (2.1,-.9)
+ -- (2.3,-1.2) -- (1.5,-1.6)
+ -- (1.25,-1.7) -- (1.2,-1.9) -- (1,-2.1) -- (1.1,-2.3) -- (.9,-2.6)
+ -- (1.1,-3.2) -- (.98,-4) -- (1.15,-4.7)
+ -- (1.4,-5) -- (1.2,-5.1) -- (.7,-5.3) -- (.5,-5.2) -- (.2,-5.4) -- (-.4,-5.3)
+ -- (-1,-5.5) -- (-1.4,-5.4) -- (-2,-5.5) -- (-2.6,-5.6) -- (-3,-5.4) -- (-3.5,-5.15)
+ -- (-3.4,-5) -- (-3.42,-4.7) -- (-3,-4) -- (-3.1,-3)
+ -- (-2.9,-1.4) -- (-3.2,-1.08) -- (-3.18,-.9) -- (-3.25,-.7) -- (-3.3,-.4) -- (-3.25,-.1)
+ -- (-3.4,.1) -- (-2.7,.2)
+ -- (-1.9,-.1) -- (-1.4,.2) -- cycle;
+\node[anchor=north,text width=18em,align=left] at (0,0) {
+\fontfamily{pnc}\selectfont
+\textbf{Oppgave 3.7.}
+Finn ut om hvert av disse systemene har ingen, én,
+eller uendelig mange løsninger:
+\begin{gather*}
+\systeme{
+    2x +  y - 3z = 0,
+    6x + 7y + 2z = 0,
+    4x + 2y +  z = 0
+}
+\\
+\systeme{
+     x - 2y + 3z = 0,
+    2x +  y + 2z = 0,
+    3x + 4y +  z = 0
+}
+\end{gather*}
+
+\textbf{Oppgave 3.8.} Løs hvert av likningssystemene
+fra forrige oppgave, dersom det er mulig.
+  };
+\end{tikzpicture}
+\end{center}
+Går det an å løse oppgaven selv om alle tallene på høyre side av
+likningssystemene er revet bort?
+\end{oppgave}
+
+\begin{losning}
+Selv om høyresidene mangler, så kan vi forsøke å finne ut noe om
+likningssystemene.  Vi antar at systemene er skrevet opp på vanlig
+form, slik at det som står på høyre side bare er konstanter.  Altså
+ser vi for oss at det første systemet for eksempel kan være
+\[
+\small
+\systeme{
+    2x +  y - 3z = 5,
+    6x + 7y + 2z = -8,
+    4x + 2y +  z = 20
+}
+\qquad\text{eller}\qquad
+\systeme{
+    2x +  y - 3z = 9,
+    6x + 7y + 2z = 0,
+    4x + 2y +  z = 5
+}
+\]
+-- men ikke noe sånt som dette:
+\[
+\small
+\systeme{
+    2x +  y - 3z = 5x + 4,
+    6x + 7y + 2z = y - z,
+    4x + 2y +  z = x + 2y - 8
+}
+\]
+
+La oss se på det første systemet først.  Den åpenbare måten å angripe
+det på er å gausseliminere, og da starter vi med å sette opp
+totalmatrisen til systemet:
+\[
+\begin{amatrix}{3}
+2 & 1 & -3 & ? \\
+6 & 7 & 2 & ? \\
+4 & 2 & 1 & ?
+\end{amatrix}
+\]
+Problemet er at vi ikke vet hva som skal stå i den siste kolonnen.
+Men hvor stort problem er dette?  Vi kan likevel se hva som skjer med
+de tre første kolonnene når vi gausseliminerer:
+\[
+\begin{amatrix}{3}
+2 & 1 & -3 & ? \\
+6 & 7 & 2 & ? \\
+4 & 2 & 1 & ?
+\end{amatrix}
+\roweq
+\begin{amatrix}{3}
+2 & 1 & -3 & ? \\
+0 & 4 & 11 & ? \\
+0 & 0 & 7 & ?
+\end{amatrix}
+\]
+Her har vi fått systemet på trappeform.  Vi ser at det ikke blir noen
+rader med bare nuller til venstre for streken, og at det heller ikke
+blir noen frie variabler.  Dermed ser vi at uansett hva som måtte stå
+i den siste kolonnen, så har systemet entydig løsning.
+
+Hva med det andre systemet?  Hvis vi gausseliminerer (med ukjent
+høyreside), så får vi:
+\begin{align*}
+\begin{amatrix}{3}
+1 & -2 & 3 & ? \\
+2 & 1 & 2 & ? \\
+3 & 4 & 1 & ?
+\end{amatrix}
+&\roweq
+\begin{amatrix}{3}
+1 & -2 & 3 & ? \\
+0 & 5 & -4 & ? \\
+0 & 10 & -8 & ?
+\end{amatrix}
+\\
+&\roweq
+\begin{amatrix}{3}
+1 & -2 & 3 & ? \\
+0 & 5 & -4 & ? \\
+0 & 0 & 0 & ?
+\end{amatrix}
+\end{align*}
+Oi oi oi -- en rad med bare nuller til venstre for streken!  Det
+\emph{kan} bety at systemet ikke har løsning, men det kommer an på hva
+som står på høyresiden.  Men hva skjer hvis det ender opp med å bli
+null på høyresiden også i nederste rad?  Da har systemet løsning, og
+siden det er en fri variabel (det er ikke pivotelement i tredje
+kolonne, så $z$ er fri), blir det uendelig mange løsninger.
+
+Vi kan altså konkludere med at det andre systemet definitivt ikke har
+entydig løsning.  Men vi kan ikke være sikre på om det har uendelig
+mange løsninger eller ingen løsning.
+
+Det vi imidlertid kan gjøre, er å prøve å finne en sammenheng mellom
+hva som står på høyresiden og hvilket av de to tilfellene (uendelig
+mange eller ingen løsninger) vi får.  Så her er et par ekstraoppgaver
+til deg:
+\begin{enumerate}
+\item Finn tre tall til høyresiden som gjør at systemet ikke har
+løsning.
+\item Finn tre tall til høyresiden som gjør at systemet har uendelig
+mange løsninger.
+\item Gi en fullstendig beskrivelse av hvilke muligheter for
+høyresiden som gjør at systemet ikke har løsning.
+\end{enumerate}
+\end{losning}
+
+
+% TODO en oppg til som over
+% * 2x3-system, høyreside 0, mangler mye av venstreside
+% * 
+
+
+\begin{oppgave}
+Kan du lage et lineært likningssystem som har entydig løsning, men som
+kan gjøres om til å \ldots
+\begin{punkt}
+\ldots{} ha uendelig mange løsninger \ldots
+\end{punkt}
+\begin{punkt}
+\ldots{} ikke ha noen løsning \ldots
+\end{punkt}
+
+\medskip
+\noindent\ldots{} hvis vi bytter ut tallene på høyresiden?
+\end{oppgave}
+
+\begin{losning}
+
+% TODO
+\end{losning}
+
+
+\begin{oppgave}
+% TODO fiks
+Anta at vi har et likningssystem med $m$~likninger og~$n$ ukjente.
+Hvilke av de ni forskjellige tilfellene i følgende tabell er mulige?
+\[
+\begin{array}{r|c|c|c|}
+                                & m < n & m = n & m > n \\ \hline
+\text{ingen løsninger}          &       &       &       \\ \hline
+\text{én løsning}               &       &       &       \\ \hline
+\text{uendelig mange løsninger} &       &       &       \\ \hline
+\end{array}
+\]
+\end{oppgave}
+
+\begin{losning}
+
+La 1 betegne mulig og 0 umulig:
+\[
+\begin{array}{r|c|c|c|}
+& m < n & m = n & m > n \\ \hline
+\text{ingen løsninger}          &   1   &   1   &   1   \\ \hline
+\text{én løsning}               &   0   &   1   &   1   \\ \hline
+\text{uendelig mange løsninger} &   1   &   1   &   1   \\ \hline
+\end{array}
+\]
+\end{losning}
+
+

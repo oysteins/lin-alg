@@ -1,0 +1,291 @@
+% -*- mode: LaTeX; TeX-master: "lin-alg"; -*-
+\oppgaver{6}
+
+\begin{oppgave}
+Se på disse vektorene i~$\R^2$:
+\begin{center}
+\begin{tikzpicture}
+\draw[->] (-2.5,0) -- (4,0);
+\draw[->] (0,-1.5) -- (0,2.5);
+\draw[->] (0,0) -- (3,1) node[anchor=west] {$\u$};
+\draw[->] (0,0) -- (-2,1) node[anchor=north] {$\v$};
+\draw[->] (0,0) -- (1,-1) node[anchor=north] {$\w$};
+\end{tikzpicture}
+\end{center}
+Er $\u$ og~$\v$ lineært uavhengige?
+Er $\u$, $\v$ og~$\w$ lineært uavhengige?
+\end{oppgave}
+
+\begin{losning}
+Vektorene $\u$ og~$\v$ er lineært uavhengige,
+men $\u$, $\v$ og~$\w$ er ikke.
+\end{losning}
+
+
+\begin{oppgave}
+Er disse to vektorene lineært uavhengige?
+\[
+\V{v}_1 = \vvv{8}{2}{-12}
+\qquad\text{og}\qquad
+\V{v}_2 = \vvv{4}{1}{-6}
+\]
+\end{oppgave}
+
+\begin{losning}
+Siden vi har $\V{v}_1 = 2 \cdot \V{v}_2$, får vi at nullvektoren kan
+skrives som en ikketriviell lineærkombinasjon av $\V{v}_1$ og~$\V{2}$
+på denne måten:
+\[
+1 \cdot \V{v}_1 - 2 \cdot \V{v}_2 = \V{0}
+\]
+Vektorene $\V{v}_1$ og $\V{v}_2$ er derfor lineært avhengige.
+\end{losning}
+
+
+\begin{oppgave}
+Er disse vektorene lineært uavhengige?
+\[
+\V{v}_1 = \vvvv{5}{10}{5}{0},\qquad
+\V{v}_2 = \vvvv{3}{7}{5}{4}\qquad\text{og}\qquad
+\V{v}_3 = \vvvv{2}{6}{6}{8}
+\]
+\end{oppgave}
+
+\begin{losning}
+Vi må løse likningen
+\[
+\v_1 x_1 + \v_2 x_2 + \v_3 x_3 = \0.
+\]
+Gausseliminasjon gir:
+\[
+\begin{amatrix}{3}
+5 & 3 & 2 & 0 \\
+10 & 7 & 6 & 0 \\
+5 & 5 & 6 & 0 \\
+0 & 4 & 8 & 0
+\end{amatrix}
+\sim
+\begin{amatrix}{3}
+5 & 3 & 2 & 0 \\
+0 & 1 & 2 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{amatrix}
+\]
+Det blir ikke noe pivotelement i tredje kolonne.  Vi får altså en fri
+variabel, så vi har uendelig mange løsninger.  Dermed er $\V{v}_1$,
+$\V{v}_2$ og $\V{v}_3$ lineært avhengige.
+\end{losning}
+
+
+\begin{oppgave}
+Finn ut om hver av disse påstandene er sann eller ikke:
+\begin{punkt}
+To vektorer $\u$ og $\v$ er lineært avhengige hvis og bare hvis $\u$
+er i mengden utspent av~$\v$.
+\end{punkt}
+\begin{punkt}
+To vektorer $\u$ og $\v$ er lineært avhengige hvis og bare hvis en av
+dem er lik en skalar ganger den andre.
+\end{punkt}
+\begin{punkt}
+Tre vektorer $\u$, $\v$ og~$\w$ er lineært avhengige hvis og bare
+hvis $\u$ kan skrives som en lineærkombinasjon av $\v$ og~$\w$.
+\end{punkt}
+\end{oppgave}
+
+\begin{losning}
+\begin{punkt}
+Usant.%TODO
+\end{punkt}
+
+\begin{punkt}
+Anta først at $\V{u}$ og~$\V{v}$ er lineært avhengige.  Da finnes
+to tall $a$ og~$b$ slik at
+\[
+\V{u} \cdot a + \V{v} \cdot b = \V{0}
+\]
+og minst én av $a$ og~$b$ er ulik~$0$.  Hvis $a \ne 0$, får vi
+\[
+\V{u} = - \frac{b}{a} \V{v}.
+\]
+Hvis $b \ne 0$, får vi
+\[
+\V{v} = - \frac{a}{b} \V{u}.
+\]
+I begge tilfeller har vi at én av vektorene er en skalar ganger den
+andre.
+
+Nå viser vi den motsatte implikasjonen.  Anta derfor at én av vektorene
+er en skalar ganger den andre.  Hvis $\V{u} = c \cdot \V{v}$ for en
+skalar~$c$, så får vi:
+\[
+\V{u} \cdot 1 + \V{v} \cdot (-c) = \V{0}.
+\]
+Hvis $\V{v} = d \cdot \V{u}$ for en skalar~$d$, så får vi:
+\[
+\V{u} \cdot d + \V{v} \cdot (-1) = \V{0}.
+\]
+I begge tilfeller har vi en ikketriviell løsning av likningen
+$\V{u} \cdot x_1 + \V{v} \cdot x_2 = \V{0}$,
+og det betyr at vektorene er lineært avhengige.
+
+Det var slutten på beviset.  Nå kan vi tenke litt på hva dette
+egentlig betyr.
+
+Det vi har sett nå, er at to vektorer er lineært uavhengige hvis og
+bare hvis de ikke ligger på en rett linje gjennom origo.
+
+Det kan være spesielt interessant å se på to vektorer i $\R^2$.  Da er
+det to muligheter: Enten er de lineært avhengige, eller så utspenner
+de hele~$\R^2$.
+\end{punkt}
+
+\begin{punkt}
+Denne påstanden er usann,%TODO
+\end{punkt}
+\end{losning}
+
+
+\begin{oppgave}
+Anta at du har tre vektorer $\u$, $\v$ og~$\w$, som er slik at
+\begin{align*}
+  &\text{$\u$ og~$\v$ er lineært uavhengige,} \\
+  \text{og }
+  &\text{$\u$ og~$\w$ er lineært uavhengige,} \\
+  \text{og }
+  &\text{$\v$ og~$\w$ er lineært uavhengige.}
+\end{align*}
+Kan du da konkludere med at $\u$, $\v$ og~$\w$ er lineært uavhengige?
+\end{oppgave}
+
+\begin{losning}
+Nei.  Her er et enkelt eksempel i~$\R^2$:
+\[
+\u = \vv{1}{0}
+\qquad
+\v = \vv{0}{1}
+\qquad
+\w = \vv{1}{1}
+\]
+\end{losning}
+
+
+\begin{oppgave}
+Er disse vektorene lineært uavhengige?
+\[
+\V{v}_1 = \vvv{8}{7}{4},\quad
+\V{v}_2 = \vvv{14}{-2}{5},\quad
+\V{v}_3 = \vvv{3}{1}{0},\quad
+\V{v}_4 = \vvv{7}{5}{11}\quad
+\]
+\end{oppgave}
+
+\begin{losning}
+For å sjekke om vektorene er lineært uavhengige, kan vi gausseliminere
+denne matrisen:
+\[
+\begin{amatrix}{4}
+8 & 14 & 3 & 7 & 0 \\
+7 & -2 & 1 & 5 & 0 \\
+4 & 5 & 0 & 11 & 0
+\end{amatrix}
+\]
+Men vi trenger ikke egentlig å utføre gausseliminasjonen.  Vi ser med
+en gang at uansett hva som skjer, så kan vi ikke få mer enn tre
+pivotelementer (ett i hver rad).  Dermed kan det ikke bli
+pivotelementer i alle de fire kolonnene til venstre for streken, så vi
+må få minst én fri variabel, og det betyr at vektorene $\V{v}_1$,
+$\V{v}_2$, $\V{v}_3$ og $\V{v}_4$ er lineært avhengige.
+\end{losning}
+
+
+\begin{oppgave}
+Du har $n$ vektorer $\V{v}_1$, $\V{v}_2$, \ldots, $\V{v}_n$ i $\R^m$.
+Vis at dersom
+\begin{enumerate}
+\item en av vektorene er en lineærkombinasjon av de andre, eller
+\item en av vektorene er $\V0$, eller
+\item $n > m$,
+\end{enumerate}
+så er vektorene lineært avhengige.
+\end{oppgave}
+
+\begin{losning}
+Anta først at én vektor~$\V{v}_k$ er en lineærkombinasjon av de andre:
+\[
+\V{v}_k = \sum_{i \ne k} a_i \V{v}_i
+\]
+Da kan vi sette $a_k = -1$ og få:
+\[
+\sum_{i = 1}^n a_i \V{v}_i = \V{0}
+\]
+Her har vi skrevet nullvektoren som en ikketriviell lineærkombinasjon
+av vektorene våre (vi vet ikke hva alle $a_i$-ene er, men vi vet i
+hvert fall at én av dem, $a_k$, ikke er~$0$).  Det betyr at vektorene
+er lineært avhengige.
+
+Nå går vi videre til å se på den andre antagelsen i oppgaven, så vi
+antar at én av vektorene i listen er nullvektoren.  Hvis
+$\V{v}_k = \V{0}$, så kan vi definere $n$ tall $a_1$, $a_2$, \ldots,
+$a_n$ ved:
+\[
+a_i =
+\begin{cases}
+0 & \text{hvis $i \ne k$} \\
+1 & \text{hvis $i = k$}
+\end{cases}
+\]
+Da får vi at
+\[
+\sum_{i = 1}^n a_i \V{v}_i = \V{0},
+\]
+og vektorene er lineært avhengige.
+
+Til slutt ser vi på den tredje antagelsen.  Akkurat som i forrige
+oppgave får vi her at når vi gausseliminerer matrisen
+\[
+\begin{amatrix}{4} \V{v}_1 & \V{v}_2 & \ldots & \V{v}_n & \0 \end{amatrix},
+% TODO kan vi bruke denne matrisenotasjonen her?
+\]
+så får vi maksimalt $m$ pivotelementer (ett i hver rad), men vi
+trenger $n$ pivotelementer (ett i hver kolonne til venstre for
+streken) for at vektorene skal være lineært uavhengige.  Når $n > m$
+går ikke det an, så da er vektorene lineært avhengige.
+\end{losning}
+
+
+\begin{oppgave}
+Du har $n$ vektorer $\V{v}_1$, $\V{v}_2$, \ldots, $\V{v}_n$ i $\R^m$.
+Vis at disse vektorene er lineært uavhengige hvis og bare hvis ingen
+av dem kan skrives som en lineærkombinasjon av de andre.
+\end{oppgave}
+
+\begin{losning}
+Påstanden i oppgaven er det samme som å si at vektorene er lineært
+avhengige hvis og bare hvis en av dem kan skrives som en
+lineærkombinasjon av de andre.
+
+I forrige oppgave viste vi at dersom en av vektorene er en
+lineærkombinasjon av de andre, så er de lineært avhengige.  Det
+gjenstår å vise at dersom vektorene er lineært avhengige, så er en av
+dem en lineærkombinasjon av de andre.
+
+Anta at vektorene er lineært avhengige, altså at vi har
+\[
+a_1 \V{v}_1 + a_2 \V{v}_2 + \cdots + a_n \V{v}_n = \V{0},
+\]
+der minst én av $a_i$-ene er ulik~$0$.  Velg en~$k$ slik at $a_k \ne 0$.
+Da har vi:
+\[
+a_k \V{v}_k = \sum_{i \ne k} (-a_i) \V{v}_i
+\]
+Siden $a_k \ne 0$ kan vi dele på $a_k$ og få:
+\[
+\V{v}_k = \sum_{i \ne k} \frac{-a_i}{a_k} \cdot \V{v}_i
+\]
+Dermed er vektoren $\V{v}_k$ en lineærkombinasjon av de andre
+vektorene i listen.
+\end{losning}
+
+%%%% TODO resultat om n vektorer i R^n

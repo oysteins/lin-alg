@@ -1,0 +1,327 @@
+\input{kapittel}
+
+\kapittel{6}{Lineær uavhengighet}
+\label{ch:linear-uavhengighet}
+
+Vi fortsetter med å utforske vektorer.  Nå har vi sett at vi kan
+beskrive en uendelig stor mengde med vektorer ved å bare liste opp
+noen få vektorer som \emph{spenner ut} hele mengden.  Men da kan vi
+spørre om vi egentlig trenger å ha med alle vektorene i listen vår for
+å beskrive akkurat den mengden, eller om noen av dem er overflødige.
+Det spørsmålet er utgangspunktet for å snakke om lineær uavhengighet.
+%TODO bedre intro?
+
+\section*{Hvor mange vektorer trenger vi?}
+
+I forrige kapittel så vi på disse to vektorene i~$\R^2$:
+\begin{center}
+\begin{tikzpicture}[scale=.6]
+\draw[->] (-2.5,0) -- (4.5,0);
+\draw[->] (0,-1.5) -- (0,3.5);
+\foreach \x in {-2,...,-1,1,2,...,4}
+\draw (\x,.1) -- (\x,-.1);% node[anchor=north] {$\x$};
+\foreach \y in {-1,1,2,...,3}
+\draw (.1,\y) -- (-.1,\y);% node[anchor=east] {$\y$};
+\draw[->] (0,0) -- (4,2) node[anchor=west] {$\u = \vv{4}{2}$};
+\draw[->] (0,0) -- (-2,-1) node[anchor=north] {$\v = \vv{-2}{-1}$};
+\end{tikzpicture}
+\end{center}
+Mengden utspent av $\u$ og~$\v$ er denne rette linjen:
+\begin{center}
+\begin{tikzpicture}[scale=.6]
+\draw[->] (-4.5,0) -- (4.5,0);
+\draw[->] (0,-2.5) -- (0,2.5);
+\foreach \x in {-4,...,-1,1,2,...,4}
+\draw (\x,.1) -- (\x,-.1);
+\foreach \y in {-2,-1,1,2}
+\draw (.1,\y) -- (-.1,\y);
+\draw (-4.4,-2.2) -- (4.4,2.2);
+\node[anchor=west] at (2.6,1) {$\Sp \{ \u, \v \}$};
+\end{tikzpicture}
+\end{center}
+Men hvis vi ser på mengden utspent av bare~$\u$, eller av bare~$\v$,
+så får vi akkurat den samme linjen.  Mengden utspent av både $\u$
+og~$\v$ er altså det samme som mengden utspent av bare én av dem:
+\[
+\Sp\{ \u, \v \} = \Sp\{ \u \} = \Sp\{ \v \}
+\]
+Hvis vi er interessert i mengden som utspennes av vektorene, så er det
+altså unødvendig å ta med både $\u$ og~$\v$ -- det klarer seg med én
+av dem.
+
+Men med vektorene $\u$ og~$\w$ fra forrige kapittel forholder det seg
+annerledes:
+\begin{center}
+\begin{tikzpicture}[scale=.6]
+\draw[->] (-2.5,0) -- (4.5,0);
+\draw[->] (0,-1.5) -- (0,3.5);
+\foreach \x in {-2,...,-1,1,2,...,4}
+\draw (\x,.1) -- (\x,-.1);% node[anchor=north] {$\x$};
+\foreach \y in {-1,1,2,...,3}
+\draw (.1,\y) -- (-.1,\y);% node[anchor=east] {$\y$};
+\draw[->] (0,0) -- (4,2) node[anchor=west] {$\u = \vv{4}{2}$};
+\draw[->] (0,0) -- (-2,-.8) node[anchor=north] {$\w = \vv{-2}{-4/5}$};
+\end{tikzpicture}
+\end{center}
+Til sammen spenner disse to vektorene ut hele~$\R^2$:
+\[
+\Sp\{ \u, \w \} = \R^2
+\]
+Her er det essensielt at begge vektorene er med, for én av dem alene
+spenner bare ut en linje:
+\begin{center}
+\begin{tikzpicture}[scale=.6]
+\draw[->] (-4.5,0) -- (4.5,0);
+\draw[->] (0,-2.5) -- (0,2.5);
+\foreach \x in {-4,...,-1,1,2,...,4}
+\draw (\x,.1) -- (\x,-.1);% node[anchor=north] {$\x$};
+\foreach \y in {-2,-1,1,2}
+\draw (.1,\y) -- (-.1,\y);% node[anchor=east] {$\y$};
+\draw (-4,-2) -- (4,2) node[anchor=south] {$\Sp \{ \u \}$};
+\draw (-4,-1.6) -- (4,1.6) node[anchor=west] {$\Sp \{ \w \}$};
+\end{tikzpicture}
+\end{center}
+
+Så vi kan si at med de to vektorene $\u$ og~$\w$ er det slik at hver
+av dem gir sitt eget, unike bidrag til den utspente mengden.  Med $\u$
+og~$\v$, derimot, er det slik at hver av vektorene ikke bidrar med noe
+mer enn det vi allerede får fra den andre.
+
+\medskip%
+Vi kan ta et litt mer komplisert eksempel også.  Da glemmer vi de
+vektorene vi har sett på til nå, og så ser vi isteden på disse tre
+vektorene i~$\R^3$:
+\[
+\a = \vvv{1}{1}{0}
+\qquad
+\b = \vvv{0}{1}{1}
+\qquad
+\c = \vvv{2}{5}{3}
+\]
+Prøv å se for deg disse tre vektorene som piler i et tredimensjonalt
+koordinatsystem.  Hva er mengden som er utspent av dem?
+
+Det er kanskje ikke så lett å se for seg.  Om vi først ser på hva som
+blir utspent av bare én av vektorene, så blir det litt lettere.  Hver
+av mengdene
+\[
+\Sp \{ \a \},\quad
+\Sp \{ \b \},\quad\text{og}\quad
+\Sp \{ \c \}
+\]
+er en rett linje.  Linjen utspent av~$\a$ er ganske lett å se for seg,
+siden den holder seg i planet gitt ved første- og andreaksen:
+\begin{center}
+\begin{tikzpicture}[scale=.6]
+\draw[->] (-2.5,0) -- (2.5,0);
+\draw[->] (0,-1.8) -- (0,2.5);
+\foreach \x in {-2,...,-1,1,2}
+\draw (\x,.1) -- (\x,-.1);% node[anchor=north] {$\x$};
+\foreach \y in {-1,1,2}
+\draw (.1,\y) -- (-.1,\y);% node[anchor=east] {$\y$};
+\draw (-2,-2) -- (2.2,2.2);
+\node[anchor=west] at (1.5,1.5) {$\Sp\{ \a \}$};
+\end{tikzpicture}
+\end{center}
+Linjen utspent av~$\b$ er tilsvarende grei: Den er i planet gitt ved
+andre- og tredjeaksen.  Linjen utspent av~$\c$ er litt vanskeligere å
+se for seg, for den står på skrå ut i rommet.
+
+Nå kan du prøve å tenke på hva mengden
+\[
+\Sp \{ \a, \b \}
+\]
+blir for noe.  Se for deg de to linjene som er utspent av henholdsvis
+$\a$ og~$\b$, og så kan du tenke at du legger et papirark oppå dem --
+eller at du bruker de to linjene til å spenne ut en teltduk.  Da får
+du et plan som går litt sånn på skrå gjennom rommet, og det planet er
+mengden som er utspent av $\a$ og~$\b$.
+
+Nå kan vi spørre: Ligger vektoren~$\c$ i planet som er utspent av $\a$
+og~$\b$?  Du bør prøve å se omtrent hvordan det planet ser ut, og
+hvordan~$\c$ ser ut, og vurdere om det ser ut som den er i nærheten av
+planet eller ikke.  Det er ikke så lett, men du kan i hvert fall klare
+å lage et omtrentlig bilde av situasjonen i hodet ditt.
+
+Da finner du muligens ut at $\c$ ser ut til å være nær planet
+$\Sp\{ \a, \b \}$, men det er vanskelig å si om den ligger nøyaktig i
+det planet eller litt ved siden av.  For å finne ut av det, må vi se
+på tallene.  Da finner vi ganske raskt ut at
+\[
+\c = 2\a + 3\b.
+\]
+Vi kan altså skrive $\c$ som en lineærkombinasjon av $\a$ og~$\b$, og
+det betyr at $\c$ ligger i planet som er utspent av $\a$ og~$\b$:
+\[
+\c \in \Sp \{ \a, \b \}
+\]
+Dermed gir ikke $\c$ noe nytt bidrag til den utspente mengden, så
+mengden utspent av $\a$, $\b$ og~$\c$ er bare planet som er utspent av
+$\a$ og~$\b$:
+\[
+\Sp \{ \a, \b, \c \} = \Sp \{ \a, \b \}
+\]
+For å beskrive denne mengden, er det altså nok med de to vektorene
+$\a$ og~$\b$ -- å ta med $\c$ i tillegg er overflødig.
+
+
+\section*{Definisjon av lineær uavhengighet}
+
+Hvis vi har en samling med vektorer som er sånn at hver eneste av dem
+bidrar til å gjøre den utspente mengden større, så vil vi si at disse
+vektorene er \emph{lineært uavhengige}.  Vi kan tenke på det som at
+hver vektor gir sitt eget, uavhengige, bidrag til den utspente
+mengden.
+
+Nå kunne vi sagt at det er dette som er definisjonen av lineær
+uavhengighet.  Men vi skal prøve å lage en litt bedre definisjon.  For
+hva vil det egentlig si at hver vektor bidrar til å gjøre den utspente
+mengden større?  Hvordan kan vi sjekke om det er sånn eller ikke?
+
+Se for deg at vi har tre vektorer -- la oss kalle dem $\u$, $\v$
+og~$\w$.  Hvordan kan vi sjekke at hver av dem gir et bidrag til den
+utspente mengden?  Vi kan sjekke at
+\begin{align*}
+  \u &\text{ ikke er i $\Sp\{ \v, \w \}$,} \\
+  \text{og at }
+  \v &\text{ ikke er i $\Sp\{ \u, \w \}$,} \\
+  \text{og at }
+  \w &\text{ ikke er i $\Sp\{ \u, \v \}$.}
+\end{align*}
+Men det blir litt tungvint, og enda verre blir det hvis vi har mer enn
+tre vektorer.
+
+Men hva med det motsatte tilfellet, altså at de tre vektorene
+\emph{ikke} er lineært uavhengige?  (Da vil vi forresten si at de er
+lineært \emph{avhengige}.)  I så fall må det være en av dem som ikke
+har noe uavhengig bidrag å komme med.  Det kan for eksempel være at
+vektoren~$\w$ er med i mengden utspent av de to andre:
+\[
+\w \in \Sp\{ \u, \v \}
+\]
+Og hva betyr det?  Jo, det betyr at vi kan skrive $\w$ som en
+lineærkombinasjon av $\u$ og~$\v$, altså at det finnes to tall $a$
+og~$b$ slik at
+\[
+\w = a\u + b\v.
+\]
+Nå nærmer vi oss noe som kan egne seg i en definisjon!  Vi kan lage
+likningen
+\[
+\w = x\u + y\v,
+\]
+og så kan vi si at hvis den har løsning, så er vektorene lineært
+avhengige.
+
+Men dette ser fremdeles ikke helt bra ut.  Her har vi satt $\w$ på den
+ene siden av likningen, og $\u$ og~$\v$ på den andre -- uten at det
+egentlig er noen grunn til det.  Det kunne jo like gjerne vært sånn at
+det var $\u$ eller~$\v$ som var en lineærkombinasjon av de to andre.
+
+Hva skal vi gjøre med det?  Vi kan flytte over $\w$ så vi får alle
+vektorene på samme side.  Da ser likningen vår slik ut:
+\[
+x \u + y \v + (-1) \w = \0
+\]
+Så kan vi bytte ut $(-1)$ med en ny ukjent, $z$:
+\[
+x \u + y \v + z \w = \0
+\]
+Dersom vi isteden hadde startet med at det var $\u$ eller~$\v$ som var
+en lineærkombinasjon av de andre, så kunne vi gått frem på samme måte
+og kommet frem til akkurat den samme likningen.  Så i alle tilfeller
+der vektorene er lineært avhengige, så kan vi si at \emph{denne}
+likningen må ha løsning.
+
+Men vent nå litt.  Uansett hva vektorene $\u$, $\v$ og~$\w$ skulle
+finne på å være, så har likningen
+\[
+x \u + y \v + z \w = \0
+\]
+minst én løsning: Vi kan jo bare sette alle de ukjente -- altså $x$,
+$y$ og~$z$ -- til~$0$.
+
+Hm.  Men det er ikke den samme løsningen som vi hadde da vi antok at
+$\w$ var en lineærkombinasjon av $\u$ og~$\v$, for da hadde vi $z=-1$.
+
+Og da kommer vi til selve poenget.  Løsningen der vi setter alle de
+ukjente til~$0$ kaller vi gjerne for den \emph{trivielle} løsningen.
+Men hvis likningen
+\[
+x \u + y \v + z \w = \0
+\]
+også har en \emph{annen} løsning enn den trivielle, da vet vi at én av
+vektorene kan skrives som en lineærkombinasjon av de to andre, og
+dermed er de tre vektorene lineært avhengige.
+
+For å definere lineær \emph{u}avhengighet, vil vi rett og slett snu om
+på det: Dersom likningen \emph{kun} har den trivielle løsningen, så er
+vektorene lineært uavhengige.
+
+Nå har vi snakket om tre vektorer, men generelt kan vi snakke om
+lineær (u)avhengighet for en liste med hvor mange vektorer som helst.
+Vi skriver opp en generell definisjon:
+
+\begin{defn}
+La $\V{v}_1$, $\V{v}_2$, \ldots, $\V{v}_n$ være vektorer i $\R^m$.
+Disse vektorene er \defterm{lineært uavhengige} dersom likningen
+\[
+\V{v}_1 \cdot x_1 + \V{v}_2 \cdot x_2 + \cdots + \V{v}_n \cdot x_n = \V{0}
+\]
+ikke har andre løsninger enn den trivielle løsningen
+$x_1 = x_2 = \cdots = x_n = 0$.
+
+I motsatt tilfelle kalles de \defterm{lineært avhengige}.
+\end{defn}
+
+% TODO enkelt eksempel i \R^2 eller \R^3?
+
+\begin{ex}
+Her er tre vektorer i~$\R^4$:
+\[
+\V{u} = \vvvv{3}{9}{3}{3},\qquad
+\V{v} = \vvvv{2}{7}{2}{4}\qquad\text{og}\qquad
+\V{w} = \vvvv{8}{31}{12}{22}
+\]
+Er de lineært uavhengige?
+
+For å svare på det, bruker vi definisjonen av lineær uavhengighet.  Vi
+må finne ut om likningen
+\[
+\V{u} \cdot x + \V{v} \cdot y + \V{w} \cdot z = \V{0},
+\]
+har noen ikketriviell løsning.
+Denne likningen er det samme som følgende likningssystem:
+\[
+\systeme{
+  3x + 2y + 8z = 0,
+  9x + 7y + 31z = 0,
+  3x + 2y + 12z = 0,
+  3x + 4y + 22z = 0
+}
+\]
+Det løser vi på vanlig måte med gausseliminasjon:
+\[
+\begin{amatrix}{3}
+3 & 2 & 8  & 0 \\
+9 & 7 & 31 & 0  \\
+3 & 2 & 12 & 0  \\
+3 & 4 & 22 & 0 
+\end{amatrix}
+\sim
+\begin{amatrix}{3}
+3 & 2 & 8 & 0  \\
+0 & 1 & 7 & 0  \\
+0 & 0 & 4 & 0  \\
+0 & 0 & 0 & 0 
+\end{amatrix}
+\]
+Vi kunne fortsatt videre til redusert trappeform, men allerede her er
+det tydelig at vi får kun én løsning: $x = y = z = 0$.  Dette betyr at
+vektorene $\V{u}$, $\V{v}$ og~$\V{w}$ er lineært uavhengige.
+\end{ex}
+
+%TODO noe mer?  avslutning av kapitlet?
+
+
+\kapittelslutt

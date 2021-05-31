@@ -1,0 +1,539 @@
+% -*- mode: LaTeX; TeX-master: "lin-alg"; -*-
+\oppgaver{1}
+
+\begin{oppgave}
+Tegn grafen til hver av disse likningene:
+\begin{punkt}
+$2x = 5y$
+\end{punkt}
+\begin{punkt}
+$xy = 1$
+\end{punkt}
+\begin{punkt}
+$\frac{x+y}{2} = \frac{7}{3}$
+\end{punkt}
+\begin{punkt}
+$x^2 = y^2$
+\end{punkt}
+\begin{punkt}
+$x^2 + y^2 + 2 = 0$
+\end{punkt}
+\medskip\noindent
+Hvilke av dem er lineære?
+\end{oppgave}
+
+\begin{losning}
+\begin{punkt}
+Likningen $2x = 5y$ kan vi skrive om til
+\[
+2x - 5y = 0
+\]
+for å få den på den vanlige formen for lineære likninger (og dermed
+ser vi med en gang at denne likningen er lineær).  For å gjøre det
+enklere å tegne grafen, kan det være praktisk å «løse for~$y$», altså
+å skrive om likningen til:
+\[
+y = \frac{2}{5} x
+\]
+Grafen blir altså en rett linje som går gjennom origo og har
+stigningstall~$2/5$:
+\begin{center}
+\begin{tikzpicture}[scale=.6]
+\draw[->] (-5.5,0) -- (5.5,0);
+\draw[->] (0,-2.5) -- (0,2.5);
+\foreach \x in {-5,...,-1,1,2,...,5}
+\draw (\x,.1) -- (\x,-.1);
+\foreach \y in {-2,-1,1,2}
+\draw (.1,\y) -- (-.1,\y);
+\draw (-5,-2) -- (5,2);
+\end{tikzpicture}
+\end{center}
+\end{punkt}
+
+\begin{punkt}
+Likningen $xy = 1$ kan vi ikke skrive om til å bli på formen
+$ax + by = c$, så den er ikke lineær.  Når vi skal tegne grafen, er
+det igjen praktisk å skrive likningen slik at $y$ er alene:
+\[
+y = \frac{1}{x}
+\]
+Grafen blir slik:
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\begin{axis}[
+axis y line=center,
+axis x line=middle,
+xmax=5,xmin=-5,
+ymin=-5,ymax=5,
+xtick={0},
+ytick={0},
+width=.5\textwidth,
+anchor=center,
+]
+\addplot[black,domain=.2:5] {1/x} ;
+\addplot[black,domain=-5:-.2] {1/x} ;
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\end{punkt}
+
+\begin{punkt}
+Likningen
+\[
+\frac{x+y}{2} = \frac{7}{3}
+\]
+kan vi lett skrive om slik at vi ser at den er lineær:
+\[
+x + y = \frac{14}{3}
+\]
+Så kan vi sette $y$ alene --
+\[
+y = \frac{14}{3} - x
+\]
+-- og tegne grafen:
+\begin{center}
+\begin{tikzpicture}[scale=.6]
+\draw[->] (-1.5,0) -- (5.5,0);
+\draw[->] (0,-1.5) -- (0,5.5);
+\foreach \x in {-1,1,2,...,5}
+\draw (\x,.1) -- (\x,-.1);% node[anchor=north] {$\x$};
+\foreach \y in {-1,1,2,...,5}
+\draw (.1,\y) -- (-.1,\y);% node[anchor=east] {$\y$};
+\draw (-.5,5.17) -- (5.5,-.83);
+\end{tikzpicture}
+\end{center}
+\end{punkt}
+
+\begin{punkt}
+Likningen $x^2 = y^2$ ser veldig lite lineær ut.  Men så begynner du å
+tenke på hvordan den kan forenkles, og da slår det deg antagelig at du
+kan ta kvadratrot på begge sider og ende opp med bare
+\[
+x = y.
+\]
+Og det er jo så absolutt en lineær likning.
+
+Men hvis du har tenkt slik, så må du stoppe opp et øyeblikk og tenke
+deg om.  Både $x$ og~$y$ kan jo ha både positive og negative verdier,
+men når vi opphøyer i andre, så blir resultatet alltid positivt.
+
+Hvis $x^2$ for eksempel har verdien~$25$, så vet vi at $x$ må være
+enten $5$ eller~$-5$, men vi kan ikke vite hvilken av dem det er.
+Hvis vi setter $x = 5$ og $y = -5$, så er både $x^2$ og~$y^2$
+lik~$25$, og dermed er likningen $x^2 = y^2$ oppfylt, selv om $x = y$
+ikke er det.
+
+Så det er ikke riktig å forenkle likningen $x^2 = y^2$ til $x = y$.
+Men vi kan forenkle den til at vi har enten $x = y$ eller $x = -y$.
+Da blir det lett å tegne grafen; den består av to rette linjer:
+\begin{center}
+\begin{tikzpicture}[scale=.4]
+\draw[->] (-5,0) -- (5,0);
+\draw[->] (0,-5) -- (0,5);
+\draw (-5,-5) -- (5,5);
+\draw (-5,5) -- (5,-5);
+\end{tikzpicture}
+\end{center}
+
+Selv om grafen består av rette linjer, er ikke likningen lineær, siden
+det ikke er mulig å skrive den på formen $ax + by = c$.  (Og hvis det
+hadde vært mulig å skrive den på denne formen, så måtte grafen ha
+blitt én rett linje, ikke to.)
+
+(Vi kunne også ha valgt å skrive om likningen til $\abs{x} = \abs{y}$,
+der notasjonen $\abs{x}$ står for absoluttverdien til~$x$.)
+\end{punkt}
+
+\begin{punkt}
+Hva med likningen $x^2 + y^2 + 2 = 0$?  Det er ganske tydelig at den
+ikke er lineær.  Men hvordan blir grafen?
+
+Vi kan prøve å sette $y$ alene på den ene siden; da får vi:
+\[
+y = \pm \sqrt{-2 - x^2}
+\]
+Men dette ser rart ut.  Roten av minus~$2$ minus~$x^2$?  Hva skal det
+bli?
+
+Vel, det går ikke an.  Uttrykket $x^2$ blir jo alltid positivt
+(eller~$0$), så $-2-x^2$ blir alltid negativt, og dermed kan vi ikke
+ta kvadratroten av det.  (Så da kan du si at vi har \emph{rot}et oss
+skikkelig bort.  He-he.)
+
+La oss gå tilbake til den opprinnelige likningen.  Siden $x^2$
+og~$y^2$ aldri kan bli negative, blir uttrykket på venstresiden aldri
+mindre enn~$2$, og dermed kan det aldri bli lik~$0$.  Likningen har
+altså ingen løsning.  Grafen blir dermed \ldots{} vel, ingenting:
+\begin{center}
+\begin{tikzpicture}[scale=.4]
+\draw[->] (-5,0) -- (5,0);
+\draw[->] (0,-5) -- (0,5);
+\end{tikzpicture}
+\end{center}
+\end{punkt}
+\end{losning}
+
+
+\begin{oppgave}
+Er disse to likningssystemene ekvivalente?
+\[
+\left\{
+\begin{aligned}
+  y &= x^2 - \tfrac{5}{4} \\
+  x &= y + \tfrac{1}{2}
+\end{aligned}
+\right.
+\qquad\qquad
+\left\{
+\begin{aligned}
+  y &= \left( y + \tfrac{1}{2} \right)^2 - \tfrac{5}{4} \\
+  y &= x^2 - \tfrac{5}{4}
+\end{aligned}
+\right.
+\]
+% y = y^2 + y + 1/4 - 5/4
+% 0 = y^2 - 1
+% y^2 = 1
+% y = \pm 1
+\end{oppgave}
+
+\begin{losning}
+I første omgang må vi vite nøyaktig hva som menes med at to
+likningssystemer er ekvivalente.  På side~\pageref{def:ekvivalente}
+ble dette definert slik:
+\begin{quote}
+Vi sier at to likningssystemer er \defterm{ekvivalente} dersom de har
+samme løsninger.
+\end{quote}
+Det er altså dette vi må sjekke.
+
+Det finnes minst to måter å finne ut dette på: Vi kan løse begge
+systemene, og så sammenligne løsningene.  Eller vi kan sammenligne
+likningene i de to systemene.  Dersom det er sånn at enhver likning i
+det ene systemet er en logisk konsekvens av likningene i det andre, og
+omvendt, så må systemene være ekvivalente.
+
+I de aktuelle likningssystemene --
+\[
+\left\{
+\begin{aligned}
+  y &= x^2 - \tfrac{5}{4} \\
+  x &= y + \tfrac{1}{2}
+\end{aligned}
+\right.
+\qquad\qquad
+\left\{
+\begin{aligned}
+  y &= \left( y + \tfrac{1}{2} \right)^2 - \tfrac{5}{4} \\
+  y &= x^2 - \tfrac{5}{4}
+\end{aligned}
+\right.
+\]
+-- ser vi at vi får den første likningen i systemet til høyre ved å
+kombinere de to likningene i systemet til venstre.  Og den andre
+likningen i systemet til høyre er jo den samme som den første likningen
+i systemet til venstre.
+
+Vi har altså ganske lett funnet ut at systemet til høyre følger fra
+systemet til venstre.  Da kan det være fristende å hoppe til
+konklusjonen at de to systemene er ekvivalente.  Men hvis vi gjør det,
+så har vi hoppet over noe viktig: Vi har ikke sjekket om systemet til
+venstre følger fra systemet til høyre.
+
+Og når vi prøver å finne ut av det, så blir det vanskeligere.  Det er
+ikke åpenbart hvordan vi skal komme frem til likningen
+\[
+x = y + \frac{1}{2}
+\]
+ved å kombinere de to likningene i systemet til høyre.
+
+Da kan vi prøve en annen strategi: Vi kan tegne grafene til likningene
+i begge systemene, og sammenligne bildene vi får.
+
+Her er grafene til likningene i det første systemet:
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+axis y line=center,
+axis x line=middle,
+xmax=5,xmin=-5,
+ymin=-2,ymax=5,
+xtick={0},
+ytick={0},
+width=.5\textwidth,
+anchor=center,
+]
+\addplot[black,samples=31,domain=-2.3:2.3] {x^2-5/4)} ;
+\addplot[black,domain=-4:4] {x-0.5} ;
+\end{axis}
+\end{tikzpicture}
+\end{center}
+Vi ser at grafene skjærer hverandre to steder, så det er altså to
+løsninger av likningssystemet.  Vi ser på tegningen omtrent hvor de to
+skjæringspunktene befinner seg, og med litt enkel regning kommer vi
+frem til at de to løsningene er:
+\[
+\left\{
+\begin{aligned}
+x &= -\frac{1}{2} \\
+y &= -1
+\end{aligned}
+\right.
+\qquad\text{og}\qquad
+\left\{
+\begin{aligned}
+x &= \frac{3}{2} \\
+y &= 1
+\end{aligned}
+\right.
+\]
+%TODO sjekk at løsningene er riktige; ta med utregning?
+
+Hva med det andre likningssystemet?  Likningen
+\[
+y = \left( y + \frac{1}{2} \right)^2 - \frac{5}{4}
+\]
+kan det være greit å forenkle litt før vi tegner grafen.  Ved å gange
+ut parentesen får vi:
+\[
+y = y^2 + 2 \cdot \frac{1}{2} \cdot y + \frac{1}{4} - \frac{5}{4}
+\]
+Dette kan vi forenkle videre til
+\[
+0 = y^2 - 1,
+\]
+som er det samme som
+\[
+(y - 1)(y + 1) = 0.
+\]
+Denne likningen sier ganske enkelt at $y$ er enten $1$ eller~$-1$, og
+$x$ kan være hva som helst.  Grafen dens består dermed av to rette
+linjer:
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+axis y line=center,
+axis x line=middle,
+xmax=5,xmin=-5,
+ymin=-2,ymax=2,
+xtick={0},
+ytick={0},
+width=.5\textwidth,
+anchor=center,
+]
+\addplot[black,domain=-4.8:4.8] {1} ;
+\addplot[black,domain=-4.8:4.8] {-1} ;
+\end{axis}
+\end{tikzpicture}
+\end{center}
+Hvis vi tegner grafene til begge likningene i systemet sammen, så ser
+det slik ut:
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+axis y line=center,
+axis x line=middle,
+xmax=5,xmin=-5,
+ymin=-2,ymax=5,
+xtick={0},
+ytick={0},
+width=.5\textwidth,
+anchor=center,
+]
+\addplot[black,samples=31,domain=-2.3:2.3] {x^2-5/4)} ;
+\addplot[black,domain=-4.8:4.8] {1} ;
+\addplot[black,domain=-4.8:4.8] {-1} ;
+\end{axis}
+\end{tikzpicture}
+\end{center}
+Når vi skal se etter løsningene her, må vi passe på at vi tenker
+riktig.  Det kan se ut som det ikke er noe sted der alle grafene
+møtes, og dermed ingen løsning.  Men vi må huske på at de to rette
+linjene til sammen utgjør grafen til den første likningen i systemet.
+
+Det er fire punkter der de to grafene krysser hverandre, og dermed
+fire løsninger av systemet.  Med litt utregning kan vi komme frem til
+eksakte tall for løsningene:
+% y = x^2 - 5/4 ; y = \pm 1
+% x^2 = y + 5/4 = \pm 1 + 5/4
+% x^2 = 9/4 eller x^2 = 1/4
+% ( y = 1 ; x = \pm 3/2 ) eller ( y = -1 ; x = \pm 1/2 )
+\[
+\left\{
+\begin{aligned}
+x &= -\frac{1}{2} \\
+y &= -1
+\end{aligned}
+\right.
+\qquad
+\left\{
+\begin{aligned}
+x &= \frac{1}{2} \\
+y &= -1
+\end{aligned}
+\right.
+\qquad
+\left\{
+\begin{aligned}
+x &= -\frac{3}{2} \\
+y &= 1
+\end{aligned}
+\right.
+\qquad
+\left\{
+\begin{aligned}
+x &= \frac{3}{2} \\
+y &= 1
+\end{aligned}
+\right.
+\]
+Vi visste jo allerede at de to løsningene av det første
+likningssystemet også måtte være løsninger av dette.  Men vi fikk
+altså to løsninger til.  Det betyr at de to likningssystemene ikke har
+de samme løsningene, og dermed er de ikke ekvivalente.
+\end{losning}
+
+
+\begin{oppgave}
+Er disse to likningssystemene ekvivalente?
+\[
+\systeme{
+  x + 2y - z = 0,
+  2x + 2y = -3,
+  4x + 8y - 3z = 2
+}
+\qquad
+\systeme{
+  3x + 4y - z = -3,
+  x + y = -\frac{3}{2},
+  5x + 10y - 4z = 2,
+  7x + 12y - 4z = -1
+}
+\]
+\end{oppgave}
+
+\begin{losning}
+Her må vi igjen enten løse begge likningssystemene (og sjekke om de
+har samme løsninger) eller prøve å sammenligne likningene direkte.
+
+Det kan se ut som det blir litt jobb å løse disse likningssystemene,
+så latskapsimpulsen får oss til å heller prøve å sammenligne
+likningene i de to systemene.  Da må vi bare prøve oss frem, og se om
+vi kan utlede noen av likningene i det andre systemet ved å bruke de
+som er i det første, og omvendt.
+
+Etter å ha stirret litt på likningene, ser vi kanskje at det kan være
+en god idé å prøve å legge sammen de to øverste likningene i det
+første systemet:
+\[
+\begin{aligned}
+\phantom{2}x + 2y - z &= 0 \\
+2x + 2y \phantom{\hbox{}-z} &= -3 \\[4pt] \hline
+\rule{0pt}{11pt}
+3x + 4y - z &= -3
+\end{aligned}
+\]
+Se der, ja!  Jammen klarte vi å utlede første likning i det andre
+systemet.
+
+Den andre likningen i det andre systemet er ganske grei å komme frem
+til: Den er andre likning i det første systemet delt på to.
+
+Så er det bare å prøve seg frem videre, og antagelig finner du etter
+hvert ut at du kan legge sammen første og siste likning i det første
+systemet, og at du kan legge sammen alle tre likningene.  Da får du de
+to siste likningene i det andre systemet.
+
+Dermed har vi funnet ut at alle likningene i det andre systemet følger
+fra likningene i det første.  Klarer vi å gå motsatt vei også?  Prøv!
+
+Dersom du får til å utlede alle likningene i det første systemet ved
+hjelp av likningene i det andre, så har du vist at de to
+likningssystemene er ekvivalente.
+\end{losning}
+
+
+\begin{oppgave}
+Løs likningssystemet
+\[
+\systeme{
+  4x + 4y + 16z = 0,
+  3x + 4y + 12z = 5,
+  2x + 2y + 5z = 1
+}
+\]
+ved å bruke samme fremgangsmåte som i eksempel~\ref{ex:gausseliminasjon},
+men uten å skrive opp hele likningssystemet på nytt hver gang --
+skriv totalmatrisen for hvert system isteden.
+\end{oppgave}
+
+\begin{losning}
+Totalmatrisen for systemet er:
+\[
+\begin{amatrix}{3}
+4 & 4 & 16 & 0 \\
+3 & 4 & 12 & 5 \\
+2 & 2 & 5 & 1
+\end{amatrix}
+\]
+Nå har vi noen valgmuligheter for hvordan vi vil gå frem, så det vi
+kommer med her er bare vårt forslag.  Du kan ha gjort det på en annen
+måte og fremdeles kommet frem til riktig løsning.
+
+Det kan virke fornuftig å begynne med å gange den øverste likningen
+med~$1/4$.  Da får vi denne totalmatrisen:
+\[
+\begin{amatrix}{3}
+1 & 1 & 4 & 0 \\
+3 & 4 & 12 & 5 \\
+2 & 2 & 5 & 1
+\end{amatrix}
+\]
+Så kan vi trekke fra $3$~ganger den første likningen i den andre, og
+trekke fra $2$~ganger den første likningen i den tredje:
+\[
+\begin{amatrix}{3}
+1 & 1 & 4 & 0 \\
+0 & 1 & 0 & 5 \\
+0 & 0 & -3 & 1
+\end{amatrix}
+\]
+Herfra kan vi nokså enkelt få ut løsningen.  Men hvis vi vil, kan vi
+også fortsette med å skrive om systemet for å gjøre det enda klarere
+hva løsningen er.  Vi kan gange den nederste likningen med $-1/3$:
+\[
+\begin{amatrix}{3}
+1 & 1 & 4 & 0 \\
+0 & 1 & 0 & 5 \\
+0 & 0 & 1 & -\frac{1}{3}
+\end{amatrix}
+\]
+Og så kan vi trekke fra den andre likningen i den første:
+\[
+\begin{amatrix}{3}
+1 & 0 & 4 & -5 \\
+0 & 1 & 0 & 5 \\
+0 & 0 & 1 & -\frac{1}{3}
+\end{amatrix}
+\]
+Og til slutt trekke fra $4$~ganger den tredje likningen i den første:
+\[
+\begin{amatrix}{3}
+1 & 0 & 0 & -\frac{11}{3} \\
+0 & 1 & 0 & 5 \\
+0 & 0 & 1 & -\frac{1}{3}
+\end{amatrix}
+\]
+Da ser vi direkte at løsningen er:
+\[
+x = -\frac{11}{3}
+\qquad
+y = 5
+\qquad
+z = -\frac{1}{3}
+\]
+\end{losning}
+
+
+% TODO finn lineært likningssystem med mer enn én løsning
+% (med forslag til løsning: tre rette linjer)

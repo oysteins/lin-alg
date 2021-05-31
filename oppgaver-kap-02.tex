@@ -1,0 +1,644 @@
+% -*- mode: LaTeX; TeX-master: "lin-alg"; -*-
+\oppgaver{2}
+
+% TODO flere enkle oppgaver?
+
+\begin{oppgave}
+Hvilke av disse matrisene er på trappeform?  Hvilke av dem er på
+redusert trappeform?
+\begin{punkt}
+$
+\begin{bmatrix}
+1 & 5 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$
+\end{punkt}
+\begin{punkt}
+$
+\begin{bmatrix}
+1 & 0 \\
+0 & 1 \\
+0 & -1
+\end{bmatrix}
+$
+\end{punkt}
+\begin{punkt}
+$
+\begin{bmatrix}
+0 & 2 & 1 \\
+0 & 0 & 4 \\
+0 & 0 & 0
+\end{bmatrix}
+$
+\end{punkt}
+\begin{punkt}
+$
+\begin{bmatrix}
+0 & 0 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{bmatrix}
+$
+\end{punkt}
+\end{oppgave}
+\begin{losning}
+Matrise (a), (c) og (d) er på trappeform;
+(a) og~(d) er på redusert trappeform.
+\end{losning}
+
+\begin{oppgave}
+Løs likningssystemene:
+\begin{punkt}
+$
+\systeme{
+  2x - 4y + 9z = -38,
+  4x - 3y + 8z = -26,
+ -2x + 4y - 2z =  17
+}
+$
+\end{punkt}
+\begin{punkt}
+% 1 0 0 4
+% 0 1 2 0
+% 0 0 0 0
+% ---
+% 1 3 6 4
+% 0 2 4 0
+% 0 0 0 0
+% ---
+% 1 3  6 4
+% 2 8 16 8
+% 0 0  0 0
+% ---
+% 1 3  6 4
+% 2 8 16 8
+% 2 6 12 8
+$
+\systeme{
+  x + 3y +  6z = 4,
+ 2x + 8y + 16z = 8,
+ 2x + 6y + 12z = 8
+}
+$
+\end{punkt}
+\begin{punkt}
+$
+\systeme{
+	x  + 2y - z = 1,
+	2x + 3y - z = -1,
+	3x + 4y - z = 1
+}
+$
+\end{punkt}
+\end{oppgave}
+
+\begin{losning}
+Her er det selvfølgelig lurt å bruke gausseliminasjon, men du har litt
+valgfrihet når det gjelder hvordan du gjør det.  Du velger selv hvilke
+radoperasjoner du gjør, og i hvilken rekkefølge, så lenge du klarer å
+ende opp med en matrise på trappeform til slutt.  Du velger også selv
+om du vil fortsette helt til redusert trappeform, eller om du nøyer
+deg med bare trappeform.
+\begin{punkt}
+Her er én måte å gausseliminere frem til redusert trappeform:
+\begin{align*}
+\begin{amatrix}{3}
+2 & -4 & 9 & -38 \\
+4 & -3 & 8 & -26 \\
+-2 & 4 & -2 & 17
+\end{amatrix}
+&
+\roweq
+\begin{amatrix}{3}
+2 & -4 & 9 & -38 \\
+0 & 5 & -10 & 50 \\
+0 & 0 & 7 & -21
+\end{amatrix}
+\\
+&
+\roweq
+\begin{amatrix}{3}
+2 & -4 & 9 & -38 \\
+0 & 1 & -2 & 10 \\
+0 & 0 & 1 & -3
+\end{amatrix}
+\\
+&
+\roweq
+\begin{amatrix}{3}
+2 & -4 & 0 & -11 \\
+0 & 1 & 0 & 4 \\
+0 & 0 & 1 & -3
+\end{amatrix}
+\\
+&
+\roweq
+\begin{amatrix}{3}
+2 & 0 & 0 & 5 \\
+0 & 1 & 0 & 4 \\
+0 & 0 & 1 & -3
+\end{amatrix}
+\\
+&
+\roweq
+\begin{amatrix}{3}
+1 & 0 & 0 & \frac{5}{2} \\
+0 & 1 & 0 & 4 \\
+0 & 0 & 1 & -3
+\end{amatrix}
+\end{align*}
+Vi ser at løsningen blir:
+$x=\frac{5}{2}$, $y=4$ og $z=-3$.
+\end{punkt}
+
+\begin{punkt}
+Gausseliminering til redusert trappeform:
+\begin{align*}
+\begin{amatrix}{3}
+1 & 3 & 6 & 4 \\
+2 & 8 & 16 & 8 \\
+2 & 6 & 12 & 8
+\end{amatrix}
+&
+\roweq
+\begin{amatrix}{3}
+1 & 3 & 6 & 4 \\
+0 & 2 & 4 & 0 \\
+0 & 0 & 0 & 0
+\end{amatrix}
+\\
+&
+\roweq
+\begin{amatrix}{3}
+1 & 3 & 6 & 4 \\
+0 & 1 & 2 & 0 \\
+0 & 0 & 0 & 0
+\end{amatrix}
+\\
+&
+\roweq
+\begin{amatrix}{3}
+1 & 0 & 0 & 4 \\
+0 & 1 & 2 & 0 \\
+0 & 0 & 0 & 0
+\end{amatrix}
+\end{align*}
+Her må vi tenke oss litt om når vi skal skrive opp løsningen.  La oss
+se hva den siste matrisen egentlig gir oss når vi skriver den om til
+et likningssystem igjen:
+\[
+\left\{
+\begin{aligned}
+x &= 4 \\
+y + 2z &= 0 \\
+0 &= 0
+\end{aligned}
+\right.
+\]
+Den siste likningen sier bare at $0=0$, og det er sant uansett hva
+$x$, $y$ og~$z$ måtte være, så den kan vi sløyfe.  Hvis vi skriver om
+likningen med $y$ og~$z$ slik at $y$ står alene på venstre side, så
+får vi:
+\[
+\left\{
+\begin{aligned}
+x &= 4 \\
+y &= -2z
+\end{aligned}
+\right.
+\]
+Så her kommer vi frem til en løsning for $x$ og~$y$, men hva skal $z$
+være, da?  Vel, vi kan faktisk la~$z$ være hva som helst.  Uansett
+hvilken verdi vi setter inn for~$z$, så kan vi sette $y$ til å være
+$-2z$, og så får vi en løsning av likningssystemet.
+
+Hvis vi for eksempel velger $z=3$, så får vi denne løsningen:
+\[
+\left\{
+\begin{aligned}
+x &= 4 \\
+y &= -6 \\
+z &= 3
+\end{aligned}
+\right.
+\]
+Hvis vi velger $z=0$, så får vi denne:
+\[
+\left\{
+\begin{aligned}
+x &= 4 \\
+y &= 0 \\
+z &= 0
+\end{aligned}
+\right.
+\]
+Så totalt sett kan vi si at alle løsningene er:
+\[
+\left\{
+\begin{aligned}
+x &= 4 \\
+y &= -2z \\
+z &\text{ er et hvilket som helst tall}
+\end{aligned}
+\right.
+\]
+Dette likningssystemet har altså uendelig mange løsninger.
+Vi skal se mer til slike likningssystemer i neste kapittel.
+\end{punkt}
+
+\begin{punkt}
+Gausseliminering til redusert trappeform:
+\begin{align*}
+\begin{amatrix}{3}
+1 & 2 & -1 & 1 \\
+2 & 3 & -1 & -1 \\
+3 & 4 & -1 & 1
+\end{amatrix}
+&
+\roweq
+\begin{amatrix}{3}
+1 & 2 & -1 & 1 \\
+0 & -1 & 1 & -3 \\
+0 & -2 & 2 & -2
+\end{amatrix}
+\\
+&
+\roweq
+\begin{amatrix}{3}
+1 & 2 & -1 & 1 \\
+0 & 1 & -1 & 3 \\
+0 & -2 & 2 & -2
+\end{amatrix}
+% \\
+% &
+% \roweq
+% \begin{amatrix}{3}
+% 1 & 2 & -1 & 1 \\
+% 0 & 1 & -1 & 3 \\
+% 0 & 0 & 0 & 4
+% \end{amatrix}
+\\
+&
+\roweq
+\begin{amatrix}{3}
+1 & 0 & 1 & -5 \\
+0 & 1 & -1 & 3 \\
+0 & 0 & 0 & 4
+\end{amatrix}
+\end{align*}
+Her, som i del~(b), er også matrisen vi ender opp med litt pussig.  La
+oss skrive opp det tilsvarende likningssystemet:
+\[
+\left\{
+\begin{aligned}
+x + z &= -5 \\
+y - z &= 3 \\
+0 &= 4
+\end{aligned}
+\right.
+\]
+Den siste likningen sier at $0=4$.  Men kan det stemme, da?  Nei, det
+kan det ikke.  Uansett hva vi måtte sette $x$, $y$ og~$z$ til å være,
+så kan det aldri bli sant at $0=4$.
+
+Men likningssystemet krever altså at vi \emph{skal} finne $x$, $y$
+og~$z$ som er slik at $0=4$.  Eller med andre ord: En løsning av
+systemet må bestå av tall vi kan sette inn for $x$, $y$ og~$z$ slik at
+$0$ blir~$4$.  Men sånne tall finnes ikke, og det betyr at
+likningssystemet ikke har noen løsning.
+Vi skal se mer til slike likningssystemer i neste kapittel.
+\end{punkt}
+\end{losning}
+
+
+% TODO er matrisene radekvivalente?
+% flere oppgaver
+% matriser i forskjellige størrelser (noen med ikke-kvadratisk koeff-matrise?)
+% én der en av matrisene er på (redusert) trappeform
+% én der man kommer fra den ene til den andre med et par radoperasjoner
+% én der man ganske lett kan se at én variabel får ulik verdi i de to systemene
+
+\begin{oppgave}
+Er disse matrisene radekvivalente?
+\[
+\begin{amatrix}{2}
+2 & -2 & 7 \\
+4 & -3 & 11 \\
+-2 & -1 & 2
+\end{amatrix}
+\qquad\text{og}\qquad
+\begin{amatrix}{2}
+0 & -3 & 9 \\
+8 & -6 & 22 \\
+6 & -7 & 24
+\end{amatrix}
+\]
+\end{oppgave}
+
+\begin{losning}
+Ja, matrisene er radekvivalente, for vi kan komme fra den ene til den
+andre ved å gjøre tre radoperasjoner (legge til tredje rad i første
+rad, legge til to ganger andre rad i tredje rad, og gange andre rad
+med to):
+\begin{align*}
+\begin{amatrix}{2}
+2 & -2 & 7 \\
+4 & -3 & 11 \\
+-2 & -1 & 2
+\end{amatrix}
+&
+\roweq
+\begin{amatrix}{2}
+0 & -3 & 9 \\
+4 & -3 & 11 \\
+-2 & -1 & 2
+\end{amatrix}
+\\
+&
+\roweq
+\begin{amatrix}{2}
+0 & -3 & 9 \\
+4 & -3 & 11 \\
+6 & -7 & 24
+\end{amatrix}
+\\
+&
+\roweq
+\begin{amatrix}{2}
+0 & -3 & 9 \\
+8 & -6 & 22 \\
+6 & -7 & 24
+\end{amatrix}
+\end{align*}
+\end{losning}
+
+
+\begin{oppgave}
+Er disse matrisene radekvivalente?
+\begin{gather*}
+\begin{amatrix}{4}
+5 & 6 & 8 & -11 & -5 \\
+1 & -3 & 7 & -1 & 9 \\
+-2 & -3 & 2 & 5 & 6 \\
+3 & 0 & 6 & -6 & 3
+\end{amatrix}
+\hspace{80pt}
+\\
+\hspace{55pt}\text{og}\qquad
+\begin{amatrix}{4}
+1 & 0 & 0 & 0 & 13 \\
+0 & -3 & 0 & 1 & 8 \\
+0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 & 6
+\end{amatrix}
+\end{gather*}
+\end{oppgave}
+
+\begin{losning}
+Her kan det bli mye jobb å komme fra den ene matrisen til den andre
+ved hjelp av radoperasjoner.
+
+Men vi ser at den andre matrisen er på trappeform (og nesten på
+redusert trappeform), så det er lett å lese ut en løsning fra den.
+Hvis vi kaller de fire ukjente for $x$, $y$, $z$ og~$æ$, så kan vi
+skrive om matrisen til dette likningssystemet:
+\[
+\left\{
+\begin{aligned}
+x &= 13 \\
+-3y + æ &= 8 \\
+z &= 0 \\
+æ &= 6
+\end{aligned}
+\right.
+\]
+Dermed får vi følgende løsning:
+\[
+\left\{
+\begin{aligned}
+x &= 13 \\
+y &= -\frac{2}{3} \\
+z &= 0 \\
+æ &= 6
+\end{aligned}
+\right.
+\]
+
+%TODO
+\end{losning}
+% TODO heller lage oppgave der de ikke er radekvivalente?  eller i tillegg?
+
+
+\begin{oppgave}
+Løs likningssystemet:
+\[
+\left\{
+\begin{aligned}
+    xy -  3xz +  yz &= -5 \\
+  -2xy +  7xz - 2yz &= 25 \\
+   6xy - 18xz + 7yz &= 0
+\end{aligned}
+\right.
+% \systeme{
+%     xy -  3xz +  yz = -5,
+%   -2xy +  7xz - 2yz = 25,
+%    6xy - 18xz + 7yz = 0
+% }
+\]
+\end{oppgave}
+
+\begin{losning}
+% xy = a
+% xz = b
+% yz = c
+%%%%
+% z = c/y
+% x(c/y) = b
+% y = x * c/b
+% x (x * c/b) = a
+% x^2 = ab/c
+% y^2 = x^2 * c^2/b^2 = ab/c * c^2/b^2 = ac/b
+% z^2 = c^2/y^2 = c^2/(ac/b) = bc^2/ac = bc/a
+%%%%
+% a 1 0 1  10
+% b 0 1 1  15
+% c 1 1 1  30
+%%%%
+% x^2 = 10*15/30 = 5
+% x = \sqrt{5}
+% y = \sqrt{5} * c/b = 2 \sqrt{5}
+% z = c / y = 30 / (2\sqrt{5}) = 3 \sqrt{5}
+Det første vi legger merke til her, er at dette \emph{ikke} er et
+lineært likningssystem.  Så selv om vi har en flott metode --
+gausseliminasjon -- for å løse alle lineære likningssystemer, så
+hjelper ikke den metoden oss her.
+
+Eller gjør den det?  Selv om systemet ikke er lineært, så ligner det
+jo ganske mye på et lineært system.  Hvis hvert av uttrykkene $xy$,
+$xz$ og~$yz$ bare hadde vært én ukjent istedenfor et produkt av to
+ukjente, så ville systemet vært lineært.
+
+Ikke verre?  Det kan vi faktisk fikse ved å trikse litt.  Vi lager tre
+nye variabler:
+\begin{align*}
+  u &= xy \\
+  v &= xz \\
+  w &= yz
+\end{align*}
+Dermed kan systemet skrives slik:
+\[
+\systeme{
+    u -  3v +  w = -5,
+  -2u +  7v - 2w = 25,
+   6u - 18v + 7w = 0
+}
+\]
+\emph{Et voilà} -- det er lineært!
+
+Så er det bare å gå i gang med gausseliminasjon, og da finner du at
+løsningen er:
+\[
+\left\{
+\begin{aligned}
+  u &= 10 \\
+  v &= 15 \\
+  w &= 30
+\end{aligned}
+\right.
+\]
+Men det var jo ikke egentlig $u$, $v$ og~$w$ vi skulle finne -- det
+var $x$, $y$ og~$z$!  Vi må huske på at vi innførte de nye variablene
+$u$, $v$ og~$w$ til å stå for henholdsvis $xy$, $xz$ og~$yz$, og det
+betyr at vi nå vet at:
+\[
+\left\{
+\begin{aligned}
+ xy &= 10 \\
+ xz &= 15 \\
+ yz &= 30
+\end{aligned}
+\right.
+\]
+Nå må vi prøve å rydde opp i dette sånn at vi får $x$, $y$ og~$z$ hver
+for seg.  Det kan vi for eksempel gjøre sånn som dette: Fra den siste
+likningen får vi at $z = 30/y$.  Det kan vi sette inn i den midterste
+likningen.  Da får vi
+\[
+x \cdot \frac{30}{y} = 15,
+\]
+som vi kan forenkle til $y = 2x$.  Så kan vi sette inn det i den
+første likningen og få
+\[
+x \cdot (2x) = 10,
+\]
+som vil si at $x^2 = 5$.
+La oss oppsummere det vi har funnet ut:
+\[
+\left\{
+\begin{aligned}
+x^2 &= 5 \\
+y &= 2x \\
+z &= \frac{15}{x}
+\end{aligned}
+\right.
+\]
+Nå blir det to muligheter for~$x$, nemlig $\sqrt{5}$ og $-\sqrt{5}$.
+Dermed får vi to løsninger:
+\[
+\left\{
+\begin{aligned}
+x &= \sqrt{5} \\
+y &= 2 \sqrt{5} \\
+z &= 3 \sqrt{5}
+\end{aligned}
+\right.
+\qquad\qquad
+\left\{
+\begin{aligned}
+x &= -\sqrt{5} \\
+y &= -2 \sqrt{5} \\
+z &= -3 \sqrt{5}
+\end{aligned}
+\right.
+\]
+\end{losning}
+
+
+\begin{oppgave}
+% TODO fiks
+La $(1,2)$, $(2,3)$ og $(3,5)$ være tre punkter i planet. Vi skal
+finne et andregradspolynom $ax^2 + bx + c$ slik at grafen går gjennom
+de tre punktene.
+\begin{center}
+\begin{tikzpicture}[scale=.75]
+\draw[->] (-1.5,0) -- (5.6,0);
+\draw[->] (0,-0.5) -- (0,5.5);
+\foreach \x in {-1,1,2,3,4,5}
+\draw (\x cm,1pt) -- (\x cm,-1pt) node[anchor=north] {$\x$};
+\foreach \y in {1,2,3,4,5}
+\draw (1pt,\y cm) -- (-1pt,\y cm) node[anchor=east] {$\y$};
+\filldraw (1,2) circle [radius=2pt] node[anchor=west] {$(1,2)$};
+\filldraw (2,3) circle [radius=2pt] node[anchor=west] {$(2,3)$};
+\filldraw (3,5) circle [radius=2pt] node[anchor=west] {$(3,5)$};
+\end{tikzpicture}
+\vspace{-5pt}
+\end{center}
+\begin{punkt}
+Sett opp et lineært likningssystem for $a$, $b$ og~$c$.
+\end{punkt}
+\begin{punkt}
+Løs systemet, og finn andregradspolynomet som går gjennom alle punktene.
+\end{punkt}
+\begin{punkt}
+Sjekk at svaret ditt i \textbf{b)} er riktig.
+\end{punkt}
+\end{oppgave}
+
+\begin{losning}
+	\begin{punkt}
+		Kravene $p(1)=2$, $p(2)=3$ og $p(3)=5$ gir følgende likningssystem:
+		$$
+		\systeme{
+			a+b+c = 2,
+			4a+2b+c = 3,
+			9a+3b+c = 5
+		}
+		$$
+		
+	\end{punkt}
+	\begin{punkt}
+		Løsningen er $a=\frac{1}{2}$, $b=-\frac{1}{2}$ og~$c=2$.
+	\end{punkt}
+	
+	\begin{punkt}
+		Sett inn $1$, $2$ og~$3$ i polynomet $p(x)=\frac{1}{2}x^2-\frac{1}{2}x+2$ for å se at kravene i \textbf{a)} er oppfylt.  
+	\end{punkt}
+\end{losning}
+
+
+\begin{oppgave}
+% TODO fiks (eller sløyf)
+Vis at følgende påstander er sanne for alle matriser $M$, $N$ og~$L$:
+\begin{punkt}
+$M \roweq M$.
+\end{punkt}
+\begin{punkt}
+Hvis $M \roweq N$, så: $N \roweq M$.
+\end{punkt}
+\begin{punkt}
+Hvis $M \roweq L$ og $L \roweq N$, så: $M \roweq N$.
+\end{punkt}
+\end{oppgave}
+
+\begin{losning}
+\begin{punkt}
+	$M$ er trivielt radekvivalent med $M$.
+\end{punkt}
+\begin{punkt}
+	Hint: Alle radoperasjoner er reversible; multiplisere en rad med et ikke-null tall $c$ kan reverseres ved å multiplisere samme rad med $\frac{1}{c}$; bytte om på to rader kan reverseres ved å bytte om på radene igjen; å legge til et multiplum av en rad til en annen kan reverseres ved å trekke fra det som ble lagt til. Dersom $M\roweq N$ betyr det at vi har gjort et endelig antall radoperasjoner $\text{O}_1,\dots,\text{O}_n$ for å lage $N$ fra $M$. Klarer du, ut ifra dette, å finne et endelig antall radoperasjoner som lager $M$ fra $N$?
+\end{punkt}
+\begin{punkt}
+	Hint: Vi antar at det finnes et endelig antall radoperasjoner $\text{O}_1,\dots,\text{O}_n$ som lager $L$ fra $M$, og at det finnes et endelig antall radoperasjoner $\text{O}_{n+1},\dots,\text{O}_{n+m}$ som lager $N$ fra $L$. Klarer du, ut ifra dette, å finne et endelig antall radoperasjoner som lager $N$ fra $M$?
+\end{punkt}
+\end{losning}
